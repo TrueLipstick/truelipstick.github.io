@@ -1,0 +1,231 @@
+/* =========================================================
+   💄 The Lipstick Web — delad stilmall
+   Designstart av Claude. Malcolm: allt styrs härifrån.
+   Justera tokens i :root så följer hela väven med.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  color-scheme: light dark;
+
+  /* Palett, ljust läge (standard).
+     Papper med rosa underton, plommonsvart bläck, sval läppstiftsrouge. */
+  --paper:       #f7f3f4;
+  --paper-warm:  #f1e9eb;
+  --surface:     #ffffff;   /* ytor: ramar runt inbäddade artefakter */
+  --ink:         #1b1418;
+  --mauve:       #6e5b62;   /* dämpad text, bildtexter */
+  --rouge:       #ae1b3b;   /* signaturaccent */
+  --rouge-deep:  #7e1329;   /* hover */
+  --hairline:    #e4d8db;
+
+  /* Typografi */
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Newsreader', Georgia, serif;
+  --mono:    'IBM Plex Mono', ui-monospace, monospace;
+
+  --measure: 40rem;        /* läsbredd */
+}
+
+/* Mörkt läge följer skärmens inställning. Bläck och dämpad text ljusas upp
+   så att även bildtexterna syns, och rougen lyfts en aning för kontrast.
+   Malcolm: hela mörka temat bor här, samma tokennamn som ovan. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #161114;
+    --paper-warm: #1c151a;
+    --surface:    #1f1820;
+    --ink:        #f1e7ea;
+    --mauve:      #c1abb3;
+    --rouge:      #e35d76;
+    --rouge-deep: #f2899e;
+    --hairline:   #3a2e33;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 5rem) 1.5rem 4rem;
+}
+
+/* --- Återkommande element --- */
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin: 0;
+}
+
+a { color: var(--rouge); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--rouge-deep); }
+
+:focus-visible {
+  outline: 2px solid var(--rouge);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.backlink {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  margin-bottom: 2.5rem;
+}
+.backlink::before { content: '← '; }
+
+/* --- Sidhuvud --- */
+
+.masthead { margin-bottom: 3.5rem; }
+
+.site-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0.6rem 0 0;
+}
+
+/* Signaturen: ett läppstiftsdrag under titeln */
+.stroke {
+  display: block;
+  width: clamp(7rem, 26vw, 12rem);
+  height: auto;
+  margin: 0.35rem 0 0;
+  color: var(--rouge);
+}
+
+.lede {
+  font-family: var(--body);
+  font-size: clamp(1.05rem, 2.3vw, 1.25rem);
+  color: var(--ink);
+  max-width: 32rem;
+  margin: 1.6rem 0 0;
+}
+.lede .aside { color: var(--mauve); font-style: italic; }
+
+/* --- Kategorierna på startsidan: strängar i väven --- */
+
+.strands {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+/* tråden som binder ihop väven */
+.strands::before {
+  content: '';
+  position: absolute;
+  left: 5px; top: 0.6rem; bottom: 0.6rem;
+  width: 1px;
+  background: var(--hairline);
+}
+
+.strand { position: relative; }
+.strand + .strand { border-top: 1px solid var(--hairline); }
+
+.strand a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 1.5rem 0 1.5rem 2rem;
+}
+/* nod på tråden */
+.strand a::before {
+  content: '';
+  position: absolute;
+  left: 1px; top: 1.95rem;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1.5px solid var(--hairline);
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+.strand a:hover::before,
+.strand a:focus-visible::before { background: var(--rouge); border-color: var(--rouge); }
+
+.strand h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 3.6vw, 2.1rem);
+  line-height: 1.1;
+  margin: 0;
+  transition: color 0.18s ease;
+}
+.strand a:hover h2, .strand a:focus-visible h2 { color: var(--rouge); }
+.strand p { color: var(--mauve); margin: 0.45rem 0 0; font-size: 0.98rem; }
+.strand .count { font-family: var(--mono); font-size: 0.72rem; color: var(--mauve); letter-spacing: 0.06em; }
+
+/* --- Inläggslista på en kategorisida --- */
+
+.entries { list-style: none; margin: 2.5rem 0 0; padding: 0; }
+.entry { padding: 1.4rem 0; border-top: 1px solid var(--hairline); }
+.entry:last-child { border-bottom: 1px solid var(--hairline); }
+.entry .date { font-family: var(--mono); font-size: 0.72rem; color: var(--mauve); letter-spacing: 0.05em; }
+.entry h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  margin: 0.3rem 0 0;
+}
+.entry h3 a { text-decoration: none; color: var(--ink); }
+.entry h3 a:hover { color: var(--rouge); }
+.entry p { margin: 0.35rem 0 0; color: var(--mauve); font-size: 0.98rem; }
+
+.placeholder { color: var(--mauve); font-style: italic; }
+
+/* --- Artefaktsida: ramen runt en inbäddad artefakt --- */
+
+.artifact-frame {
+  width: 100%;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: var(--surface);
+  margin-top: 2rem;
+}
+.artifact-frame iframe { display: block; width: 100%; border: 0; border-radius: 4px; }
+
+.prose { max-width: var(--measure); }
+.prose p { margin: 0 0 1.1rem; }
+
+/* --- Sidfot --- */
+
+.foot {
+  margin-top: 4.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--mauve);
+}
+.foot p { margin: 0.3rem 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

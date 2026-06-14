@@ -1,0 +1,17 @@
+# The Lipstick Web — sajt-repo .gitignore
+# Endast OS-skrap och temporart byggskrap. Sajtfilerna ska med.
+
+# Windows
+desktop.ini
+Thumbs.db
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+*.code-workspace
+
+# Temporart byggskrap (lagg loose testfiler har om de inte ska publiceras)
+*.tmp
+*.bak

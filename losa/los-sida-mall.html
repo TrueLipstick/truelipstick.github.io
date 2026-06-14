@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Håller sidan utanför sökmotorernas register. Lägg till nofollow om sidan
+       länkar vidare till något du inte vill att robotar ska följa:
+       <meta name="robots" content="noindex, nofollow"> -->
+  <meta name="robots" content="noindex">
+
+  <!-- Neutral titel. Den syns i webbläsarens flik, så undvik något som skriker. -->
+  <title>En delning</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- Den här sidan är medvetet olistad: ingen länk pekar hit från den
+         officiella väven, och den ska inte läggas in i någon kategorilista.
+         Vill du ändå knyta den till hemmet, lägg till en backlink, men då är
+         den inte längre lika "löst hängande". -->
+
+    <header class="masthead">
+      <p class="eyebrow">Delad i förtroende · ÅÅÅÅ-MM-DD</p>
+      <h1 class="site-title" style="font-size:clamp(2rem,5vw,3rem)">Rubrik</h1>
+      <p class="lede">En rad om vad det här är, för den som öppnar länken.</p>
+    </header>
+
+    <!-- METOD A — inbäddad artefakt. Lägg artefaktfilen i samma losa/-mapp
+         och peka src dit. Justera height efter innehållet. -->
+    <div class="artifact-frame">
+      <iframe src="min-artefakt.html" height="640"
+              title="Inbäddad artefakt" loading="lazy"></iframe>
+    </div>
+
+    <!-- METOD B — ren prosa. Ta bort .artifact-frame ovan och skriv i stället:
+         <div class="prose"><p>Text.</p></div> -->
+
+    <footer class="foot">
+      <p>Delad enskilt. Inte tänkt för spridning.</p>
+    </footer>
+
+  </main>
+</body>
+</html>

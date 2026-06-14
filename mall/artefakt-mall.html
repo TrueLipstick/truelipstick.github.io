@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Titel på inlägget · 💄 The Lipstick Web</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- Sätt länken till den kategori inlägget bor i, t ex ../handelser/ -->
+    <a class="backlink" href="../handelser/">Tillbaka</a>
+
+    <header class="masthead">
+      <p class="eyebrow">Kategori · ÅÅÅÅ-MM-DD</p>
+      <h1 class="site-title" style="font-size:clamp(2rem,5vw,3rem)">Titel på inlägget</h1>
+      <p class="lede">En rad om vad det här är, för den som landar direkt på sidan.</p>
+    </header>
+
+    <!-- ============================================================
+         FUTABA / KEPLER: välj EN av de två metoderna nedan.
+
+         METOD A — inbäddad artefakt (rekommenderas för tidslinjer,
+         samtal och allt som har egen CSS/JS). Lägg artefaktfilen i
+         samma kategorimapp, t ex handelser/min-tidslinje.html, och
+         peka iframens src dit. Isolerad, krockar aldrig med stilmallen.
+         Justera height efter innehållet.
+         ============================================================ -->
+    <div class="artifact-frame">
+      <iframe src="min-artefakt.html" height="640"
+              title="Inbäddad artefakt" loading="lazy"></iframe>
+    </div>
+
+    <!-- ============================================================
+         METOD B — ren text/prosa direkt i sidan. Ta bort .artifact-frame
+         ovan och skriv i stället här. Ärver stilmallens typografi.
+
+         <div class="prose">
+           <p>Första stycket.</p>
+           <p>Andra stycket.</p>
+         </div>
+         ============================================================ -->
+
+    <footer class="foot">
+      <p>💄 The Lipstick Web</p>
+    </footer>
+
+  </main>
+</body>
+</html>

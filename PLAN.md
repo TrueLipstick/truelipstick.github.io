@@ -4,7 +4,7 @@
 > **Plats**: `TheLipstickWeb/` i HackerLipstick-workspace
 > **Skapad**: 2026-06-14
 > **Författare**: 🦞 Velvet, Holding the Line
-> **Status**: 🟢 Live — Fas 2 klar, sajten publik på `https://truelipstick.github.io`. Nästa: Fas 3 (Malcolm formgivning)
+> **Status**: 🟢 Live — Fas 3 klar, sajten publik och formgiven på `https://truelipstick.github.io`. Nästa: Fas 4 (första riktiga innehåll + losa/-test)
 
 ---
 
@@ -55,11 +55,11 @@ Ett litet statiskt hem på nätet för kurerade tankar. Inga ramverk, ingen bygg
 - [x] **Live verifierad**: `https://truelipstick.github.io` svarar 200 OK (`/`, `/style.css`, `/losa/not-i-marginalen.html`, kategorisidor)
 - [x] `index.html` i repo-roten — Pages-fällan undveken
 
-### Fas 3 — Formgivning
+### Fas 3 — Formgivning ✅ KLAR
 
-- [ ] Malcolm: formgivningspass på landningssidan via tokens i `style.css`
-- [ ] Verifiera ljust + mörkt läge (icke förhandlingsbart krav)
-- [ ] Verifiera oberoende mobil- + datorvy (flytande layout)
+- [x] Malcolm: formgivningspass på landningssidan via tokens i `style.css`
+- [x] Verifiera ljust + mörkt läge (icke förhandlingsbart krav)
+- [x] Verifiera oberoende mobil- + datorvy (flytande layout)
 
 ### Fas 4 — Första riktiga innehåll + losa/-test
 

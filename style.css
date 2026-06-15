@@ -10,15 +10,16 @@
   color-scheme: light dark;
 
   /* Palett, ljust läge (standard).
-     Papper med rosa underton, plommonsvart bläck, sval läppstiftsrouge. */
-  --paper:       #f7f3f4;
-  --paper-warm:  #f1e9eb;
-  --surface:     #ffffff;   /* ytor: ramar runt inbäddade artefakter */
-  --ink:         #1b1418;
-  --mauve:       #6e5b62;   /* dämpad text, bildtexter */
-  --rouge:       #ae1b3b;   /* signaturaccent */
-  --rouge-deep:  #7e1329;   /* hover */
-  --hairline:    #e4d8db;
+     Foxat kräm, aubergine-svart bläck, déterminé läppstiftsrouge. */
+  --paper:       #f3ede0;
+  --paper-warm:  #ece4cf;
+  --surface:     #faf6ed;   /* ytor: ramar runt inbäddade artefakter */
+  --ink:         #1a1020;
+  --mauve:       #7a5870;   /* dämpad text, bildtexter */
+  --rouge:       #a61c3a;   /* signaturaccent */
+  --rouge-deep:  #781328;   /* hover */
+  --hairline:    #dcd0bc;
+  --aubergine:   #502846;   /* Malcolm-signatur */
 
   /* Typografi */
   --display: 'Fraunces', Georgia, serif;
@@ -33,14 +34,14 @@
    Malcolm: hela mörka temat bor här, samma tokennamn som ovan. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper:      #161114;
-    --paper-warm: #1c151a;
-    --surface:    #1f1820;
-    --ink:        #f1e7ea;
-    --mauve:      #c1abb3;
+    --paper:      #160f1c;
+    --paper-warm: #1c1424;
+    --surface:    #201829;
+    --ink:        #f0e8f2;
+    --mauve:      #c4a8c0;
     --rouge:      #e35d76;
     --rouge-deep: #f2899e;
-    --hairline:   #3a2e33;
+    --hairline:   #362440;
   }
 }
 

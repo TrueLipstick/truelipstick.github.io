@@ -4,6 +4,8 @@ Ett litet statiskt hem på nätet för kurerade tankar. Inga ramverk, ingen bygg
 
 > Endast sådant som tål att spridas. Sidan är öppen för alla med länken.
 
+> 💄 Vill du gå från en idé till en publicerad sida? Se [`fran-ide-till-sida.md`](fran-ide-till-sida.md) — en mjuk rekommenderad resa. Den här README:n beskriver *bygget*; den filen beskriver hur man rör sig genom det.
+
 ## Roller (flottan)
 
 - 🦞 **Velvet**, projektledning och struktur.

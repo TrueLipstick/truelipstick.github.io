@@ -4,7 +4,7 @@
 > **Plats**: `TheLipstickWeb/` i HackerLipstick-workspace
 > **Skapad**: 2026-06-14
 > **Författare**: 🦞 Velvet, Holding the Line
-> **Status**: 🔄 Aktiv — Fas 1 klar, repo ej skapat
+> **Status**: 🟢 Live — Fas 2 klar, sajten publik på `https://truelipstick.github.io`. Nästa: Fas 3 (Malcolm formgivning)
 
 ---
 
@@ -44,15 +44,16 @@ Ett litet statiskt hem på nätet för kurerade tankar. Inga ramverk, ingen bygg
 - [x] **Approval-gate**: Lotten godkände Keplers nya prompt (2026-06-14)
 - [x] **HTML-beslut**: Kepler får `*.html` i sin edit-glob — skriver sidorna själv (se Flaggor nedan)
 
-### Fas 2 — Repo + Pages live
+### Fas 2 — Repo + Pages live ✅ KLAR (2026-06-15)
 
 - [x] Beslut: **publikt** repo för sajten (Lotten godkände 2026-06-14). Inget separat privat byggrepo — testfiler/temporärt byggskräp `.gitignore`:as istället.
 - [x] Futaba la `*.html: allow` i Keplers edit-block (båda källorna, identiska, verifierat 2026-06-14)
-- [ ] Kepler skapar repo `truelipstick.github.io`
-- [ ] Pusha hela `TheLipstickWeb/`-mappen till `main`
-- [ ] Settings → Pages → Deploy from a branch → `main` / `/ (root)`
-- [ ] Verifiera att `https://truelipstick.github.io` är live
-- [ ] **Approval-gate**: Lotten godkänner push (Constitution: aldrig push utan godkännande)
+- [x] `TheLipstickWeb/` gjordes till eget git-repo (workspace-mönster) — commit `f253823`, 15 filer
+- [x] Lotten skapade GitHub-repot `TrueLipstick/truelipstick.github.io` manuellt (gh CLI ej inloggat)
+- [x] Push efter Lottens godkännande (approval-gate respekterad)
+- [x] Lotten aktiverade Pages → Deploy from a branch → `main` / `/ (root)`
+- [x] **Live verifierad**: `https://truelipstick.github.io` svarar 200 OK (`/`, `/style.css`, `/losa/not-i-marginalen.html`, kategorisidor)
+- [x] `index.html` i repo-roten — Pages-fällan undveken
 
 ### Fas 3 — Formgivning
 

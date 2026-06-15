@@ -21,6 +21,11 @@
   --hairline:    #dcd0bc;
   --aubergine:   #502846;   /* Malcolm-signatur */
 
+  /* Accenter för artefaktsidor (t.ex. losa/not-i-marginalen) */
+  --ok:           #4f7a60;       /* bevarad/godkänd, motpol till rouge */
+  --paper-frame:  #fdfcf9;       /* polaroidkant runt foton */
+  --photo-shadow: 36, 18, 44;    /* aubergine-tonad skugga (rgb-tripel) */
+
   /* Typografi */
   --display: 'Fraunces', Georgia, serif;
   --body:    'Newsreader', Georgia, serif;
@@ -42,6 +47,11 @@
     --rouge:      #e35d76;
     --rouge-deep: #f2899e;
     --hairline:   #362440;
+
+    /* Accenter för artefaktsidor, mörkt läge */
+    --ok:          #80b898;       /* ljusare sage mot mörk yta */
+    --paper-frame: #f0e6dc;       /* varm cream-kant mot aubergine-mörker */
+    /* --photo-shadow oförändrad — aubergine-tonen bär i båda lägen */
   }
 }
 

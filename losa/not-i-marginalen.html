@@ -8,10 +8,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Ärver den delade paletten (foxat kräm / aubergine / rouge) + dark mode.
+     Egen typografi (Spectral brödtext) behålls medvetet — Malcolms beslut:
+     ett arkivdokument får en egen, sobrare röst. -->
+<link rel="stylesheet" href="../style.css">
 <style>
+  /* Lokala alias mot den delade paletten — sidans gamla tokennamn pekar nu
+     på style.css-tokens, så färgreglerna nedan kan stå orörda. */
   :root{
-    --paper:#F3F1EA; --paper-2:#EDEAE0; --ink:#1C1A16;
-    --slate:#74726A; --red:#B12A20; --teal:#2B6A5D; --hair:#DEDACE; --col:42rem;
+    --paper-2:var(--paper-warm);
+    --slate:var(--mauve);
+    --red:var(--rouge);
+    --teal:var(--ok);
+    --hair:var(--hairline);
+    --col:42rem;
   }
   *{box-sizing:border-box;}
   html{-webkit-text-size-adjust:100%;}
@@ -88,12 +98,12 @@
     text-transform:uppercase;color:var(--slate);margin-top:1.2rem;padding-top:.8rem;
     border-top:1px dashed var(--hair);}
   .photos{display:flex;gap:1.3rem;flex-wrap:wrap;margin-top:1.2rem;padding:.3rem .2rem 1rem;}
-  .ph{flex:1 1 210px;margin:0;background:#fdfcf9;padding:9px 9px 0;
-    border:1px solid var(--hair);box-shadow:0 8px 22px rgba(28,26,22,.13);
+  .ph{flex:1 1 210px;margin:0;background:var(--paper-frame);padding:9px 9px 0;
+    border:1px solid var(--hair);box-shadow:0 8px 22px rgba(var(--photo-shadow),.13);
     transition:transform .3s ease,box-shadow .3s ease;}
   .ph:first-child{transform:rotate(-1.5deg);}
   .ph:last-child{transform:rotate(1.5deg);}
-  .ph:hover{transform:rotate(0) translateY(-2px);box-shadow:0 12px 30px rgba(28,26,22,.18);}
+  .ph:hover{transform:rotate(0) translateY(-2px);box-shadow:0 12px 30px rgba(var(--photo-shadow),.18);}
   .ph img{display:block;width:100%;height:auto;}
   .ph figcaption{font-family:"IBM Plex Mono",monospace;font-size:.66rem;color:var(--ink);
     padding:.6rem .25rem .55rem;line-height:1.5;}

@@ -66,6 +66,8 @@ Det är den enda hårda regeln i hela resan. Resten är väg.
 
 Innan något publiceras: du ser förhandsvisningen och säger ja. Inget pushas utan ditt godkännande. Det är inte byråkrati — det är den punkt där resan lämnar dina händer och blir offentlig, och den punkten är din.
 
+**Men grinden går åt båda håll.** Lämna aldrig godkänt arbete ocommittat utan att fråga. När något är klart och du är nöjd ska den som hjälper dig *erbjuda* att committa och pusha allt som hör ihop — inte bara den specifika uppgiften, utan även README, PLAN och annat som uppdaterats i farten. Du säger ja eller nej; men frågan ska alltid komma. Annars blir godkänt arbete liggande lokalt och dammar i ett hörn, vilket är raka motsatsen till vad den här sidan finns för.
+
 ## 🚀 Och så är den live
 
 Push till `main`. Pages serverar från `main`, mappen `/ (root)`, och adressen `https://truelipstick.github.io` är uppdaterad inom någon minut.

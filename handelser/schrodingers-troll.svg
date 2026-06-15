@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" width="640" height="560" role="img" aria-labelledby="troll-title troll-desc">
+  <title id="troll-title">Schrödingers troll</title>
+  <desc id="troll-desc">En logisk triangel vars tre vägar — gör inget, gör något, kritiserar — alla leder till domen att triangeln är sluten.</desc>
+  <style>
+    .paper   { fill: #faf6ed; }
+    .edge    { stroke: #a61c3a; stroke-width: 1.6; fill: none; }
+    .halo    { fill: #a61c3a; opacity: 0.12; }
+    .core    { fill: #a61c3a; }
+    .centerhalo { fill: #502846; opacity: 0.08; }
+    .title   { fill: #1a1020; font-family: "Fraunces", Georgia, serif; font-size: 18px; }
+    .label   { fill: #1a1020; opacity: 0.85; font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.08em; }
+    .gloss   { fill: #7a5870; font-family: "Newsreader", Georgia, serif; font-style: italic; font-size: 11px; }
+    .verdict { fill: #781328; font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.12em; }
+    .formula { fill: #7a5870; opacity: 0.70; font-family: "IBM Plex Mono", monospace; font-size: 9px; }
+    @media (prefers-color-scheme: dark) {
+      .paper      { fill: #201829; }
+      .edge       { stroke: #e35d76; }
+      .halo       { fill: #e35d76; opacity: 0.15; }
+      .core       { fill: #e35d76; }
+      .centerhalo { fill: #502846; opacity: 0.12; }
+      .title      { fill: #f0e8f2; }
+      .label      { fill: #f0e8f2; opacity: 0.85; }
+      .gloss      { fill: #c4a8c0; }
+      .verdict    { fill: #e35d76; }
+      .formula    { fill: #c4a8c0; opacity: 0.70; }
+    }
+  </style>
+
+  <rect class="paper" x="0" y="0" width="640" height="560" />
+
+  <!-- Triangelkanter (frysta vågfunktioner) -->
+  <path class="edge" d="M 132.61 108.00 C 135.32 108.72 143.44 111.04 148.89 112.31 C 154.34 113.58 159.79 114.78 165.29 115.61 C 170.78 116.45 176.31 117.01 181.87 117.33 C 187.42 117.65 193.02 117.61 198.62 117.54 C 204.22 117.47 209.85 117.09 215.46 116.92 C 221.07 116.75 226.70 116.45 232.28 116.51 C 237.87 116.57 243.44 116.75 248.97 117.27 C 254.50 117.79 260.00 118.62 265.47 119.65 C 270.95 120.69 276.38 122.09 281.82 123.46 C 287.25 124.84 292.65 126.49 298.08 127.90 C 303.52 129.31 308.94 130.79 314.40 131.91 C 319.87 133.03 325.35 133.99 330.87 134.62 C 336.39 135.25 341.94 135.54 347.52 135.68 C 353.10 135.82 358.71 135.59 364.32 135.44 C 369.93 135.29 375.57 134.90 381.17 134.78 C 386.78 134.67 392.38 134.52 397.95 134.75 C 403.52 134.97 409.06 135.40 414.57 136.14 C 420.07 136.87 425.54 137.95 431.00 139.15 C 436.45 140.35 441.87 141.90 447.30 143.33 C 452.72 144.76 458.13 146.40 463.57 147.72 C 469.01 149.05 474.45 150.36 479.94 151.30 C 485.42 152.23 490.93 152.93 496.48 153.35 C 502.02 153.77 507.61 153.83 513.20 153.82 C 518.79 153.81 527.23 153.37 530.03 153.28" />
+  <path class="edge" d="M 530.03 153.28 C 528.11 154.93 522.20 159.78 518.48 163.19 C 514.76 166.60 511.09 170.05 507.69 173.74 C 504.30 177.43 501.12 181.30 498.13 185.33 C 495.13 189.35 492.42 193.62 489.73 197.90 C 487.03 202.18 484.58 206.66 481.96 211.00 C 479.34 215.35 476.82 219.77 474.03 223.97 C 471.23 228.16 468.35 232.28 465.20 236.18 C 462.05 240.07 458.66 243.77 455.12 247.33 C 451.58 250.89 447.76 254.22 443.95 257.56 C 440.15 260.90 436.13 264.06 432.30 267.38 C 428.47 270.70 424.58 273.97 420.97 277.47 C 417.36 280.98 413.87 284.59 410.64 288.42 C 407.41 292.24 404.43 296.28 401.58 300.43 C 398.72 304.57 396.15 308.95 393.52 313.28 C 390.88 317.61 388.44 322.11 385.78 326.42 C 383.12 330.72 380.49 335.05 377.56 339.14 C 374.64 343.23 371.57 347.18 368.25 350.94 C 364.94 354.70 361.36 358.23 357.69 361.68 C 354.02 365.14 350.08 368.36 346.23 371.67 C 342.39 374.98 338.38 378.15 334.61 381.52 C 330.84 384.89 327.09 388.28 323.62 391.90 C 320.15 395.53 316.87 399.31 313.80 403.27 C 310.73 407.23 307.93 411.43 305.19 415.67 C 302.45 419.91 298.67 426.54 297.36 428.71" />
+  <path class="edge" d="M 297.36 428.71 C 296.58 426.30 294.38 418.99 292.66 414.24 C 290.95 409.49 289.17 404.77 287.07 400.22 C 284.97 395.67 282.62 391.25 280.05 386.94 C 277.49 382.62 274.59 378.48 271.68 374.35 C 268.77 370.22 265.58 366.22 262.57 362.14 C 259.57 358.05 256.45 354.02 253.66 349.83 C 250.86 345.64 248.16 341.39 245.78 336.99 C 243.40 332.58 241.29 328.03 239.36 323.39 C 237.43 318.75 235.84 313.94 234.22 309.15 C 232.59 304.35 231.22 299.42 229.63 294.61 C 228.04 289.80 226.52 284.95 224.67 280.27 C 222.82 275.59 220.83 270.98 218.54 266.53 C 216.25 262.08 213.67 257.77 210.94 253.55 C 208.21 249.32 205.16 245.26 202.17 241.16 C 199.19 237.06 195.98 233.08 193.03 228.97 C 190.07 224.86 187.09 220.76 184.44 216.49 C 181.79 212.22 179.33 207.86 177.13 203.36 C 174.94 198.85 173.06 194.19 171.28 189.47 C 169.50 184.76 168.04 179.88 166.47 175.06 C 164.89 170.23 163.51 165.32 161.84 160.54 C 160.18 155.76 158.50 151.00 156.49 146.40 C 154.48 141.81 152.25 137.32 149.77 132.96 C 147.30 128.60 144.50 124.41 141.64 120.25 C 138.78 116.09 134.11 110.04 132.61 108.00" />
+
+  <!-- Centrumhalo -->
+  <ellipse class="centerhalo" cx="320.0" cy="230.0" rx="45" ry="25" />
+
+  <!-- Hörnnoder: superposition (halo + kärna) -->
+  <circle class="halo" cx="132.61" cy="108.00" r="16" />
+  <circle class="core" cx="132.61" cy="108.00" r="5" />
+  <circle class="halo" cx="530.03" cy="153.28" r="16" />
+  <circle class="core" cx="530.03" cy="153.28" r="5" />
+  <circle class="halo" cx="297.36" cy="428.71" r="16" />
+  <circle class="core" cx="297.36" cy="428.71" r="5" />
+
+  <!-- Rubrik -->
+  <text class="title" x="320" y="60" text-anchor="middle">Schrödingers troll</text>
+
+  <!-- Hörnetiketter + förklaringar -->
+  <!-- GÖR INGET: högerkantsanpassad, etiketten till vänster om noden -->
+  <text class="label" x="104.6" y="112.0" text-anchor="end">GÖR INGET</text>
+  <text class="gloss" x="104.6" y="130.0" text-anchor="end">ser ut som ett</text>
+  <text class="gloss" x="104.6" y="144.0" text-anchor="end">passivt alt-konto</text>
+
+  <!-- GÖR NÅGOT: vänsterkantsanpassad, etiketten till höger om noden -->
+  <text class="label" x="558.0" y="157.3" text-anchor="start">GÖR NÅGOT</text>
+  <text class="gloss" x="558.0" y="175.3" text-anchor="start">för kort historik</text>
+  <text class="gloss" x="558.0" y="189.3" text-anchor="start">i servern</text>
+
+  <!-- KRITISERAR: centrerad nedanför noden -->
+  <text class="label" x="297.4" y="462.7" text-anchor="middle">KRITISERAR</text>
+  <text class="gloss" x="297.4" y="480.7" text-anchor="middle">tolkas som brigading</text>
+
+  <!-- Centrumtext: domen -->
+  <text class="verdict" x="320.0" y="226.0" text-anchor="middle">TRIANGELN</text>
+  <text class="verdict" x="320.0" y="242.0" text-anchor="middle">ÄR SLUTEN</text>
+
+  <!-- Bayes-formel -->
+  <text class="formula" x="320.0" y="260.0" text-anchor="middle">P(troll | ny användare) = 1</text>
+</svg>

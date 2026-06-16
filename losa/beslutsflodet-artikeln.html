@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>En delning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Ärver den delade paletten (foxat kräm / aubergine / rouge) + dark mode
+     från ../style.css. Endast diagram-specifika tokens (designspec) bor lokalt.
+     Källdiagram: folkvettkonflikten-2026/.../beslutsflodet-artikeln.mmd
+     Designspec: DESIGNSPEC-html-beslutsflodet.md (🦚 Greve Malcolm) · impl. 🐡 Futaba -->
+<link rel="stylesheet" href="../style.css">
+<style>
+:root {
+  /* Diagram-specifika semantiska tokens (designspec) — ljust läge.
+     Palett-tokens (--paper, --ink, --mauve, --rouge, --hairline, --aubergine …)
+     ärvs från ../style.css. */
+  --ok:          #b5a48a;   /* korrekt agerande — gammalt pergament */
+  --ok-stroke:   #8a7a5e;
+  --brott:       var(--rouge);
+  --brott-text:  #f0e8f2;
+  --beslut:      #c9a84c;   /* antik ram */
+  --lucka:       var(--aubergine);
+  --lucka-text:  #f0e8f2;
+
+  --line: rgba(122, 88, 112, 0.55);   /* flödeslinje (mauve) */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ok:          #6e5f4a;
+    --ok-stroke:   #8a7a5e;
+    --brott-text:  #f0e8f2;
+    --beslut:      #c9a84c;
+    --lucka-text:  #f0e8f2;
+
+    --line: rgba(196, 168, 192, 0.5);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- Sticky header ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.topbar h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+}
+
+/* ---------- Layout ---------- */
+.shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  align-items: start;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  position: sticky;
+  top: 44px;
+  align-self: start;
+  max-height: calc(100vh - 44px);
+  overflow-y: auto;
+  padding: 28px 22px 40px;
+  border-right: 1px solid var(--hairline);
+  background: var(--paper-warm);
+}
+.sidebar .sep {
+  border: none;
+  border-top: 1px solid var(--hairline);
+  margin: 22px 0;
+}
+.sidebar h2 {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin: 0 0 14px;
+}
+
+/* Persongalleri */
+.person {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 11px;
+}
+.badge {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1.5px solid var(--mauve);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.person .name { font-family: var(--body); font-size: 0.82rem; line-height: 1.15; color: var(--ink); }
+.person .role { font-family: var(--mono); font-size: 0.62rem; color: var(--mauve); display: block; margin-top: 1px; }
+
+/* Legend */
+.legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.78rem; color: var(--ink); }
+.legend-swatch { flex: 0 0 auto; width: 22px; height: 16px; border-radius: 3px; }
+.sw-ok      { background: var(--ok); border: 1px solid var(--ok-stroke); }
+.sw-brott   { background: var(--brott); }
+.sw-beslut  { background: transparent; border: 2px solid var(--beslut); }
+.sw-lucka   { background: var(--lucka); border: 2px dashed color-mix(in srgb, var(--lucka) 60%, var(--ink)); }
+.legend-line { width: 22px; height: 0; border-top: 1.5px dashed var(--rouge-deep); position: relative; }
+
+/* Counters */
+.counter-brott {
+  text-align: center;
+  margin: 6px 0 4px;
+}
+.counter-brott .num {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--rouge);
+}
+.counter-brott .label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  color: var(--mauve);
+  text-transform: uppercase;
+  display: block;
+  margin-top: 4px;
+}
+.counter-kontakt {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--rouge);
+  margin-top: 16px;
+  line-height: 1.5;
+}
+.counter-kontakt .big { font-size: 0.95rem; font-weight: 500; }
+.counter-kontakt .sub { display: block; color: var(--mauve); font-size: 0.66rem; margin-top: 3px; }
+
+/* ---------- Main / canvas ---------- */
+.main { padding: 28px 0 80px; }
+
+.canvas-wrap {
+  position: relative;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 32px 0 92px;   /* vänsterutrymme för fasbandar */
+}
+
+/* Fasbandar (vertikala etiketter till vänster) */
+.phase-rail {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  bottom: 0;
+  width: 56px;
+  pointer-events: none;
+}
+.phase {
+  position: absolute;
+  left: 0;
+  width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.phase .bar {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  background: var(--hairline);
+  padding: 14px 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* SVG layer for connectors */
+.connectors {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Node column */
+.flow {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+}
+
+/* ---------- Nodes ---------- */
+.node {
+  position: relative;
+  width: min(560px, 100%);
+  border-radius: 7px;
+  padding: 13px 16px;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+}
+.node .when { font-family: var(--mono); font-size: 0.66rem; color: var(--mauve); letter-spacing: 0.02em; }
+.node b { font-weight: 600; }
+.node i, .node .q { font-style: italic; color: color-mix(in srgb, var(--ink) 82%, var(--mauve)); }
+.node .q::before { content: "’"; }
+.node .q::after  { content: "’"; }
+
+/* endpoint (stadier in/ut) */
+.node.endpoint {
+  border-radius: 999px;
+  text-align: center;
+  background: var(--paper-warm);
+  border: 1px solid var(--hairline);
+  font-weight: 600;
+  padding: 11px 22px;
+}
+
+/* korrekt agerande — pergament */
+.node.ok {
+  background: var(--ok);
+  border-color: var(--ok-stroke);
+  color: var(--ink);
+}
+.node.ok .when { color: color-mix(in srgb, var(--ink) 60%, transparent); }
+
+/* beslutsromb */
+.node.beslut {
+  background: transparent;
+  border: 2px solid var(--beslut);
+  color: var(--ink);
+}
+.node.beslut .when { color: color-mix(in srgb, var(--ink) 65%, transparent); }
+
+/* lucka */
+.node.lucka {
+  background: var(--lucka);
+  color: var(--lucka-text);
+  border: 2px dashed color-mix(in srgb, var(--lucka-text) 45%, var(--lucka));
+  font-style: italic;
+}
+.node.lucka .when { color: color-mix(in srgb, var(--lucka-text) 75%, transparent); }
+.node.lucka i { color: color-mix(in srgb, var(--lucka-text) 88%, transparent); }
+
+/* BROTT */
+.node.brott {
+  background: var(--brott);
+  color: var(--brott-text);
+  border: 1px solid color-mix(in srgb, var(--brott) 70%, #000);
+  border-left: 4px solid var(--rouge-deep);
+  font-weight: 500;
+}
+.node.brott .when { color: color-mix(in srgb, var(--brott-text) 80%, transparent); }
+.node.brott i, .node.brott .q { color: color-mix(in srgb, var(--brott-text) 92%, transparent); }
+.node.brott .brott-badge {
+  position: absolute;
+  top: -10px; left: -10px;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--rouge-deep);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--paper);
+}
+
+/* casualt utfall (SOH vänder sig till LK) — endpoint-variant */
+.node.aside-node {
+  background: var(--paper-warm);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+}
+
+/* tolkningsmarkör (Mönstret) */
+.node.markor {
+  background: color-mix(in srgb, var(--beslut) 16%, var(--surface));
+  border: 1px solid var(--beslut);
+  font-style: italic;
+  font-size: 0.82rem;
+}
+
+/* ---------- Svävande K-spår ---------- */
+.k-track {
+  position: relative;
+  z-index: 3;
+  margin: 30px auto;
+  max-width: 720px;
+  padding: 18px 20px 20px;
+  border-radius: 10px;
+  border: 1px dashed color-mix(in srgb, var(--ok-stroke) 70%, transparent);
+  background: color-mix(in srgb, var(--ok) 14%, var(--surface));
+}
+.k-track .k-head {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin: 0 0 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.k-track .k-head .bounce { color: var(--rouge); font-size: 0.9rem; }
+.k-list { display: flex; flex-direction: column; gap: 10px; }
+.k {
+  position: relative;
+  padding: 9px 13px 9px 30px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+.k .when { font-family: var(--mono); font-size: 0.63rem; color: var(--mauve); }
+.k .q { font-style: italic; }
+.k .q::before { content: "’"; }
+.k .q::after  { content: "’"; }
+/* studs-markör: pil som träffar och returnerar ut i intet */
+.k::before {
+  content: '';
+  position: absolute;
+  left: 11px; top: 14px;
+  width: 8px; height: 8px;
+  border-right: 1.5px solid var(--rouge-deep);
+  border-bottom: 1.5px solid var(--rouge-deep);
+  transform: rotate(-45deg);
+  opacity: 0.85;
+}
+/* returstump: bleknande, riktningslös */
+.k::after {
+  content: '';
+  position: absolute;
+  left: 8px; top: 23px;
+  width: 14px; height: 0;
+  border-top: 1.5px dashed var(--rouge-deep);
+  opacity: 0.4;
+  transform: rotate(20deg);
+}
+.k.upptakt {
+  border-style: dashed;
+  opacity: 0.82;
+}
+.k.upptakt::before, .k.upptakt::after { opacity: 0.35; }
+.k .k-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-left: 6px;
+}
+.k .k-tag.muted { color: var(--mauve); }
+
+/* tre dagars väntan-markör */
+.wait {
+  text-align: center;
+  margin: 4px auto;
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--mauve);
+}
+.wait .dots { letter-spacing: 0.5em; font-size: 1.1rem; color: color-mix(in srgb, var(--mauve) 45%, transparent); display: block; margin-bottom: 2px; }
+
+/* connector arrowhead default */
+.flow-arrow { fill: none; stroke: var(--line); stroke-width: 1.6; }
+
+.section-note {
+  max-width: 760px;
+  margin: 0 auto 26px;
+  padding: 0 32px 0 92px;
+  font-family: var(--body);
+  font-size: 0.84rem;
+  color: var(--mauve);
+}
+
+.foot {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 32px 0 92px;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--mauve);
+  border-top: 1px solid var(--hairline);
+}
+.foot p { margin: 0.3rem 0; }
+.foot .sig { color: var(--aubergine); }
+@media (prefers-color-scheme: dark) { .foot .sig { color: var(--mauve); } }
+
+/* ---------- Responsiv ---------- */
+@media (max-width: 860px) {
+  .shell { grid-template-columns: 1fr; }
+  .sidebar {
+    position: static;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .canvas-wrap { padding: 0 16px; }
+  .phase-rail { display: none; }
+  .section-note, .foot { padding-left: 16px; padding-right: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Redaktionellt beslutsflöde — intern analys</h1>
+</div>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+
+    <hr class="sep" style="margin-top:0">
+    <h2>Aktörer</h2>
+
+    <div class="person"><span class="badge">DK</span><span><span class="name">Dan Katz</span><span class="role">redaktör</span></span></div>
+    <div class="person"><span class="badge">LK</span><span><span class="name">Lotten Kalenius</span><span class="role">redaktör</span></span></div>
+    <div class="person"><span class="badge">SOH</span><span><span class="name">Sven Ove Hansson</span><span class="role">ansvarig utgivare</span></span></div>
+    <div class="person"><span class="badge">LT</span><span><span class="name">Lina Tebbla</span><span class="role">ordförande</span></span></div>
+    <div class="person"><span class="badge">LSL</span><span><span class="name">Linda Strand Lundberg</span><span class="role">vice ordförande</span></span></div>
+    <div class="person"><span class="badge">DL</span><span><span class="name">Dan Larhammar</span><span class="role">styrelseledamot</span></span></div>
+    <div class="person"><span class="badge">PJ</span><span><span class="name">Per Johan Råsmark</span><span class="role">styrelseledamot</span></span></div>
+    <div class="person"><span class="badge">SL</span><span><span class="name">Staffan Lückander</span><span class="role">styrelseledamot</span></span></div>
+
+    <hr class="sep">
+    <h2>Teckenförklaring</h2>
+
+    <div class="legend-item"><span class="legend-swatch sw-ok"></span>Korrekt agerande</div>
+    <div class="legend-item"><span class="legend-swatch sw-beslut"></span>Beslutspunkt</div>
+    <div class="legend-item"><span class="legend-swatch sw-brott"></span>Processbrott</div>
+    <div class="legend-item"><span class="legend-swatch sw-lucka"></span>Lucka i materialet</div>
+    <div class="legend-item"><span class="legend-line"></span>Fruktlöst kontaktförsök</div>
+
+    <hr class="sep">
+
+    <div class="counter-brott">
+      <span class="num">5</span>
+      <span class="label">processbrott identifierade</span>
+    </div>
+
+    <div class="counter-kontakt">
+      <span class="big">⤷ 7 obesvarade kontaktförsök</span>
+      <span class="sub">SOH ×5 · DL ×1 · LSL ×1</span>
+    </div>
+
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <div class="canvas-wrap">
+
+      <!-- Fasbandar -->
+      <div class="phase-rail">
+        <div class="phase" style="top: 20px;  height: 200px;"><span class="bar">Inlaga</span></div>
+        <div class="phase" style="top: 250px; height: 430px;"><span class="bar">Beredning</span></div>
+        <div class="phase" style="top: 700px; height: 620px;"><span class="bar">Brott &amp; lucka</span></div>
+      </div>
+
+      <!-- Flöde -->
+      <div class="flow">
+
+        <!-- ===== INLAGA ===== -->
+        <div class="node endpoint">📄 Artikeln · DK + LK · 11–16 apr</div>
+
+        <div class="node ok">
+          <span class="when">17 apr</span> · Visas för SOH <b>innan</b> redaktionen
+          · <span class="q">vi är inte så imponerade</span>
+        </div>
+
+        <!-- ===== BEREDNING ===== -->
+        <div class="node ok">
+          <span class="when">21 apr 23:03</span> · SOH → DK+LK<br>
+          föreslår att inte kritisera källbrist
+          · <span class="q">[Det framstod] inte för mig som att artikeln uttryckte någon uppfattning om forskningsläget eller om vilken politik som bör föras.</span>
+          · <span class="q">… hör av er till styrelsen.</span>
+        </div>
+
+        <div class="node ok">
+          <span class="when">21 apr 23:33</span> · DK → LK<br>
+          <span class="q">Han säger inget om att han godkänner den för publicering.</span>
+        </div>
+
+        <div class="node ok">
+          <span class="when">22 apr 06:21</span> · LK → DK<br>
+          <span class="q">Något eller några mellanting finns det väl mellan en doktorsavhandling och &quot;obestämd expert anser att odefinierad forskning är den enda ledstjärnan i denna fråga.&quot;</span>
+        </div>
+
+        <div class="node ok">
+          <span class="when">23 apr</span> · Visas för hela redaktionen
+          · inbjudan till medskribenter
+        </div>
+
+        <div class="node beslut">
+          <span class="when">24 apr 11:59</span> · SOH anger <b>villkor för publicering</b>:
+          tre texter, ordning, placering, <span class="q">i nr 1 eller 2</span>
+          · frångår praxis, styrelsen slutreplik
+        </div>
+
+        <div class="node ok">
+          <span class="when">24 apr 13:43</span> · DK+LK → LT+LSL<br>
+          skickar artikel och erbjuder styrelsens skribenter replikrätt
+          · <span class="q">Som sig bör [har ni] en möjlighet att replikera.</span>
+        </div>
+
+        <!-- ===== BROTT & LUCKA ===== -->
+        <div class="node lucka">
+          <span class="when">🕳️ 24 apr 12:00 → 26 apr 21:10</span> · <b>36-timmarsluckan</b><br>
+          SOH samtalar med LT. Vad som sades är materialets största lucka.
+          <i>Riksårsmöte 25 apr i Uppsala; helgen 24–26 apr präglad av det. DK på plats.</i>
+        </div>
+
+        <div class="node brott">
+          <span class="brott-badge">01</span>
+          <span class="when">26 apr 21:10</span> · <b>BROTT 1</b><br>
+          SOH står fast · styrelsen slutreplik · frångår publicistisk praxis (non sequitur):
+          <span class="q">… ett svar från styrelsen, som därmed får sista ordet.</span>
+        </div>
+
+        <div class="node ok">
+          <span class="when">26 apr 22:44</span> · DK → SOH<br>
+          <span class="q">Jag förstår inte riktigt resonemanget.</span>
+          · <span class="q">Enligt publicistisk sed har de som initierat debatten sista ordet.</span>
+        </div>
+
+        <div class="node ok">
+          <span class="when">27 apr 10:26–10:33</span> · DK + LK<br>
+          bekräftar SOH:s beslutsrätt · föreslår konstruktiva alternativ
+        </div>
+
+        <div class="node ok">
+          <span class="when">27 apr 10:26</span> · LK → redaktionen<br>
+          <span class="q">Vår debattartikel är förvisso förorsakad (eller &quot;inspirerad&quot;?) av deras debattartikel, men den är inte ett svaromål.</span>
+        </div>
+
+        <div class="node brott">
+          <span class="brott-badge">02</span>
+          <span class="when">27 apr 12:40</span> · <b>BROTT 2</b><br>
+          SOH lyfter ut artikeln <b>helt</b> ur nr 1 · ny position, ingen motivering
+          · <span class="q">SDS-artikeln var en del av styrelsearbetet och uttrycker föreningens ståndpunkt.</span>
+          · <span class="q">Dans och Lottens text [ska] inte ingå i [nr 1].</span>
+        </div>
+
+        <!-- ===== SVÄVANDE K-SPÅR (kontaktförsök) ===== -->
+        <div class="k-track">
+          <p class="k-head"><span class="bounce">⤷</span> Kontaktförsök 27 apr – 3 maj — studsar mot besluten, utan svar</p>
+          <div class="k-list">
+
+            <div class="k upptakt">
+              <span class="when">27 apr 17:22</span> · DK SMS:ar en ursäkt → SOH
+              <span class="k-tag muted">upptakt</span><br>
+              <span class="q">be om ursäkt för dumma och ogenomtänkta mail igår… kan vi pratas vid i morgon</span>
+            </div>
+
+            <div class="k">
+              <span class="when">28 apr 08:31</span> · DK mejlar → SOH
+              <span class="k-tag">SOH 1</span><br>
+              <span class="q">vill veta varför du ändrat dig… vi bör prata</span>
+            </div>
+
+            <div class="k">
+              <span class="when">28 apr 12:54</span> · DK mejlar → SOH, redogör för förloppet
+              <span class="k-tag">SOH 2</span><br>
+              <span class="q">När kan du prata?</span>
+            </div>
+
+            <div class="k">
+              <span class="when">28 apr 16:27–16:31</span> · <b>LK</b> → SOH, svarar SOH:s mail
+              <span class="k-tag">SOH 3</span><br>
+              <span class="q">Har du möjlighet att prata och berätta vad som händer?</span>
+              · SMS:ar SOH 16:31 att hon svarat på mailet
+            </div>
+
+            <div class="wait">
+              <span class="dots">○ ○ ○</span>
+              <em>tre dagar senare…</em>
+            </div>
+
+            <div class="k">
+              <span class="when">30 apr 14:01</span> · DK mejlar → SOH · <span class="q">sista vädjan</span>
+              <span class="k-tag">SOH 4</span><br>
+              (LK korrekturläste: <span class="q">Väldigt bra formulerat till SOH</span>)
+            </div>
+
+            <div class="k">
+              <span class="when">1 maj 16:00</span> · DK ringer → DL
+              <span class="k-tag">DL 1</span><br>
+              <span class="q">Bra samtal</span> · DL föreslår väg via LSL
+            </div>
+
+            <div class="k">
+              <span class="when">2 maj 09:26</span> · DK SMS:ar → LSL
+              <span class="k-tag">LSL 1</span><br>
+              <span class="q">skickat mess till Linda och bett om samtal</span>
+            </div>
+
+            <div class="k">
+              <span class="when">3 maj 14:51</span> · DK talar → LSL
+              <span class="k-tag">LSL 1</span><br>
+              LSL lovar kontakta SOH · återkommer aldrig
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Casualt utfall: SOH vänder sig till LK i stället -->
+        <div class="node aside-node">
+          <span class="when">✉️ 28 apr 14:03</span> · SOH mejlar i stället <i>LK</i> casualt
+          · <span class="q">Hur är läget med nummer 1?</span>
+          · svarar inte DK, vänder sig till LK
+        </div>
+
+        <div class="node ok">
+          <span class="when">27 apr 19:59</span> · DK → SOH+redaktionen<br>
+          · <span class="q">Vår debattartikel ifrågasätter just detta.</span>
+          · <span class="q">Varför skall artikeln plötsligt inte ingå i kommande Folkvett?</span>
+        </div>
+
+        <div class="node ok">
+          <span class="when">28 apr 11:07</span> · DK → redaktionen<br>
+          <span class="q">[S]tyrelsens skribenter tar ställning i frågor som inte kan avgöras med vetenskap […] och det kan skada föreningens rykte.</span>
+        </div>
+
+        <div class="node brott">
+          <span class="brott-badge">03</span>
+          <span class="when">28 apr 16:55–17:18</span> · <b>BROTT 3</b><br>
+          Telefonsamtalet (LK ringer SOH): <span class="q">Allt är SKIT!</span>
+          · 20 min utan ett enda konkret sakfel · SOH tar över nummeransvaret
+        </div>
+
+        <div class="node brott">
+          <span class="brott-badge">04</span>
+          <span class="when">3 maj kväll</span> · <b>BROTT 4</b><br>
+          <b>Exkludering</b> via privat gmail · utan beslutsunderlag, utan motivering
+          · PJ + SL reserverar sig
+        </div>
+
+        <div class="node brott">
+          <span class="brott-badge">05</span>
+          <span class="when">3 maj kväll</span> · <b>BROTT 5</b><br>
+          Behörigheter dras in (wp-admin, portal) · orelaterat till redaktionsarbetet
+        </div>
+
+        <div class="node endpoint">🚪 DK + LK ute ur redaktionen · utan att veta vad de gjort fel</div>
+
+        <!-- Tolkningsmarkör -->
+        <div class="node markor">
+          <b>Mönstret:</b> medan DK/LK gjorde <b>sju</b> dokumenterade kontaktförsök (SOH ×5, DL ×1, LSL ×1) för att lösa situationen, flyttades SOH:s position längre bort för varje försök. Processen bröts <b>uppifrån</b>.
+          <i>(LSL ×1: sms ena dagen om att ringas nästa — ett försök.)</i>
+        </div>
+
+      </div><!-- /flow -->
+    </div><!-- /canvas-wrap -->
+
+    <footer class="foot">
+      <p>Folkvettkonflikten 2026 · internt analysverktyg · namn används (invigda)</p>
+      <p>Källa: <code>beslutsflodet-artikeln.mmd</code> · varje nod spårbar till master-tidslinjen</p>
+      <p class="sig">🦚 Greve Malcolm — design · 🐡 Futaba — implementation</p>
+    </footer>
+  </main>
+
+</div><!-- /shell -->
+
+</body>
+</html>

@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Två spår, en blindspot</title>
+<!--
+  Folkvettkonflikten 2026 — Fas 1 — internt analysverktyg.
+  LOS-KOPIA: länkar ../style.css för bas-palett + typsnitt.
+  Bara diagram-specifika tokens bor lokalt här (de finns inte i style.css).
+  Källdiagram:  fas1-parallellsparen.mmd (facit, LÅST)
+  Designspec:   DESIGNSPEC-html-fas1-parallellsparen.md (🦚 Greve Malcolm)
+  Implementation: 🐡 Futaba
+  Ren CSS — inga SVG-/JS-pilar (specens krav).
+  Anonymisering: SL1/SL2/SL3 = enbart koder, namnges aldrig.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+:root {
+  /* Signatur-typsnitt (Italiana laddas via länk ovan) */
+  --sig:     'Italiana', Georgia, serif;
+
+  /* --- Diagram-specifika semantiska tokens (designspec) --- */
+
+  /* Spår B — Styrelsen + SOH (rosa/carmine) */
+  --spara:           #fce7f3;
+  --spara-stroke:    #db2777;
+  --spara-text:      #1a1020;
+
+  /* Spår A — Redaktionen, DK + LK (sage/grön) */
+  --sparb:           #dcfce7;
+  --sparb-stroke:    #059669;
+  --sparb-text:      #1a1020;
+
+  /* SMS-noder (blå, kursiv) */
+  --sms-bg:          #e0f2fe;
+  --sms-stroke:      #0284c7;
+  --sms-text:        #0c4a6e;
+
+  /* Markör: SYNKRONICITET + KONVERGENS (amber) */
+  --markor-bg:       #fef3c7;
+  --markor-stroke:   #d97706;
+  --markor-text:     #1a1020;
+
+  /* Tidsaxel-badge */
+  --axel-bg:         #f5f5f5;
+  --axel-stroke:     #9ca3af;
+  --axel-text:       #1a1020;
+
+  /* Kontext-banner */
+  --banner-bg:       color-mix(in srgb, var(--markor-bg) 30%, var(--surface));
+  --banner-stroke:   var(--markor-stroke);
+
+  /* Kopplingslinjer */
+  --line-spara:      rgba(219, 39, 119, 0.45);
+  --line-sparb:      rgba(5, 150, 105, 0.45);
+  --line-synk:       rgba(217, 119, 6, 0.55);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* bas-palett ärvs från ../style.css; bara diagram-tokens överskrivs här */
+    --spara:           #3b0a23;
+    --spara-stroke:    #f472b6;
+    --spara-text:      #f0e8f2;
+
+    --sparb:           #052e16;
+    --sparb-stroke:    #34d399;
+    --sparb-text:      #f0e8f2;
+
+    --sms-bg:          #082940;
+    --sms-stroke:      #38bdf8;
+    --sms-text:        #bae6fd;
+
+    --markor-bg:       #291f00;
+    --markor-stroke:   #fbbf24;
+    --markor-text:     #f0e8f2;
+
+    --axel-bg:         #201829;
+    --axel-stroke:     #4b5563;
+    --axel-text:       #f0e8f2;
+
+    --banner-bg:       color-mix(in srgb, var(--markor-bg) 40%, var(--surface));
+    --banner-stroke:   var(--markor-stroke);
+
+    --line-spara:      rgba(244, 114, 182, 0.5);
+    --line-sparb:      rgba(52, 211, 153, 0.5);
+    --line-synk:       rgba(251, 191, 36, 0.6);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- Sticky topbar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.topbar h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+}
+
+/* ---------- Kontext-banner (utanför .shell, full bredd) ---------- */
+.kontext-banner {
+  background: var(--banner-bg);
+  border-bottom: 1px solid var(--banner-stroke);
+  padding: 14px 32px 14px 28px;
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+.kontext-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--markor-stroke);
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.kontext-text {
+  font-family: var(--body);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0;
+}
+.kontext-text strong {
+  font-weight: 700;
+  color: var(--markor-stroke);
+}
+
+/* ---------- Shell & sidebar ---------- */
+.shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  align-items: start;
+}
+.sidebar {
+  position: sticky;
+  top: 44px;
+  align-self: start;
+  max-height: calc(100vh - 44px);
+  overflow-y: auto;
+  padding: 28px 22px 40px;
+  border-right: 1px solid var(--hairline);
+  background: var(--paper-warm);
+}
+.sidebar .sep {
+  border: none;
+  border-top: 1px solid var(--hairline);
+  margin: 22px 0;
+}
+.sidebar h2 {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin: 0 0 14px;
+}
+
+/* Persongalleri */
+.person {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 11px;
+}
+.badge {
+  min-width: 32px; height: 28px;
+  padding: 0 4px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--mauve);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.person .name { font-family: var(--body); font-size: 0.82rem; line-height: 1.15; color: var(--ink); }
+.person .role { font-family: var(--mono); font-size: 0.62rem; color: var(--mauve); display: block; margin-top: 1px; }
+
+/* Legend */
+.legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.78rem; color: var(--ink); }
+.legend-swatch { flex: 0 0 auto; width: 22px; height: 16px; border-radius: 3px; }
+.sw-spara  { background: var(--spara);    border: 1px solid var(--spara-stroke); }
+.sw-sparb  { background: var(--sparb);    border: 1px solid var(--sparb-stroke); }
+.sw-sms    { background: var(--sms-bg);   border: 1px solid var(--sms-stroke); }
+.sw-markor { background: var(--markor-bg); border: 1.5px dashed var(--markor-stroke); }
+.sw-axel   { background: var(--axel-bg);  border: 1px solid var(--axel-stroke);  border-radius: 999px; }
+
+/* ---------- Main / canvas ---------- */
+.main { padding: 0; }
+
+.canvas-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+}
+
+/* Kolumnrubriker */
+.track-headers {
+  display: grid;
+  grid-template-columns: 1fr 72px 1fr;
+  gap: 0 12px;
+  margin-bottom: 8px;
+}
+.track-head {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 4px 4px 0 0;
+}
+.spara-head {
+  background: var(--spara);
+  color: var(--spara-stroke);
+  border: 1px solid var(--spara-stroke);
+  border-bottom: none;
+}
+.sparb-head {
+  background: var(--sparb);
+  color: var(--sparb-stroke);
+  border: 1px solid var(--sparb-stroke);
+  border-bottom: none;
+}
+.axis-head {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  text-align: center;
+  padding-top: 6px;
+}
+
+/* Tracks — tre kolonner */
+.tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 2px solid var(--hairline);
+  padding-top: 4px;
+}
+
+/* Datumsrad */
+.date-row {
+  display: grid;
+  grid-template-columns: 1fr 72px 1fr;
+  gap: 0 12px;
+  align-items: start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--hairline);
+  position: relative;
+}
+
+/* Track-kolumner */
+.track-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 6px;
+  position: relative;
+}
+
+/* Spårens vertikala "rail"-linje */
+.spara-col::before,
+.sparb-col::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  pointer-events: none;
+  z-index: 0;
+}
+.spara-col::before {
+  left: calc(50% - 1px);
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    var(--spara-stroke) 15%,
+    var(--spara-stroke) 85%,
+    transparent 100%);
+  opacity: 0.25;
+}
+.sparb-col::before {
+  right: calc(50% - 1px);
+  left: auto;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    var(--sparb-stroke) 15%,
+    var(--sparb-stroke) 85%,
+    transparent 100%);
+  opacity: 0.25;
+}
+
+/* Datum-badge (tidsaxeln) */
+.axis-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 6px;
+  gap: 4px;
+}
+.date-stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  padding: 4px 0;
+  border-radius: 999px;
+  background: var(--axel-bg);
+  border: 1px solid var(--axel-stroke);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: var(--axel-text);
+  white-space: nowrap;
+}
+
+/* SYNKRONICITET — full-span rad */
+.synk-row {
+  grid-template-columns: 1fr;
+}
+.synk-span {
+  grid-column: 1 / -1;
+  padding: 8px 6px;
+  display: flex;
+  justify-content: center;
+}
+/* Streckad linje från vänster och höger kant in mot SYNK-noden */
+.synk-row::before,
+.synk-row::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  height: 0;
+  border-top: 1.5px dashed var(--line-synk);
+  width: calc(50% - 320px);
+  pointer-events: none;
+}
+.synk-row::before { left: 0; }
+.synk-row::after  { right: 0; }
+
+/* KONVERGENS — full-span rad */
+.konv-row {
+  border-bottom: none;
+}
+.konv-span {
+  grid-column: 1 / -1;
+  padding: 12px 6px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Pilraden ovanför KONVERGENS-noden (rouge-blandad, mot respektive spår) */
+.konv-arrows {
+  display: flex;
+  justify-content: space-between;
+  width: min(320px, calc(100% - 32px));
+  padding: 0 20%;
+  margin-bottom: 4px;
+}
+.konv-arr {
+  font-size: 0.7rem;
+  line-height: 1;
+  color: color-mix(in srgb, var(--rouge) 55%, var(--markor-stroke));
+  opacity: 0.7;
+}
+
+/* ---------- Noder ---------- */
+.node {
+  position: relative;
+  border-radius: 7px;
+  padding: 11px 14px;
+  font-family: var(--body);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  z-index: 1;
+}
+.node .when {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--mauve);
+  letter-spacing: 0.02em;
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* Citat — enkla citattecken på ALLA noder (spår + SMS), konsekvent */
+.node .q { font-style: italic; }
+.node .q::before { content: '\2018'; }
+.node .q::after  { content: '\2019'; }
+
+/* Agerande aktörer — fetstil */
+.node strong,
+.node b {
+  font-weight: 700;
+  font-style: normal;
+}
+.node.spara-node strong,
+.node.spara-node b { color: color-mix(in srgb, var(--spara-text) 80%, var(--spara-stroke)); }
+.node.sparb-node strong,
+.node.sparb-node b { color: color-mix(in srgb, var(--sparb-text) 80%, var(--sparb-stroke)); }
+.node.sms-node strong,
+.node.sms-node b { color: var(--sms-text); font-weight: 700; }
+
+/* Spår B-nod (Styrelsen + SOH) */
+.node.spara-node {
+  background: var(--spara);
+  border: 1px solid var(--spara-stroke);
+  color: var(--spara-text);
+}
+.node.spara-node .when {
+  color: color-mix(in srgb, var(--spara-stroke) 80%, var(--spara-text));
+}
+
+/* Spår A-nod (Redaktionen) */
+.node.sparb-node {
+  background: var(--sparb);
+  border: 1px solid var(--sparb-stroke);
+  color: var(--sparb-text);
+}
+.node.sparb-node .when {
+  color: color-mix(in srgb, var(--sparb-stroke) 80%, var(--sparb-text));
+}
+
+/* SMS-nod (blå, kursiv) */
+.node.sms-node {
+  background: var(--sms-bg);
+  border: 1px solid var(--sms-stroke);
+  color: var(--sms-text);
+  font-style: italic;
+  border-radius: 12px;
+}
+.node.sms-node .when {
+  color: color-mix(in srgb, var(--sms-stroke) 70%, var(--sms-text));
+  font-style: normal;
+}
+
+/* Markörnod — SYNKRONICITET + KONVERGENS */
+.node.markor {
+  background: var(--markor-bg);
+  border: 2px dashed var(--markor-stroke);
+  color: var(--markor-text);
+  font-weight: 500;
+  text-align: center;
+  max-width: 560px;
+}
+.node.markor.synk-node {
+  max-width: 600px;
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+/* Länk-wrapper — KONVERGENS-noden är ett <a> */
+a.konv-node {
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* KONVERGENS-noden: getingbo-gestalt */
+.node.markor.konv-node {
+  border-radius: 999px;
+  max-width: 320px;
+  padding: 16px 32px;
+
+  /* Solid (ej streckad) — nestets slutna ytterskikt */
+  border: 2px solid var(--markor-stroke);
+
+  /* Amber centrum → rouge vid kanterna */
+  background: radial-gradient(
+    ellipse at center,
+    var(--markor-bg) 0%,
+    color-mix(in srgb, var(--markor-bg) 72%, var(--rouge)) 100%
+  );
+
+  /* Tre box-shadow-ringar: inre glöd, amber-halo, rouge-corona */
+  box-shadow:
+    inset 0 0 14px color-mix(in srgb, var(--markor-stroke) 16%, transparent),
+    0 0 0 4px       color-mix(in srgb, var(--markor-stroke) 12%, transparent),
+    0 0 0 10px      color-mix(in srgb, var(--rouge) 9%,          transparent);
+}
+
+.node.markor.konv-node:hover,
+.node.markor.konv-node:focus-visible {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 18px color-mix(in srgb, var(--markor-stroke) 22%, transparent),
+    0 0 0 4px       color-mix(in srgb, var(--markor-stroke) 22%, transparent),
+    0 0 0 14px      color-mix(in srgb, var(--rouge) 16%,         transparent);
+}
+.node.markor.konv-node:focus-visible {
+  outline: 3px solid var(--rouge);
+  outline-offset: 6px;
+}
+
+/* Emoji */
+.konv-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+  display: block;
+  filter: saturate(0.9);
+}
+
+/* Huvud-etikett */
+.konv-label {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--markor-text);
+  display: block;
+}
+
+/* Ledtext med permanent pil */
+.konv-lead {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--rouge) 75%, var(--markor-stroke));
+  display: block;
+}
+.konv-lead::after {
+  content: '\00a0\2192';
+  font-style: normal;
+  opacity: 0.8;
+}
+
+/* Dark mode — getingbo-uttrycket mörknar och intensifieras */
+@media (prefers-color-scheme: dark) {
+  .node.markor.konv-node {
+    background: radial-gradient(
+      ellipse at center,
+      var(--markor-bg) 0%,
+      color-mix(in srgb, var(--markor-bg) 55%, #3b0a23) 100%
+    );
+    box-shadow:
+      inset 0 0 20px color-mix(in srgb, var(--markor-stroke) 22%, transparent),
+      0 0 0 4px       color-mix(in srgb, var(--markor-stroke) 18%, transparent),
+      0 0 0 12px      color-mix(in srgb, var(--rouge) 13%,         transparent);
+  }
+  .node.markor.konv-node:hover,
+  .node.markor.konv-node:focus-visible {
+    box-shadow:
+      inset 0 0 26px color-mix(in srgb, var(--markor-stroke) 30%, transparent),
+      0 0 0 4px       color-mix(in srgb, var(--markor-stroke) 28%, transparent),
+      0 0 0 16px      color-mix(in srgb, var(--rouge) 20%,         transparent);
+  }
+  .konv-lead {
+    color: color-mix(in srgb, var(--rouge) 65%, #fbbf24);
+  }
+  .konv-arr {
+    color: color-mix(in srgb, var(--rouge) 45%, var(--markor-stroke));
+  }
+}
+
+/* ---------- Footer ---------- */
+.foot {
+  max-width: 1100px;
+  margin: 48px auto 0;
+  padding: 24px 24px 28px;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--mauve);
+  border-top: 1px solid var(--hairline);
+}
+.foot p { margin: 0.3rem 0; }
+.foot .sig {
+  font-family: var(--sig);
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  margin-top: 12px;
+}
+.foot .sig .malcolm { color: #502846; }
+.foot .sig .futaba  { color: var(--mauve); font-family: var(--mono); font-size: 0.78rem; }
+@media (prefers-color-scheme: dark) {
+  .foot .sig .malcolm { color: #AA88A4; }
+}
+
+/* ---------- Responsivt ---------- */
+@media (max-width: 860px) {
+  .kontext-banner {
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 16px;
+  }
+  .shell {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    position: static;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  /* Behåll tre-kolonnsgrafen — spåren förblir parallella, kolumnerna
+     krymper bara (samma princip som beslutsflodet-referensen). Mittaxeln
+     blir smal, typsnitt och padding mindre. */
+  .canvas-wrap {
+    padding: 16px 8px 60px;
+  }
+  .track-headers {
+    grid-template-columns: 1fr 34px 1fr;
+    gap: 0 6px;
+  }
+  .track-head {
+    font-size: 0.54rem;
+    letter-spacing: 0.06em;
+    padding: 5px 4px;
+  }
+  .axis-head { font-size: 0.5rem; letter-spacing: 0.08em; }
+
+  .date-row {
+    grid-template-columns: 1fr 34px 1fr;
+    gap: 0 6px;
+  }
+  .track-col { padding: 0 2px; gap: 8px; }
+
+  /* rails närmare mitten när kolumnerna är smala */
+  .spara-col::before { left: calc(50% - 1px); }
+  .sparb-col::before { right: calc(50% - 1px); }
+
+  .node {
+    font-size: 0.7rem;
+    line-height: 1.4;
+    padding: 8px 9px;
+  }
+  .node .when { font-size: 0.56rem; }
+
+  /* smal datum-badge i mittkolumnen */
+  .axis-col { padding-top: 4px; }
+  .date-stamp {
+    width: 100%;
+    max-width: 34px;
+    padding: 3px 0;
+    font-size: 0.5rem;
+    letter-spacing: 0;
+  }
+
+  /* full-span markörer: linjerna döljs (för smalt), noderna krymper */
+  .synk-row::before, .synk-row::after { display: none; }
+  .node.markor.synk-node { max-width: 100%; font-size: 0.68rem; }
+  .node.markor.konv-node { max-width: calc(100% - 32px); padding: 14px 22px; }
+  .konv-arrows { width: calc(100% - 32px); }
+}
+
+@media (max-width: 480px) {
+  .canvas-wrap { padding: 14px 4px 56px; }
+  .track-headers { grid-template-columns: 1fr 26px 1fr; gap: 0 4px; }
+  .date-row { grid-template-columns: 1fr 26px 1fr; gap: 0 4px; }
+  .track-head { font-size: 0.48rem; padding: 4px 2px; letter-spacing: 0.03em; }
+  .track-col { padding: 0 1px; gap: 7px; }
+  .node { font-size: 0.64rem; line-height: 1.38; padding: 7px 7px; }
+  .node .when { font-size: 0.52rem; }
+  .date-stamp { max-width: 26px; font-size: 0.46rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Informationsklyftan: parallella spår mot getingboet</h1>
+</div>
+
+<!-- ============ KONTEXT-BANNER (utanför .shell, full bredd) ============ -->
+<div class="kontext-banner" role="note" aria-label="Kontextnot">
+  <span class="kontext-eyebrow">Kontextnot</span>
+  <p class="kontext-text">
+    <strong>17–21 apr</strong> — DK skickar en kritisk artikel för granskning
+    hos SOH (17 apr). SOH svarar efter tre dagar (21 apr) utan att nämna att
+    han redan diskuterat en Folkvett-version av styrelsens artikel. DK och LK
+    vet inte att de har trampat i ett getingbo.
+  </p>
+</div>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+
+    <hr class="sep" style="margin-top:0">
+    <h2>Aktörer</h2>
+
+    <!-- Fullnamn: SOH, DK, LK -->
+    <div class="person">
+      <span class="badge">SOH</span>
+      <span>
+        <span class="name">Sven Ove Hansson</span>
+        <span class="role">ansvarig utgivare</span>
+      </span>
+    </div>
+    <div class="person">
+      <span class="badge">DK</span>
+      <span>
+        <span class="name">Dan Katz</span>
+        <span class="role">redaktör</span>
+      </span>
+    </div>
+    <div class="person">
+      <span class="badge">LK</span>
+      <span>
+        <span class="name">Lotten Kalenius</span>
+        <span class="role">redaktör</span>
+      </span>
+    </div>
+
+    <!-- Kodade: SL1, SL2, SL3 — inga riktiga namn -->
+    <div class="person">
+      <span class="badge">SL1</span>
+      <span>
+        <span class="name">Styrelseledamot 1</span>
+        <span class="role">styrelseledamot</span>
+      </span>
+    </div>
+    <div class="person">
+      <span class="badge">SL2</span>
+      <span>
+        <span class="name">Styrelseledamot 2</span>
+        <span class="role">styrelseledamot</span>
+      </span>
+    </div>
+    <div class="person">
+      <span class="badge">SL3</span>
+      <span>
+        <span class="name">Styrelseledamot 3</span>
+        <span class="role">styrelseledamot</span>
+      </span>
+    </div>
+
+    <hr class="sep">
+    <h2>Teckenförklaring</h2>
+
+    <div class="legend-item">
+      <span class="legend-swatch sw-spara"></span>Spår B · Styrelsen + SOH
+    </div>
+    <div class="legend-item">
+      <span class="legend-swatch sw-sparb"></span>Spår A · Redaktionen (DK + LK)
+    </div>
+    <div class="legend-item">
+      <span class="legend-swatch sw-sms"></span>SMS-konversation
+    </div>
+    <div class="legend-item">
+      <span class="legend-swatch sw-markor"></span>Synkronicitet / Konvergens
+    </div>
+    <div class="legend-item">
+      <span class="legend-swatch sw-axel"></span>Tidsaxel
+    </div>
+
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <div class="canvas-wrap">
+
+      <!-- Kolumnrubriker -->
+      <div class="track-headers">
+        <div class="track-head spara-head">Spår B · Styrelsen + SOH</div>
+        <div class="axis-head">Tid</div>
+        <div class="track-head sparb-head">Spår A · Redaktionen (DK + LK)</div>
+      </div>
+
+      <!-- Diagramrader -->
+      <div class="tracks">
+
+        <!-- 10 april -->
+        <div class="date-row">
+          <div class="track-col spara-col">
+            <div class="node spara-node">
+              <span class="when">✉️ 10 april</span>
+              <strong>SL1</strong> meddelar styrelsen + <strong>SOH</strong> att SDS-artikeln publicerats
+            </div>
+          </div>
+          <div class="axis-col">
+            <span class="date-stamp">10 apr</span>
+          </div>
+          <div class="track-col sparb-col">
+            <div class="node sparb-node">
+              <span class="when">✉️ 10 april</span>
+              <strong>SOH</strong> vidarebefordrar SDS-artikeln till redaktionen som <span class="q">Notisunderlag</span> utan kontext
+            </div>
+            <div class="node sms-node">
+              <span class="when">💬 10 april</span>
+              <strong>DK</strong>: <span class="q">Jag är f ö mycket skeptisk till den debattartikel som VoF publicerat</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11 april -->
+        <div class="date-row">
+          <div class="track-col spara-col">
+            <div class="node spara-node">
+              <span class="when">✉️ 11 april</span>
+              <strong>SL2</strong>: <span class="q">Snyggt jobbat!</span> i styrelsens tråd
+            </div>
+          </div>
+          <div class="axis-col">
+            <span class="date-stamp">11 apr</span>
+          </div>
+          <div class="track-col sparb-col">
+            <div class="node sparb-node">
+              <span class="when">✉️ 11 april</span>
+              <strong>DK</strong> till <strong>LK</strong>: <span class="q">politiskt färgat</span> · <strong>LK</strong> reagerar på <span class="q">den generellt kritiska tonen</span> mot regeringen
+            </div>
+          </div>
+        </div>
+
+        <!-- 12 april -->
+        <div class="date-row">
+          <div class="track-col spara-col">
+            <div class="node spara-node">
+              <span class="when">✉️ 12 april</span>
+              <strong>SL3</strong>: <span class="q">Instämmer!</span> men kritik måste lyftas <span class="q">även mot oppositionen</span>
+            </div>
+          </div>
+          <div class="axis-col">
+            <span class="date-stamp">12 apr</span>
+          </div>
+          <div class="track-col sparb-col">
+            <div class="node sparb-node">
+              <span class="when">✉️ 12 april</span>
+              <strong>LK</strong> levererar utkast på kommentar avstämd mot 700 s. lagrådsremiss · <strong>DK</strong>: <span class="q">Lysande!</span>
+            </div>
+            <div class="node sms-node">
+              <span class="when">💬 12 april</span>
+              <strong>LK</strong> vill att <strong>DK</strong> presenterar texten: <span class="q">vill gömma mig bakom en etablerad man</span> — en kvinna som kritiserar avfärdas som <span class="q">catfight</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SYNKRONICITET (efter 12 apr-raden) -->
+        <div class="date-row synk-row">
+          <div class="synk-span" role="note">
+            <div class="node markor synk-node">
+              SYNKRONICITET 11–12 apr<br>
+              SL3 i styrelsen och DK &amp; LK i redaktionen pekar på samma problem:<br>
+              artikeln är politiskt obalanserad
+            </div>
+          </div>
+        </div>
+
+        <!-- 13 april -->
+        <div class="date-row">
+          <div class="track-col spara-col">
+            <div class="node spara-node">
+              <span class="when">✉️ 13 april</span>
+              <strong>SOH</strong> till <strong>SL3</strong>: <span class="q">Kan detta bli en artikel i Folkvett?</span>
+            </div>
+            <div class="node spara-node">
+              <span class="when">✉️ 13 april</span>
+              <strong>SL3</strong> till <strong>SOH</strong>: <span class="q">Tassa varsamt… exempel även från oppositionen</span>
+            </div>
+            <div class="node spara-node">
+              <span class="when">✉️ 13 april</span>
+              <strong>SOH</strong> till <strong>SL3</strong>: <span class="q">Själv är jag ingen lämpad undertecknare (medlem i s)</span>
+            </div>
+          </div>
+          <div class="axis-col">
+            <span class="date-stamp">13 apr</span>
+          </div>
+          <div class="track-col sparb-col">
+          </div>
+        </div>
+
+        <!-- 16 april -->
+        <div class="date-row">
+          <div class="track-col spara-col">
+          </div>
+          <div class="axis-col">
+            <span class="date-stamp">16 apr</span>
+          </div>
+          <div class="track-col sparb-col">
+            <div class="node sparb-node">
+              <span class="when">✉️ 16 april</span>
+              <strong>DK</strong> mejlar <strong>LK</strong>: Ämne: Nu djävligt bra · <strong>DK</strong>: <span class="q">Jag är skitnöjd.</span> <strong>DK</strong> &amp; <strong>LK</strong> filar klart · <strong>LK</strong>: <span class="q">SOH kan ju inte ha läst debattartikeln ordentligt… han var ju för tusan med och skrev [...] stadgarna.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 17 april -->
+        <div class="date-row">
+          <div class="track-col spara-col">
+          </div>
+          <div class="axis-col">
+            <span class="date-stamp">17 apr</span>
+          </div>
+          <div class="track-col sparb-col">
+            <div class="node sparb-node">
+              <span class="when">✉️ 17 april</span>
+              <strong>DK</strong> skickar deras artikel till <strong>SOH</strong>: <span class="q">vi [är] inte så imponerade av debattartikeln som publicerats</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 20 april -->
+        <div class="date-row">
+          <div class="track-col spara-col">
+          </div>
+          <div class="axis-col">
+            <span class="date-stamp">20 apr</span>
+          </div>
+          <div class="track-col sparb-col">
+            <div class="node sms-node">
+              <span class="when">💬 20 april</span>
+              <strong>LK</strong>: <span class="q">Fått någon reaktion från SOH?</span> · <strong>DK</strong>: <span class="q">Nix</span> · <span class="q">Messar honom</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 21 april -->
+        <div class="date-row">
+          <div class="track-col spara-col">
+            <div class="node spara-node">
+              <span class="when">✉️ 21 april</span>
+              <strong>SOH</strong> svarar <strong>DK</strong> &amp; <strong>LK</strong>: diplomatiskt, <span class="q">VoF är och måste vara en religiöst och politiskt obunden organisation</span> / <span class="q">hör av er till styrelsen</span> · <strong>DK</strong> till <strong>LK</strong>: <span class="q">inget om godkännande för publicering</span>
+            </div>
+          </div>
+          <div class="axis-col">
+            <span class="date-stamp">21 apr</span>
+          </div>
+          <div class="track-col sparb-col">
+            <div class="node sms-node">
+              <span class="when">💬 21 april</span>
+              <strong>LK</strong>: <span class="q">Fortfarande inget från SOH?</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KONVERGENS (underst) — getingbo, klickbar länk till beslutsflödet -->
+        <div class="date-row konv-row">
+          <div class="konv-span">
+            <div class="konv-arrows" aria-hidden="true">
+              <span class="konv-arr">▼</span>
+              <span class="konv-arr">▼</span>
+            </div>
+            <a href="beslutsflodet-artikeln-processen.html"
+               class="node markor konv-node"
+               aria-label="Konvergens — fortsätt till nästa diagram">
+              <span class="konv-icon" aria-hidden="true">🐝</span>
+              <span class="konv-label">KONVERGENS</span>
+              <span class="konv-lead">getingboet brister</span>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /tracks -->
+    </div><!-- /canvas-wrap -->
+
+    <footer class="foot">
+      <p>Folkvettkonflikten 2026 · Fas 1 · 10–21 april · internt analysverktyg · namn används (invigda)</p>
+      <p>Källa: <code>fas1-parallellsparen.mmd</code> · varje nod spårbar till master-tidslinjen</p>
+      <p class="sig"><span class="malcolm">🦚 Greve Malcolm</span> — design &nbsp;·&nbsp; <span class="futaba">🐡 Futaba — implementation</span></p>
+    </footer>
+  </main>
+
+</div><!-- /shell -->
+
+</body>
+</html>

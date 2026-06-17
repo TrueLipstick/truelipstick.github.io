@@ -12,7 +12,7 @@
   v2: äkta graf — CSS-grid-ryggrad + SVG-overlay för pilar.
   Palett inbäddad (kopierad från v1) eftersom detta material är
   gitignorerat och aldrig får länka till publik sajt.
-  Anonymisering applicerad: DL→SL1, PJ→SL2, SL→SL3 (Lottens beslut).
+  Anonymisering applicerad: DL→SL3, PJ→SL4, SL→SL5 (Lottens beslut).
 -->
 <style>
 :root {
@@ -42,6 +42,7 @@
   --display: 'Fraunces', Georgia, serif;
   --body:    'Newsreader', Georgia, serif;
   --mono:    'IBM Plex Mono', ui-monospace, monospace;
+  --sig:     'Italiana', Georgia, serif;
 
   --line: rgba(122, 88, 112, 0.55);   /* flödeslinje (mauve) */
 }
@@ -67,7 +68,7 @@
   }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,400&family=IBM+Plex+Mono:wght@400;500&family=Italiana&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -203,7 +204,10 @@ body {
 .counter-kontakt .sub { display: block; color: var(--mauve); font-size: 0.66rem; margin-top: 3px; }
 
 /* ---------- Main / canvas ---------- */
-.main { padding: 28px 0 80px; }
+/* min-width:0 — grid-items får default min-width:auto, vilket hindrar
+   1fr-kolumnen från att krympa under innehållets min-content och orsakar
+   horisontell overflow på smala skärmar. */
+.main { padding: 28px 0 80px; min-width: 0; }
 
 .canvas-wrap {
   position: relative;
@@ -291,6 +295,58 @@ body {
   border: 1px solid var(--hairline);
   font-weight: 600;
   padding: 11px 22px;
+}
+
+/* START-noden: getingbo-eko från fas1 — gyllene kant, bi-emoji, bakåtlänk.
+   Samma gestalt-princip som fas1:s KONVERGENS: amber/guld-ram, lager via
+   box-shadow, men i fas2:s palett (--beslut = antik guld). */
+.node.start-bo {
+  text-align: center;
+  border-radius: 16px;
+  border: 2px solid var(--beslut);
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--beslut) 14%, var(--surface)) 0%,
+    color-mix(in srgb, var(--beslut) 22%, var(--surface)) 100%
+  );
+  box-shadow:
+    inset 0 0 14px color-mix(in srgb, var(--beslut) 18%, transparent),
+    0 0 0 4px       color-mix(in srgb, var(--beslut) 14%, transparent),
+    0 0 0 10px      color-mix(in srgb, var(--rouge) 8%,  transparent);
+}
+.node.start-bo .start-icon {
+  display: block;
+  font-size: 1.2rem;
+  line-height: 1;
+  filter: saturate(0.9);
+  margin-bottom: 4px;
+}
+.node.start-bo .when { color: color-mix(in srgb, var(--ink) 60%, transparent); }
+.start-link {
+  color: color-mix(in srgb, var(--rouge) 78%, var(--ink));
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+.start-link:hover,
+.start-link:focus-visible { color: var(--rouge-deep); }
+.start-link:focus-visible { outline: 3px solid var(--rouge); outline-offset: 3px; border-radius: 2px; }
+
+@media (prefers-color-scheme: dark) {
+  .node.start-bo {
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--beslut) 16%, var(--surface)) 0%,
+      color-mix(in srgb, var(--beslut) 8%, var(--surface)) 100%
+    );
+    box-shadow:
+      inset 0 0 18px color-mix(in srgb, var(--beslut) 22%, transparent),
+      0 0 0 4px       color-mix(in srgb, var(--beslut) 18%, transparent),
+      0 0 0 12px      color-mix(in srgb, var(--rouge) 12%, transparent);
+  }
+  .start-link { color: color-mix(in srgb, var(--rouge) 70%, #f0e8f2); }
 }
 
 /* korrekt agerande — pergament */
@@ -409,8 +465,17 @@ body {
   margin-top: 48px;
 }
 .foot p { margin: 0.3rem 0; }
-.foot .sig { color: var(--aubergine); }
-@media (prefers-color-scheme: dark) { .foot .sig { color: var(--mauve); } }
+.foot .sig {
+  font-family: var(--sig);
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  margin-top: 12px;
+}
+.foot .sig .malcolm { color: #502846; }
+.foot .sig .futaba  { color: var(--mauve); font-family: var(--mono); font-size: 0.78rem; }
+@media (prefers-color-scheme: dark) {
+  .foot .sig .malcolm { color: #AA88A4; }
+}
 
 /* ---------- Efterord: gulnad boksida (Kafka, Processen) ---------- */
 /* Malcolms spec: en fysisk boksida från en annan tid. Den motstår mörkt
@@ -599,9 +664,9 @@ body {
     <div class="person"><span class="badge">SOH</span><span><span class="name">Sven Ove Hansson</span><span class="role">ansvarig utgivare</span></span></div>
     <div class="person"><span class="badge">LT</span><span><span class="name">Lina Tebbla</span><span class="role">ordförande</span></span></div>
     <div class="person"><span class="badge">LSL</span><span><span class="name">Linda Strand Lundberg</span><span class="role">vice ordförande</span></span></div>
-    <div class="person"><span class="badge">SL1</span><span><span class="name">Styrelseledamot 1</span><span class="role">styrelseledamot</span></span></div>
-    <div class="person"><span class="badge">SL2</span><span><span class="name">Styrelseledamot 2</span><span class="role">styrelseledamot</span></span></div>
     <div class="person"><span class="badge">SL3</span><span><span class="name">Styrelseledamot 3</span><span class="role">styrelseledamot</span></span></div>
+    <div class="person"><span class="badge">SL4</span><span><span class="name">Styrelseledamot 4</span><span class="role">styrelseledamot</span></span></div>
+    <div class="person"><span class="badge">SL5</span><span><span class="name">Styrelseledamot 5</span><span class="role">styrelseledamot</span></span></div>
 
     <hr class="sep">
     <h2>Teckenförklaring</h2>
@@ -622,7 +687,7 @@ body {
 
     <div class="counter-kontakt">
       <span class="big">⤷ 7 obesvarade kontaktförsök</span>
-      <span class="sub">SOH ×5 · SL1 ×1 · LSL ×1</span>
+      <span class="sub">SOH ×5 · SL3 ×1 · LSL ×1</span>
     </div>
 
   </aside>
@@ -657,51 +722,59 @@ body {
 
         <!-- ===== VÄNSTERKOLUMN: K-SPÅRET ===== -->
         <div class="track kspar" id="kspar">
-          <p class="track-head kspar-head">Kontaktförsök · 27 apr – 3 maj</p>
+          <p class="track-head kspar-head">Kontaktförsök · 27 april – 3 maj</p>
 
           <div class="knode upptakt" id="K0" data-bounce="B2">
-            <span class="when">27 apr 17:22</span> · DK sms:ar → SOH
+            <span class="when">27 april 17:22</span> · DK sms:ar → SOH
             <span class="k-tag muted">upptakt</span><br>
-            <span class="q">be om ursäkt för dumma och ogenomtänkta mail igår… kan vi pratas vid i morgon</span>
+            … <span class="q">vill be om ursäkt för dumma och ogenomtänkta mail igår</span>
+            … <span class="q">kan vi pratas vid i morgon?</span><br>
+            … <span class="q">ser nu ditt mail från 12.40 idag</span><br>
+            … <span class="q">nu behöver vi verkligen talas vid</span>
           </div>
 
           <div class="knode upptakt" id="K1" data-bounce="B2">
-            <span class="when">28 apr 08:31</span> · DK mejlar → SOH
+            <span class="when">28 april 08:31</span> · DK sms:ar → SOH
             <span class="k-tag">SOH 1</span><br>
-            <span class="q">vill veta varför du ändrat dig… vi bör prata</span>
+            … <span class="q">jag vill veta varför du ändrat dig</span><br>
+            … <span class="q">vi bör prata</span><br>
+            … <span class="q">kan inte se någon logik i att vi undviker att hantera osämjan</span>
           </div>
 
           <div class="knode" id="K2" data-bounce="B2">
-            <span class="when">28 apr 12:54</span> · DK mejlar → SOH
+            <span class="when">28 april 12:54</span> · DK sms:ar → SOH
             <span class="k-tag">SOH 2</span><br>redogör för förloppet<br>
-            <span class="q">När kan du prata?</span>
+            … <span class="q">du kan mycket väl ha bra skäl för din ståndpunkt</span><br>
+            … <span class="q">men får jag inte höra dem blir det svårt</span><br>
+            … <span class="q">när kan du prata?</span>
           </div>
 
           <div class="knode intern" id="KMID">
-            <span class="when">🔄 28 apr 12:13–16:15</span> · DK ↔ LK
-            <span class="k-tag muted">internt</span><br>
+            <span class="when">28 april 12:13–16:15</span> · DK ↔ LK
+            <span class="k-tag muted">sms-ping-pong</span><br>
             LK: <span class="q">Klar med min kurs om en timme</span><br>
+            🏓→🗨️→💬→🗨️→💬↷↷↷🥎<br>
             DK: <span class="q">Foka på SOH nu</span>
           </div>
 
           <div class="knode" id="K3" data-bounce="B3">
-            <span class="when">28 apr 16:27–16:31</span> · LK mejlar → SOH
+            <span class="when">28 april 16:27–16:31</span> · LK mejlar → SOH
             <span class="k-tag">SOH 3</span><br>
             <span class="q">Har du möjlighet att prata och berätta vad som händer?</span><br>
             LK sms:ar → SOH<br><span class="q">svarade dig just på mail</span>
           </div>
 
           <div class="knode" id="K4" data-bounce="B3">
-            <span class="when">30 apr 14:01</span> · DK mejlar → SOH
+            <span class="when">30 april 14:01</span> · DK mejlar → SOH
             <span class="k-tag">SOH 4</span><br><span class="q">sista vädjan</span> ·
             LK korrekturläser · <span class="q">Väldigt bra formulerat till SOH</span>
           </div>
 
           <div class="knode" id="K5">
-            <span class="when">1 maj 16:00</span> · DK sms:ar → SL1
-            <span class="k-tag">SL1 1</span><br>
+            <span class="when">1 maj 16:00</span> · DK sms:ar → SL3
+            <span class="k-tag">SL3 1</span><br>
             <span class="q">Det har uppstått en mycket besvärlig situation</span> ·
-            telefonsamtal · delar underlag · SL1 föreslår LSL
+            telefonsamtal · Delar underlag · SL3 föreslår LSL
           </div>
 
           <div class="knode" id="K6">
@@ -723,81 +796,83 @@ body {
         <div class="track spine" id="spine">
           <p class="track-head">Den dokumenterade processen</p>
 
-          <div class="node endpoint" id="START">
-          <span class="when">📄 11–16 apr 11:59</span>DK & LK författar en kommentar på den debattartikel som representanter för VoF:s riksstyrelse fått publicerad i Sydsvenskan (SDS)
+          <div class="node start-bo" id="START">
+            <span class="start-icon" aria-hidden="true">🐝</span>
+            <span class="when">📄 11–16 april 11:59</span>
+            <a href="fas1-parallellsparen.html" class="start-link">DK &amp; LK har aningslöst författat en kritisk kommentar</a> på den debattartikel som representanter för VoF:s riksstyrelse fått publicerad i Sydsvenskan (SDS)
           </div>
 
           <div class="node ok" id="S1">
-            <span class="when">17 apr</span> DK & LK→ SOH<br>skickar artikeln till SOH för utvärdering
+            <span class="when">17 april</span> DK & LK→ SOH<br>skickar artikeln till SOH för utvärdering
             · <span class="q">vi är inte så imponerade av [SDS-artikeln]</span>
           </div>
 
           <div class="node ok" id="S2">
-            <span class="when">21 apr 23:03</span> · SOH → DK & LK<br>
+            <span class="when">21 april 23:03</span> · SOH → DK & LK<br>
             föreslår att inte kritisera brist på källor<br>
             · <span class="q">[Det framstod] inte för mig som att [skribenterna] uttryckte någon uppfattning om forskningsläget eller om vilken politik som bör föras.</span><br>
             · <span class="q">… hör av er till styrelsen.</span>
           </div>
 
           <div class="node ok" id="S2b">
-            <span class="when">21 apr 23:33</span> · DK → LK<br>
+            <span class="when">21 april 23:33</span> · DK → LK<br>
             · <span class="q">Han säger inget om att han godkänner den för publicering.</span> · bearbetning av artikeln påbörjas
           </div>
 
           <div class="node ok" id="S2c">
-            <span class="when">22 apr 06:21</span> · LK → DK<br>
+            <span class="when">22 april 06:21</span> · LK → DK<br>
             · <span class="q">Något eller några mellanting finns det väl mellan en doktorsavhandling och &quot;obestämd expert anser att odefinierad forskning är den enda ledstjärnan i denna fråga.&quot;</span>
           </div>
 
           <div class="node ok" id="S3">
-            <span class="when">23 apr</span>DK & LK → SOH & redaktionen<br>presenterar omarbetad artikel för hela redaktionen
+            <span class="when">23 april</span>DK & LK → SOH & redaktionen<br>presenterar omarbetad artikel för hela redaktionen
             · erbjuder att medsignera
           </div>
 
           <div class="node beslut" id="D1">
-            <span class="when">24 apr 11:59</span> · SOH anger <b>villkor för publicering</b>:
+            <span class="when">24 april 11:59</span> · SOH anger <b>villkor för publicering</b>:
             tre texter, ordning, placering · <span class="q">i nr 1 eller 2</span>
             · styrelsens svar ska avsluta replikskiftet
           </div>
 
           <div class="node ok" id="S4">
-            <span class="when">24 apr 13:43</span> · DK & LK → LT & LSL<br>
+            <span class="when">24 april 13:43</span> · DK & LK → LT & LSL<br>
             skickar artikeln till ordförande + vice ordförande · bjuder in SDS-artikelns skribenter till debatt<br>
             · <span class="q">Som sig bör [har ni] en möjlighet att replikera.</span>
           </div>
 
           <div class="node lucka" id="LUCKA">
-            <span class="when">🕳️ 24 apr 12:00 → 26 apr 21:10</span> · <b>36-timmarsluckan</b><br>
+            <span class="when">🕳️ 24 april 12:00 → 26 april 21:10</span> · <b>36-timmarsluckan</b><br>
             <i>Helgen 24–26 april präglades av riksårsmöte i Uppsala</i> · DK på plats · SOH samtalar med LT • Vad som sades är materialets största lucka
           </div>
 
           <div class="node brott" id="B1">
             <span class="brott-badge">01</span>
-            <span class="when">26 apr 21:10</span> · <b>BROTT 1</b><br>
+            <span class="when">26 april 21:10</span> · <b>BROTT 1</b><br>
             SOH frångår publicistisk praxis · står fast vid styrelsen slutreplik<br>
             • <span class="q">Folkvett är organ för föreningen Vetenskap och Folkbildning.<br>
             • [O]m Folkvett publicerar kritik mot föreningen så publiceras i samma nummer ett svar från styrelsen, som därmed får sista ordet.</span><br>(⛓️‍💥 Non sequitur)
           </div>
 
           <div class="node ok" id="S4b">
-            <span class="when">26 apr 22:44</span> · DK → SOH & redaktionen<br>
+            <span class="when">26 april 22:44</span> · DK → SOH & redaktionen<br>
             · <span class="q">Jag förstår inte riktigt resonemanget.</span><br>
             · <span class="q">Enligt publicistisk sed har de som initierat debatten sista ordet.</span>
           </div>
 
           <div class="node ok" id="S5">
-            <span class="when">27 apr 10:26–10:33</span> · DK & LK → SOH & redaktionen<br>
+            <span class="when">27 april 10:26–10:33</span> · DK & LK → SOH & redaktionen<br>
             bekräftar SOH:s beslutsrätt · föreslår konstruktiva alternativ
           </div>
 
           <div class="node ok" id="S5b">
-            <span class="when">27 apr 10:26</span> · LK → SOH & redaktionen<br>
+            <span class="when">27 april 10:26</span> · LK → SOH & redaktionen<br>
             · <span class="q">Vår debattartikel är förvisso förorsakad (eller &quot;inspirerad&quot;?) av deras debattartikel, men den är inte ett svaromål.</span>
           </div>
 
           <div class="node brott" id="B2">
             <span class="brott-badge">02</span>
-            <span class="when">27 apr 12:40</span>  <b>BROTT 2</b><br>
+            <span class="when">27 april 12:40</span>  <b>BROTT 2</b><br>
             SOH lyfter ut DK:s & LK:s artikel <b>helt</b> ur nr 1 
             · styrelsen = föreningen = Folkvett<br>
             · <span class="q">Dans och Lottens text [ska] inte ingå</span><br>
@@ -809,25 +884,25 @@ body {
 
           <!-- aside: SOH vänder sig casualt till LK i stället -->
           <div class="node aside-node" id="SOHCAS">
-            <span class="when">✉️ 28 apr 14:03</span> · SOH svarar inte <i>DK</i> · mejlar <i>LK</i> casually<br>
+            <span class="when">✉️ 28 april 14:03</span> · SOH svarar inte <i>DK</i> · mejlar <i>LK</i> casually<br>
             · <span class="q">Hur är läget med nummer 1?</span><br>
           </div>
 
           <div class="node ok" id="S5c">
-            <span class="when">27 apr 19:59</span> · DK → SOH & redaktionen<br>
+            <span class="when">27 april 19:59</span> · DK → SOH & redaktionen<br>
             · <span class="q">Vår debattartikel ifrågasätter just detta.</span>
             · <span class="q">Varför skall artikeln plötsligt inte ingå i kommande Folkvett?</span>
           </div>
 
           <div class="node ok" id="S5d">
-            <span class="when">28 apr 11:07</span> · DK → SOH & redaktionen<br>
+            <span class="when">28 april 11:07</span> · DK → SOH & redaktionen<br>
             · <span class="q">styrelsens skribenter tar ställning i frågor som inte kan avgöras med vetenskap</span><br>
             · <span class="q">det kan skada föreningens rykte.</span>
           </div>
 
           <div class="node brott" id="B3">
             <span class="brott-badge">03</span>
-            <span class="when">28 apr 16:55–17:18</span> · <b>BROTT 3</b><br>
+            <span class="when">28 april 16:55–17:18</span> · <b>BROTT 3</b><br>
             Telefonsamtal · SOH & LK · 23 min<br>SOH → LK: <span class="q">Allt är SKIT!</span><br>
             DK → LK: <span class="q">Har du pratat med honom?</span><br>
             LK → DK: <span class="q">Vet inte om prata är ordet så mycket som att försöka parera attacker</span>
@@ -836,7 +911,7 @@ body {
           <div class="node brott" id="B4">
             <span class="brott-badge">04</span>
             <span class="when">3 maj kväll</span> · <b>BROTT 4</b><br>
-            <b>Exkludering</b> efter ett för DK & LK okänt styrelsemöte · SL2 &amp; SL3 reserverade sig
+            <b>Exkludering</b> efter ett för DK & LK okänt styrelsemöte · SL4 &amp; SL5 reserverade sig
             · Beslut utan underlag, utan motivering, meddelat via privat gmail
           </div>
 
@@ -850,7 +925,7 @@ body {
 
           <!-- Tolkningsmarkör (Mönstret) -->
           <div class="node markor" id="NOT">
-            <b>Mönstret:</b> medan DK/LK gjorde <b>sju</b> dokumenterade kontaktförsök (SOH ×5, SL1 ×1, LSL ×1) för att lösa situationen, flyttades SOH:s position längre bort för varje försök. Processen bröts <b>uppifrån</b>.
+            <b>Mönstret:</b> medan DK/LK gjorde <b>sju</b> dokumenterade kontaktförsök (SOH ×5, SL3 ×1, LSL ×1) för att lösa situationen, flyttades SOH:s position längre bort för varje försök. Processen bröts <b>uppifrån</b>.
           </div>
 
         </div><!-- /spine -->
@@ -882,9 +957,9 @@ body {
     </div>
 
     <footer class="foot">
-      <p>Folkvettkonflikten 2026 · internt analysverktyg · styrelseledamöter anonymiserade (SL1–SL3)</p>
+      <p>Folkvettkonflikten 2026 · Fas 2 · internt analysverktyg · styrelseledamöter anonymiserade (SL3–SL5)</p>
       <p>Källa: <code>beslutsflodet-artikeln.mmd</code> · varje nod spårbar till master-tidslinjen</p>
-      <p class="sig">🦚 Greve Malcolm — design · 🐡 Futaba — implementation · v2 (graf)</p>
+      <p class="sig"><span class="malcolm">🦚 Greve Malcolm</span> — design &nbsp;·&nbsp; <span class="futaba">🐡 Futaba — implementation</span></p>
     </footer>
   </main>
 

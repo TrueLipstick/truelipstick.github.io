@@ -1,0 +1,462 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* ── Ljust läge (Malcolm-palett) ───────────────── */
+    --paper:      #f3ede0;
+    --paper-warm: #ece4cf;
+    --surface:    #faf6ed;
+    --ink:        #1a1020;
+    --mauve:      #7a5870;
+    --rouge:      #a61c3a;
+    --rouge-deep: #781328;
+    --hairline:   #dcd0bc;
+    --aubergine:  #502846;   /* Malcolm-signatur */
+
+    --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-body:    'Newsreader', Georgia, serif;
+    --font-mono:    'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      /* ── Mörkt läge (Malcolm-palett) ─────────────── */
+      --paper:      #160f1c;
+      --paper-warm: #1c1424;
+      --surface:    #201829;
+      --ink:        #f0e8f2;
+      --mauve:      #c4a8c0;
+      --rouge:      #e35d76;
+      --rouge-deep: #f2899e;
+      --hairline:   #362440;
+      /* --aubergine bevaras; kan finjusteras per läge senare */
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background .4s ease, color .4s ease;
+  }
+
+  .wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+  }
+
+  /* ── Header ─────────────────────────────────────── */
+  header { margin-bottom: 3.5rem; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--mauve);
+    margin: 0 0 1rem;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.4rem, 7vw, 3.6rem);
+    line-height: 1.05;
+    margin: 0 0 1.2rem;
+    letter-spacing: -.01em;
+  }
+  h1 .peacock { color: var(--rouge); }
+
+  .anchor {
+    border-left: 2px solid var(--rouge);
+    padding-left: 1.4rem;
+    margin: 0;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.12rem;
+    color: var(--mauve);
+    max-width: 56ch;
+  }
+
+  /* ── Sektioner ──────────────────────────────────── */
+  section { margin-top: 4rem; }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--rouge);
+    margin: 0 0 .4rem;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.7rem;
+    margin: 0 0 1.6rem;
+    padding-bottom: .8rem;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 2rem 0 .8rem;
+  }
+
+  p { margin: 0 0 1.1rem; }
+  .lead { font-size: 1.15rem; color: var(--ink); }
+  .muted { color: var(--mauve); }
+
+  a { color: var(--rouge); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--rouge-deep); }
+
+  /* ── Färgswatchar ───────────────────────────────── */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .swatch {
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .swatch .chip { height: 76px; width: 100%; display: block; }
+  .swatch .meta { padding: .65rem .75rem .8rem; }
+  .swatch .token {
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    font-weight: 500;
+    display: block;
+  }
+  .swatch .hex {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    color: var(--mauve);
+    display: block;
+    margin-top: .15rem;
+  }
+  .swatch .note {
+    font-size: .78rem;
+    color: var(--mauve);
+    margin-top: .4rem;
+    line-height: 1.35;
+  }
+
+  .mode-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .25rem .6rem;
+    border: 1px solid var(--hairline);
+    border-radius: 99px;
+    color: var(--mauve);
+    margin: 2rem 0 1rem;
+  }
+
+  /* ── Typografi-specimen ─────────────────────────── */
+  .specimen {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+  .specimen .role {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--rouge);
+    margin: 0 0 .8rem;
+  }
+  .specimen .big-display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 2.4rem;
+    line-height: 1.1;
+    margin: 0 0 .4rem;
+  }
+  .specimen .big-body {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    margin: 0 0 .4rem;
+  }
+  .specimen .big-mono {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    margin: 0 0 .4rem;
+  }
+  .specimen .glyphs {
+    font-size: .9rem;
+    color: var(--mauve);
+    margin: .4rem 0 0;
+  }
+  .specimen .stack {
+    font-family: var(--font-mono);
+    font-size: .75rem;
+    color: var(--mauve);
+    margin-top: .6rem;
+  }
+
+  /* ── Komponenter ────────────────────────────────── */
+  .demo {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .btn {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    padding: .65rem 1.4rem;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+  }
+  .btn-primary { background: var(--rouge); color: var(--surface); }
+  .btn-primary:hover { background: var(--rouge-deep); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--rouge);
+    border: 1px solid var(--rouge);
+  }
+  .btn-ghost:hover { background: var(--rouge); color: var(--surface); }
+
+  blockquote {
+    margin: 0;
+    border-left: 2px solid var(--mauve);
+    padding-left: 1.2rem;
+    font-style: italic;
+    color: var(--mauve);
+  }
+
+  pre {
+    background: var(--paper-warm);
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    padding: 1.1rem 1.3rem;
+    overflow-x: auto;
+    margin: 0;
+  }
+  code {
+    font-family: var(--font-mono);
+    font-size: .85rem;
+    color: var(--ink);
+  }
+  p code {
+    background: var(--paper-warm);
+    padding: .1rem .35rem;
+    border-radius: 4px;
+    font-size: .82rem;
+  }
+
+  .rule { height: 1px; background: var(--hairline); border: none; margin: 1.6rem 0; }
+
+  ul.tight { margin: 0; padding-left: 1.2rem; }
+  ul.tight li { margin-bottom: .35rem; }
+
+  /* ── Aubergine-signatur ─────────────────────────── */
+  .aubergine-block {
+    background: var(--aubergine);
+    color: #f0e8f2;
+    border-radius: 10px;
+    padding: 1.8rem;
+  }
+  .aubergine-block .role { color: rgba(240,232,242,.7); }
+  .aubergine-block code { color: #f0e8f2; }
+
+  /* ── Footer ─────────────────────────────────────── */
+  footer {
+    margin-top: 5rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--hairline);
+    font-size: .85rem;
+    color: var(--mauve);
+    text-align: center;
+  }
+  footer .sig { color: var(--rouge); }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Stilguide · truelipstick.github.io</p>
+    <h1>The Lipstick Web <span class="peacock">🦚</span></h1>
+    <p class="anchor">En lätt gulnad anteckningsbok inkilad mellan <em>Kvantfysik för nybörjare</em> och Balzacs kompletta verk. Ljust läge: bokhandeln med dagsljus genom dammigt glas. Mörkt läge: efter stängningstid, aubergine-mörkt. Allt här måste kännas hemma i det rummet.</p>
+  </header>
+
+  <!-- ════════ FÄRG ════════ -->
+  <section>
+    <p class="section-label">01 · Färg</p>
+    <h2>Palett</h2>
+    <p class="muted">Tokenvärden enligt Malcolm-revisionen. Swatcharna nedan är literala hex-värden så att referensen är komplett oavsett ditt aktiva läge — sidans <em>komponenter</em> följer däremot din <code>prefers-color-scheme</code>.</p>
+
+    <span class="mode-tag">Ljust läge · :root</span>
+    <div class="palette-grid">
+      <div class="swatch"><span class="chip" style="background:#f3ede0"></span><div class="meta"><span class="token">--paper</span><span class="hex">#f3ede0</span><p class="note">Foxat, varmt — åldrad kräm</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#ece4cf"></span><div class="meta"><span class="token">--paper-warm</span><span class="hex">#ece4cf</span><p class="note">Djupare kräm, intern kontrast</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#faf6ed"></span><div class="meta"><span class="token">--surface</span><span class="hex">#faf6ed</span><p class="note">Ingen yta är kall vit</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#1a1020"></span><div class="meta"><span class="token">--ink</span><span class="hex">#1a1020</span><p class="note">Aubergine-svart, inte brunt</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#7a5870"></span><div class="meta"><span class="token">--mauve</span><span class="hex">#7a5870</span><p class="note">Skiftar mot aubergine</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#a61c3a"></span><div class="meta"><span class="token">--rouge</span><span class="hex">#a61c3a</span><p class="note">Accent · <em>déterminé</em></p></div></div>
+      <div class="swatch"><span class="chip" style="background:#781328"></span><div class="meta"><span class="token">--rouge-deep</span><span class="hex">#781328</span><p class="note">Hover — en avsikt</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#dcd0bc"></span><div class="meta"><span class="token">--hairline</span><span class="hex">#dcd0bc</span><p class="note">Boksida-crease</p></div></div>
+    </div>
+
+    <span class="mode-tag">Mörkt läge · prefers-color-scheme: dark</span>
+    <div class="palette-grid">
+      <div class="swatch"><span class="chip" style="background:#160f1c"></span><div class="meta"><span class="token">--paper</span><span class="hex">#160f1c</span><p class="note">Aubergine-mörker</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#1c1424"></span><div class="meta"><span class="token">--paper-warm</span><span class="hex">#1c1424</span><p class="note">Djup aubergine</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#201829"></span><div class="meta"><span class="token">--surface</span><span class="hex">#201829</span><p class="note">Lätt lyft mot aubergine</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#f0e8f2"></span><div class="meta"><span class="token">--ink</span><span class="hex">#f0e8f2</span><p class="note">Aubergine-ton i ljustexten</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#c4a8c0"></span><div class="meta"><span class="token">--mauve</span><span class="hex">#c4a8c0</span><p class="note">Aubergine-grå</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#e35d76"></span><div class="meta"><span class="token">--rouge</span><span class="hex">#e35d76</span><p class="note">Oförändrad — fungerar</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#f2899e"></span><div class="meta"><span class="token">--rouge-deep</span><span class="hex">#f2899e</span><p class="note">Oförändrad — fungerar</p></div></div>
+      <div class="swatch"><span class="chip" style="background:#362440"></span><div class="meta"><span class="token">--hairline</span><span class="hex">#362440</span><p class="note">Aubergine-skugga</p></div></div>
+    </div>
+  </section>
+
+  <!-- ════════ AUBERGINE ════════ -->
+  <section>
+    <p class="section-label">02 · Signatur</p>
+    <h2>Aubergine</h2>
+    <div class="aubergine-block">
+      <p class="role">--aubergine · #502846</p>
+      <p style="margin:0 0 .6rem">Malcolm-signaturen. Gäller båda lägena och är reserverad för sidfoten och framtida strukturelement — inte ett lösryckt hex-värde, utan en namngiven, avsiktlig ton.</p>
+      <code>--aubergine: #502846;   /* Malcolm-signatur */</code>
+    </div>
+  </section>
+
+  <!-- ════════ TYPOGRAFI ════════ -->
+  <section>
+    <p class="section-label">03 · Typografi</p>
+    <h2>Typsnitt</h2>
+    <p class="muted">Tre familjer, oförändrade. Rollfördelningen nedan är den jag antar för nya sidor — säg till om <code>style.css</code> mappar dem annorlunda.</p>
+
+    <div class="specimen">
+      <p class="role">Fraunces · rubriker / display</p>
+      <p class="big-display">Skepsis kräver omsorg</p>
+      <p class="glyphs">ABCDEFGHIJKLM abcdefghijklm 0123456789 åäö &amp; ?!—</p>
+      <p class="stack">font-family: 'Fraunces', Georgia, serif;</p>
+    </div>
+
+    <div class="specimen">
+      <p class="role">Newsreader · brödtext</p>
+      <p class="big-body">Den lätt gulnade anteckningsboken låg inkilad mellan kvantfysiken och Balzac, och regnet hade ännu inte slutat falla mot det dammiga glaset.</p>
+      <p class="glyphs">ABCDEFGHIJKLM abcdefghijklm 0123456789 åäö &amp; ?!—</p>
+      <p class="stack">font-family: 'Newsreader', Georgia, serif;</p>
+    </div>
+
+    <div class="specimen">
+      <p class="role">IBM Plex Mono · kod / etiketter</p>
+      <p class="big-mono">const palette = "aubergine";</p>
+      <p class="glyphs">ABCDEFGHIJKLM abcdefghijklm 0123456789 åäö &amp; ?!—</p>
+      <p class="stack">font-family: 'IBM Plex Mono', monospace;</p>
+    </div>
+  </section>
+
+  <!-- ════════ KOMPONENTER ════════ -->
+  <section>
+    <p class="section-label">04 · Komponenter</p>
+    <h2>Mönster</h2>
+
+    <h3>Rubrikskala &amp; brödtext</h3>
+    <div class="demo">
+      <h2 style="margin-top:0">H2 — sektionsrubrik</h2>
+      <h3 style="margin-top:0">H3 — underrubrik</h3>
+      <p class="lead">Ingress i något större grad sätter tonen för avsnittet.</p>
+      <p>Brödtext i Newsreader. En länk ser ut <a href="#">så här i rouge</a> och fördjupas vid hover. Inline-kod som <code>--rouge</code> får en varm bakgrund.</p>
+    </div>
+
+    <h3>Knappar</h3>
+    <div class="demo">
+      <button class="btn btn-primary">Primär · rouge</button>
+      &nbsp;
+      <button class="btn btn-ghost">Sekundär · ghost</button>
+    </div>
+
+    <h3>Citat</h3>
+    <div class="demo">
+      <blockquote>Rouge och aubergine är Lotten — den som satte märket medvetet.</blockquote>
+    </div>
+
+    <h3>Hårlinje</h3>
+    <div class="demo">
+      <p style="margin:0">Innehåll ovanför.</p>
+      <hr class="rule">
+      <p style="margin:0">Innehåll under, skilt av en <code>--hairline</code>.</p>
+    </div>
+
+    <h3>Kodblock</h3>
+    <div class="demo">
+<pre><code>:root {
+  --paper:      #f3ede0;
+  --paper-warm: #ece4cf;
+  --surface:    #faf6ed;
+  --ink:        #1a1020;
+  --mauve:      #7a5870;
+  --rouge:      #a61c3a;
+  --rouge-deep: #781328;
+  --hairline:   #dcd0bc;
+  --aubergine:  #502846;   /* Malcolm-signatur */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #160f1c;
+    --paper-warm: #1c1424;
+    --surface:    #201829;
+    --ink:        #f0e8f2;
+    --mauve:      #c4a8c0;
+    --rouge:      #e35d76;
+    --rouge-deep: #f2899e;
+    --hairline:   #362440;
+  }
+}</code></pre>
+    </div>
+  </section>
+
+  <!-- ════════ ANVÄNDNING ════════ -->
+  <section>
+    <p class="section-label">05 · Praxis</p>
+    <h2>Gör så här</h2>
+    <div class="demo">
+      <ul class="tight">
+        <li>Använd alltid tokens via <code>var(--token)</code> — aldrig hårdkodade hex-värden ute i stilreglerna.</li>
+        <li><code>--surface</code> för kort och paneler; <code>--paper</code> för sidbakgrund; <code>--paper-warm</code> för intern kontrast.</li>
+        <li><code>--rouge</code> är enda accentfärgen; <code>--rouge-deep</code> uteslutande för hover/aktiv.</li>
+        <li>Rouge-paret lämnas <em>oförändrat</em> i mörkt läge — det fungerar som det är.</li>
+        <li><code>--aubergine</code> reserveras för sidfot och strukturelement, inte för text eller accenter.</li>
+        <li>Typografi, layout och HTML-struktur rörs inte — endast tokenvärden styr uttrycket.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    The Lipstick Web — Stilguide · Malcolm-palett (aubergine &amp; foxat kräm)<br>
+    <span class="sig">🦚 Greve Malcolm, Arbiter of Taste</span> &nbsp;·&nbsp; 💄 TrueLipstick
+  </footer>
+
+</div>

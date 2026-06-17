@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processen: en redaktionell kronologi</title>
+<!--
+  Folkvettkonflikten 2026 — internt analysverktyg.
+  Källdiagram:  beslutsflodet-artikeln.mmd (facit)
+  Designspec:   DESIGNSPEC-html-beslutsflodet-v2-graf.md (🦚 Greve Malcolm)
+  Implementation: 🐡 Futaba
+  v2: äkta graf — CSS-grid-ryggrad + SVG-overlay för pilar.
+  Palett inbäddad (kopierad från v1) eftersom detta material är
+  gitignorerat och aldrig får länka till publik sajt.
+  Anonymisering applicerad: DL→SL1, PJ→SL2, SL→SL3 (Lottens beslut).
+-->
+<style>
+:root {
+  color-scheme: light dark;
+
+  /* TheLipstickWeb-palett (Malcolm-revision), ljust läge — bevarad från v1 */
+  --paper:       #f3ede0;
+  --paper-warm:  #ece4cf;
+  --surface:     #faf6ed;
+  --ink:         #1a1020;
+  --mauve:       #7a5870;
+  --rouge:       #a61c3a;
+  --rouge-deep:  #781328;
+  --hairline:    #dcd0bc;
+  --aubergine:   #502846;
+
+  /* Diagram-specifika semantiska tokens (designspec) */
+  --ok:          #b5a48a;   /* korrekt agerande — gammalt pergament */
+  --ok-stroke:   #8a7a5e;
+  --brott:       var(--rouge);
+  --brott-text:  #f0e8f2;
+  --beslut:      #c9a84c;   /* antik ram */
+  --lucka:       var(--aubergine);
+  --lucka-text:  #f0e8f2;
+
+  /* Typografi */
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Newsreader', Georgia, serif;
+  --mono:    'IBM Plex Mono', ui-monospace, monospace;
+
+  --line: rgba(122, 88, 112, 0.55);   /* flödeslinje (mauve) */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #160f1c;
+    --paper-warm: #1c1424;
+    --surface:    #201829;
+    --ink:        #f0e8f2;
+    --mauve:      #c4a8c0;
+    --rouge:      #e35d76;
+    --rouge-deep: #f2899e;
+    --hairline:   #362440;
+
+    --ok:          #6e5f4a;
+    --ok-stroke:   #8a7a5e;
+    --brott-text:  #f0e8f2;
+    --beslut:      #c9a84c;
+    --lucka-text:  #f0e8f2;
+
+    --line: rgba(196, 168, 192, 0.5);
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- Sticky header ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.topbar h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+}
+
+/* ---------- Layout ---------- */
+.shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  align-items: start;
+}
+
+/* ---------- Sidebar (bevarad från v1) ---------- */
+.sidebar {
+  position: sticky;
+  top: 44px;
+  align-self: start;
+  max-height: calc(100vh - 44px);
+  overflow-y: auto;
+  padding: 28px 22px 40px;
+  border-right: 1px solid var(--hairline);
+  background: var(--paper-warm);
+}
+.sidebar .sep {
+  border: none;
+  border-top: 1px solid var(--hairline);
+  margin: 22px 0;
+}
+.sidebar h2 {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin: 0 0 14px;
+}
+
+/* Persongalleri */
+.person {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 11px;
+}
+.badge {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1.5px solid var(--mauve);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.person .name { font-family: var(--body); font-size: 0.82rem; line-height: 1.15; color: var(--ink); }
+.person .role { font-family: var(--mono); font-size: 0.62rem; color: var(--mauve); display: block; margin-top: 1px; }
+
+/* Legend */
+.legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.78rem; color: var(--ink); }
+.legend-swatch { flex: 0 0 auto; width: 22px; height: 16px; border-radius: 3px; }
+.sw-ok      { background: var(--ok); border: 1px solid var(--ok-stroke); }
+.sw-brott   { background: var(--brott); }
+.sw-beslut  { background: transparent; border: 2px solid var(--beslut); }
+.sw-lucka   { background: var(--lucka); border: 2px dashed color-mix(in srgb, var(--lucka) 60%, var(--ink)); }
+.legend-line { width: 22px; height: 0; border-top: 1.5px dashed var(--rouge-deep); position: relative; }
+.legend-flow { width: 22px; height: 0; border-top: 1.6px solid var(--mauve); }
+
+/* Counters */
+.counter-brott {
+  text-align: center;
+  margin: 6px 0 4px;
+}
+.counter-brott .num {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--rouge);
+}
+.counter-brott .label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  color: var(--mauve);
+  text-transform: uppercase;
+  display: block;
+  margin-top: 4px;
+}
+.counter-kontakt {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--rouge);
+  margin-top: 16px;
+  line-height: 1.5;
+}
+.counter-kontakt .big { font-size: 0.95rem; font-weight: 500; }
+.counter-kontakt .sub { display: block; color: var(--mauve); font-size: 0.66rem; margin-top: 3px; }
+
+/* ---------- Main / canvas ---------- */
+.main { padding: 28px 0 80px; }
+
+.canvas-wrap {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* SVG layer for connectors — ligger ÖVER griden men fångar inga klick */
+.connectors {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+
+/* ---------- Grafens grid ---------- */
+/* Två kolumner: K-spåret (smalt, vänster) + ryggraden (brett, höger). */
+.graph {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+  column-gap: clamp(40px, 7vw, 120px);
+  align-items: start;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.track.spine { gap: 26px; }
+
+/* K-spåret positioneras absolut av JS så varje K-nod hamnar i höjd
+   med sitt BROTT-mål — då blir studs-pilen kort och horisontell. */
+.track.kspar {
+  position: relative;
+  padding-top: 0;
+}
+.track.kspar .knode {
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+.track.kspar .track-head {
+  position: absolute;
+  top: 0; left: 0;
+}
+
+.track-head {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin: 0 0 2px;
+}
+
+/* ---------- Nodes (bevarade från v1) ---------- */
+.node {
+  position: relative;
+  border-radius: 7px;
+  padding: 13px 16px;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+}
+.spine .node { width: min(580px, 100%); }
+.node .when { font-family: var(--mono); font-size: 0.66rem; color: var(--mauve); letter-spacing: 0.02em; display: block; margin-bottom: 4px; }
+.node b { font-weight: 600; }
+.node i, .node .q { font-style: italic; color: color-mix(in srgb, var(--ink) 82%, var(--mauve)); }
+.node .q::before { content: "’"; }
+.node .q::after  { content: "’"; }
+
+/* endpoint (stadier in/ut) */
+.node.endpoint {
+  border-radius: 999px;
+  text-align: center;
+  background: var(--paper-warm);
+  border: 1px solid var(--hairline);
+  font-weight: 600;
+  padding: 11px 22px;
+}
+
+/* korrekt agerande — pergament */
+.node.ok {
+  background: var(--ok);
+  border-color: var(--ok-stroke);
+  color: var(--ink);
+}
+.node.ok .when { color: color-mix(in srgb, var(--ink) 60%, transparent); }
+
+/* beslutsromb */
+.node.beslut {
+  background: transparent;
+  border: 2px solid var(--beslut);
+  color: var(--ink);
+}
+.node.beslut .when { color: color-mix(in srgb, var(--ink) 65%, transparent); }
+
+/* lucka */
+.node.lucka {
+  background: var(--lucka);
+  color: var(--lucka-text);
+  border: 2px dashed color-mix(in srgb, var(--lucka-text) 45%, var(--lucka));
+  font-style: italic;
+}
+.node.lucka .when { color: color-mix(in srgb, var(--lucka-text) 75%, transparent); }
+.node.lucka i { color: color-mix(in srgb, var(--lucka-text) 88%, transparent); }
+
+/* BROTT */
+.node.brott {
+  background: var(--brott);
+  color: var(--brott-text);
+  border: 1px solid color-mix(in srgb, var(--brott) 70%, #000);
+  border-left: 4px solid var(--rouge-deep);
+  font-weight: 500;
+}
+.node.brott .when { color: color-mix(in srgb, var(--brott-text) 80%, transparent); }
+.node.brott i, .node.brott .q { color: color-mix(in srgb, var(--brott-text) 92%, transparent); }
+.node.brott .brott-badge {
+  position: absolute;
+  top: -10px; left: -10px;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--rouge-deep);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--paper);
+  z-index: 3;
+}
+/* casualt utfall (SOH vänder sig till LK) — endpoint-variant, aside */
+.node.aside-node {
+  background: var(--paper-warm);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  font-size: 0.8rem;
+}
+
+/* tolkningsmarkör (Mönstret) */
+.node.markor {
+  background: color-mix(in srgb, var(--beslut) 16%, var(--surface));
+  border: 1px solid var(--beslut);
+  font-style: italic;
+  font-size: 0.82rem;
+}
+
+/* ---------- K-spårsnoder (kontaktförsök) ---------- */
+.knode {
+  position: relative;
+  padding: 9px 13px 9px 14px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ok) 14%, var(--surface));
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--rouge-deep);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+.knode .when { font-family: var(--mono); font-size: 0.62rem; color: var(--mauve); display: block; margin-bottom: 3px; }
+.knode .q { font-style: italic; }
+.knode .q::before { content: "’"; }
+.knode .q::after  { content: "’"; }
+.knode.upptakt {
+  border-style: dashed;
+  border-left-style: solid;
+  opacity: 0.92;
+}
+.knode .k-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-left: 4px;
+}
+.knode .k-tag.muted { color: var(--mauve); }
+
+/* intern K-nod (DK↔LK) — neutralare, ingen studs */
+.knode.intern {
+  border-left-color: var(--ok-stroke);
+  background: color-mix(in srgb, var(--ok) 10%, var(--surface));
+}
+
+/* ---------- Footer ---------- */
+.foot {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 44px 32px 0;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--mauve);
+  border-top: 1px solid var(--hairline);
+  margin-top: 48px;
+}
+.foot p { margin: 0.3rem 0; }
+.foot .sig { color: var(--aubergine); }
+@media (prefers-color-scheme: dark) { .foot .sig { color: var(--mauve); } }
+
+/* ---------- Efterord: gulnad boksida (Kafka, Processen) ---------- */
+/* Malcolms spec: en fysisk boksida från en annan tid. Den motstår mörkt
+   läge — ett gammalt papper lyser lite mot mörkret. Sitter under hela
+   grafen, inte bredvid slutnoden: domen läses, sjunker in, och boken
+   letas sedan upp i byrålådan. */
+.afterword {
+  max-width: 1080px;
+  margin: 3rem auto 0;
+  padding: 0 32px 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: clip;   /* rotationshörnet ska aldrig skapa sidoscroll */
+}
+.biblio-note {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  opacity: 0.55;
+  margin: 0 0 0.85rem;
+  text-align: center;
+}
+
+.book-page {
+  position: relative;
+  margin: 0;
+  width: 300px;            /* ~53×85mm pocketproportion, skalad */
+  min-height: 482px;
+  padding: 30px 28px 22px;
+  box-sizing: border-box;
+  transform: rotate(-1.8deg);
+  /* varm gräddgul med ojämnt åldrande (radiell gradient) */
+  background:
+    radial-gradient(120% 120% at 42% 38%,
+      #ede0bb 0%, #e8d5aa 52%, #d4bf92 100%);
+  border-radius: 2px;
+  box-shadow: 3px 4px 12px rgba(80, 40, 70, 0.25);
+  filter: contrast(1.05) brightness(0.97);
+  display: flex;
+  flex-direction: column;
+}
+/* finkornig pappersnoise ovanpå gradienten */
+.book-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  filter: url(#bookGrain);
+  opacity: 0.045;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+.paper-grain { position: absolute; width: 0; height: 0; }
+
+.book-blurb {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+.book-blurb p {
+  font-family: var(--body);
+  font-style: italic;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: #2a1f14;          /* trycksvartbrunt, inte rent svart */
+  margin: 0 0 1rem;
+  hyphens: auto;
+}
+.book-blurb .book-copy {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+  margin-top: 1.4rem;
+}
+
+.book-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  margin-top: 18px;
+}
+.book-footer .publisher-logo {
+  display: block;
+  height: auto;
+  /* handskriven Bakhåll-signatur: svart på transparent. Multiply låter
+     papperstonen lysa igenom så loggan ser tryckt på sidan ut. */
+  opacity: 0.78;
+  mix-blend-mode: multiply;
+}
+.book-footer .isbn {
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.05em;
+  color: #2a1f14;
+  opacity: 0.7;
+}
+
+/* Mörkt läge: boksidan förblir varm och ljus, men skuggan förstärks. */
+@media (prefers-color-scheme: dark) {
+  .book-page {
+    box-shadow: 3px 4px 18px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ---------- SVG path-stilar ---------- */
+.flow-path   { fill: none; stroke: var(--line); stroke-width: 1.6; }
+.flow-path.dotted { stroke-dasharray: 2 5; }
+/* kontaktförsök: prickad pil utan huvud. Stroke sätts inline som en
+   gradient (full opacitet vid avsändaren → 0 vid mottagaren). */
+.bounce-path { fill: none; stroke-width: 1.6; stroke-dasharray: 2 4; }
+.praxis-path { fill: none; stroke: var(--rouge-deep); stroke-width: 1.5; stroke-dasharray: 3 4; }
+.sohcas-in   { fill: none; stroke: var(--mauve); stroke-width: 1.5; opacity: 0.7; }
+.not-path    { fill: none; stroke: var(--rouge-deep); stroke-width: 1.3; stroke-dasharray: 2 5; opacity: 0.7; }
+
+.edge-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  fill: var(--mauve);
+  letter-spacing: 0.02em;
+}
+.edge-label.rouge { fill: var(--rouge-deep); }
+
+/* ---------- Responsiv: mobil-först kollaps ---------- */
+@media (max-width: 720px) {
+  .shell { grid-template-columns: 1fr; }
+  .sidebar {
+    position: static;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .canvas-wrap { padding: 0 8px; }
+  .foot { padding-left: 10px; padding-right: 10px; }
+
+  /* Behåll tvåkolumnsgrafen — K-spåret klistrat vänster, ryggraden höger.
+     Kolumnerna krymper men ligger kvar sida vid sida, studsarna förblir
+     korta och horisontella. */
+  .graph {
+    grid-template-columns: minmax(96px, 0.9fr) minmax(0, 1.4fr);
+    column-gap: clamp(14px, 4vw, 36px);
+  }
+  .spine .node { width: 100%; }
+  .knode { font-size: 0.66rem; padding: 7px 9px 7px 10px; }
+  .knode .when { font-size: 0.56rem; }
+  .node { font-size: 0.74rem; padding: 10px 11px; }
+  .track-head { font-size: 0.54rem; }
+}
+
+@media (max-width: 480px) {
+  .canvas-wrap { padding: 0 5px; }
+  .graph { column-gap: 12px; }
+  .node { font-size: 0.68rem; line-height: 1.4; }
+  .knode { font-size: 0.6rem; }
+  .knode .when, .node .when { font-size: 0.52rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Processen: en redaktionell kronologi</h1>
+</div>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR (bevarad från v1, anonymiserad) ============ -->
+  <aside class="sidebar">
+
+    <hr class="sep" style="margin-top:0">
+    <h2>Aktörer</h2>
+
+    <div class="person"><span class="badge">DK</span><span><span class="name">Dan Katz</span><span class="role">redaktör</span></span></div>
+    <div class="person"><span class="badge">LK</span><span><span class="name">Lotten Kalenius</span><span class="role">redaktör</span></span></div>
+    <div class="person"><span class="badge">SOH</span><span><span class="name">Sven Ove Hansson</span><span class="role">ansvarig utgivare</span></span></div>
+    <div class="person"><span class="badge">LT</span><span><span class="name">Lina Tebbla</span><span class="role">ordförande</span></span></div>
+    <div class="person"><span class="badge">LSL</span><span><span class="name">Linda Strand Lundberg</span><span class="role">vice ordförande</span></span></div>
+    <div class="person"><span class="badge">SL1</span><span><span class="name">Styrelseledamot 1</span><span class="role">styrelseledamot</span></span></div>
+    <div class="person"><span class="badge">SL2</span><span><span class="name">Styrelseledamot 2</span><span class="role">styrelseledamot</span></span></div>
+    <div class="person"><span class="badge">SL3</span><span><span class="name">Styrelseledamot 3</span><span class="role">styrelseledamot</span></span></div>
+
+    <hr class="sep">
+    <h2>Teckenförklaring</h2>
+
+    <div class="legend-item"><span class="legend-swatch sw-ok"></span>Korrekt agerande</div>
+    <div class="legend-item"><span class="legend-swatch sw-beslut"></span>Beslutspunkt</div>
+    <div class="legend-item"><span class="legend-swatch sw-brott"></span>Processbrott</div>
+    <div class="legend-item"><span class="legend-swatch sw-lucka"></span>Lucka i materialet</div>
+    <div class="legend-item"><span class="legend-flow"></span>Dokumenterad process</div>
+    <div class="legend-item"><span class="legend-line"></span>Fruktlöst kontaktförsök</div>
+
+    <hr class="sep">
+
+    <div class="counter-brott">
+      <span class="num">5</span>
+      <span class="label">processbrott identifierade</span>
+    </div>
+
+    <div class="counter-kontakt">
+      <span class="big">⤷ 7 obesvarade kontaktförsök</span>
+      <span class="sub">SOH ×5 · SL1 ×1 · LSL ×1</span>
+    </div>
+
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <div class="canvas-wrap" id="canvas">
+
+      <!-- SVG-lager: pilarna ritas hit av JS efter att noderna mätts -->
+      <svg class="connectors" id="connectors" aria-hidden="true">
+        <defs>
+          <marker id="arrow-flow" viewBox="0 0 10 10" refX="8.5" refY="5"
+                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--line)"></path>
+          </marker>
+          <marker id="arrow-praxis" viewBox="0 0 10 10" refX="8.5" refY="5"
+                  markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--rouge-deep)"></path>
+          </marker>
+          <marker id="arrow-sohcas" viewBox="0 0 10 10" refX="8.5" refY="5"
+                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--mauve)"></path>
+          </marker>
+          <!-- per-pil-gradienter för kontaktförsökens utfasning fylls i av JS -->
+          <g id="edge-gradients"></g>
+        </defs>
+        <g id="edges"></g>
+      </svg>
+
+      <!-- ============ GRAFENS NODER ============ -->
+      <div class="graph" id="graph">
+
+        <!-- ===== VÄNSTERKOLUMN: K-SPÅRET ===== -->
+        <div class="track kspar" id="kspar">
+          <p class="track-head kspar-head">Kontaktförsök · 27 apr – 3 maj</p>
+
+          <div class="knode upptakt" id="K0" data-bounce="B2">
+            <span class="when">27 apr 17:22</span> · DK sms:ar → SOH
+            <span class="k-tag muted">upptakt</span><br>
+            <span class="q">be om ursäkt för dumma och ogenomtänkta mail igår… kan vi pratas vid i morgon</span>
+          </div>
+
+          <div class="knode upptakt" id="K1" data-bounce="B2">
+            <span class="when">28 apr 08:31</span> · DK mejlar → SOH
+            <span class="k-tag">SOH 1</span><br>
+            <span class="q">vill veta varför du ändrat dig… vi bör prata</span>
+          </div>
+
+          <div class="knode" id="K2" data-bounce="B2">
+            <span class="when">28 apr 12:54</span> · DK mejlar → SOH
+            <span class="k-tag">SOH 2</span><br>redogör för förloppet<br>
+            <span class="q">När kan du prata?</span>
+          </div>
+
+          <div class="knode intern" id="KMID">
+            <span class="when">🔄 28 apr 12:13–16:15</span> · DK ↔ LK
+            <span class="k-tag muted">internt</span><br>
+            LK: <span class="q">Klar med min kurs om en timme</span><br>
+            DK: <span class="q">Foka på SOH nu</span>
+          </div>
+
+          <div class="knode" id="K3" data-bounce="B3">
+            <span class="when">28 apr 16:27–16:31</span> · LK mejlar → SOH
+            <span class="k-tag">SOH 3</span><br>
+            <span class="q">Har du möjlighet att prata och berätta vad som händer?</span><br>
+            LK sms:ar → SOH<br><span class="q">svarade dig just på mail</span>
+          </div>
+
+          <div class="knode" id="K4" data-bounce="B3">
+            <span class="when">30 apr 14:01</span> · DK mejlar → SOH
+            <span class="k-tag">SOH 4</span><br><span class="q">sista vädjan</span> ·
+            LK korrekturläser · <span class="q">Väldigt bra formulerat till SOH</span>
+          </div>
+
+          <div class="knode" id="K5">
+            <span class="when">1 maj 16:00</span> · DK sms:ar → SL1
+            <span class="k-tag">SL1 1</span><br>
+            <span class="q">Det har uppstått en mycket besvärlig situation</span> ·
+            telefonsamtal · delar underlag · SL1 föreslår LSL
+          </div>
+
+          <div class="knode" id="K6">
+            <span class="when">2 maj 09:26</span> · DK sms:ar → LSL
+            <span class="k-tag">LSL 1</span><br>
+            DK: <span class="q">Har du någon möjlighet att prata med mig idag eller imorgon?</span><br>
+            LSL: <span class="q">Jag ringer dig i morgon förmiddag!</span>
+          </div>
+
+          <div class="knode" id="K7" data-bounce="B4">
+            <span class="when">3 maj 14:51</span> · DK ↔ LSL
+            <span class="k-tag">LSL 1</span><br>
+            LSL lovar kontakta SOH · DK delar underlag · 
+            <span class="q">Lästes 2026-05-03</span> · LSL återkommer aldrig
+          </div>
+        </div>
+
+        <!-- ===== HÖGERKOLUMN: RYGGRADEN ===== -->
+        <div class="track spine" id="spine">
+          <p class="track-head">Den dokumenterade processen</p>
+
+          <div class="node endpoint" id="START">
+          <span class="when">📄 11–16 apr 11:59</span>DK & LK författar en kommentar på den debattartikel som representanter för VoF:s riksstyrelse fått publicerad i Sydsvenskan (SDS)
+          </div>
+
+          <div class="node ok" id="S1">
+            <span class="when">17 apr</span> DK & LK→ SOH<br>skickar artikeln till SOH för utvärdering
+            · <span class="q">vi är inte så imponerade av [SDS-artikeln]</span>
+          </div>
+
+          <div class="node ok" id="S2">
+            <span class="when">21 apr 23:03</span> · SOH → DK & LK<br>
+            föreslår att inte kritisera brist på källor<br>
+            · <span class="q">[Det framstod] inte för mig som att [skribenterna] uttryckte någon uppfattning om forskningsläget eller om vilken politik som bör föras.</span><br>
+            · <span class="q">… hör av er till styrelsen.</span>
+          </div>
+
+          <div class="node ok" id="S2b">
+            <span class="when">21 apr 23:33</span> · DK → LK<br>
+            · <span class="q">Han säger inget om att han godkänner den för publicering.</span> · bearbetning av artikeln påbörjas
+          </div>
+
+          <div class="node ok" id="S2c">
+            <span class="when">22 apr 06:21</span> · LK → DK<br>
+            · <span class="q">Något eller några mellanting finns det väl mellan en doktorsavhandling och &quot;obestämd expert anser att odefinierad forskning är den enda ledstjärnan i denna fråga.&quot;</span>
+          </div>
+
+          <div class="node ok" id="S3">
+            <span class="when">23 apr</span>DK & LK → SOH & redaktionen<br>presenterar omarbetad artikel för hela redaktionen
+            · erbjuder att medsignera
+          </div>
+
+          <div class="node beslut" id="D1">
+            <span class="when">24 apr 11:59</span> · SOH anger <b>villkor för publicering</b>:
+            tre texter, ordning, placering · <span class="q">i nr 1 eller 2</span>
+            · styrelsens svar ska avsluta replikskiftet
+          </div>
+
+          <div class="node ok" id="S4">
+            <span class="when">24 apr 13:43</span> · DK & LK → LT & LSL<br>
+            skickar artikeln till ordförande + vice ordförande · bjuder in SDS-artikelns skribenter till debatt<br>
+            · <span class="q">Som sig bör [har ni] en möjlighet att replikera.</span>
+          </div>
+
+          <div class="node lucka" id="LUCKA">
+            <span class="when">🕳️ 24 apr 12:00 → 26 apr 21:10</span> · <b>36-timmarsluckan</b><br>
+            <i>Helgen 24–26 april präglades av riksårsmöte i Uppsala</i> · DK på plats · SOH samtalar med LT • Vad som sades är materialets största lucka
+          </div>
+
+          <div class="node brott" id="B1">
+            <span class="brott-badge">01</span>
+            <span class="when">26 apr 21:10</span> · <b>BROTT 1</b><br>
+            SOH frångår publicistisk praxis · står fast vid styrelsen slutreplik<br>
+            • <span class="q">Folkvett är organ för föreningen Vetenskap och Folkbildning.<br>
+            • [O]m Folkvett publicerar kritik mot föreningen så publiceras i samma nummer ett svar från styrelsen, som därmed får sista ordet.</span><br>(⛓️‍💥 Non sequitur)
+          </div>
+
+          <div class="node ok" id="S4b">
+            <span class="when">26 apr 22:44</span> · DK → SOH & redaktionen<br>
+            · <span class="q">Jag förstår inte riktigt resonemanget.</span><br>
+            · <span class="q">Enligt publicistisk sed har de som initierat debatten sista ordet.</span>
+          </div>
+
+          <div class="node ok" id="S5">
+            <span class="when">27 apr 10:26–10:33</span> · DK & LK → SOH & redaktionen<br>
+            bekräftar SOH:s beslutsrätt · föreslår konstruktiva alternativ
+          </div>
+
+          <div class="node ok" id="S5b">
+            <span class="when">27 apr 10:26</span> · LK → SOH & redaktionen<br>
+            · <span class="q">Vår debattartikel är förvisso förorsakad (eller &quot;inspirerad&quot;?) av deras debattartikel, men den är inte ett svaromål.</span>
+          </div>
+
+          <div class="node brott" id="B2">
+            <span class="brott-badge">02</span>
+            <span class="when">27 apr 12:40</span>  <b>BROTT 2</b><br>
+            SOH lyfter ut DK:s & LK:s artikel <b>helt</b> ur nr 1 
+            · styrelsen = föreningen = Folkvett<br>
+            · <span class="q">Dans och Lottens text [ska] inte ingå</span><br>
+            · <span class="q">SDS-artikeln var en del av styrelsearbetet och uttrycker föreningens ståndpunkt</span><br>
+            · <span class="q">Föreningen har sista ordet i en debatt i Folkvett, som är organ för föreningen</span><br>
+            (🦎 Equivocation Fallacy)<br>
+            
+          </div>
+
+          <!-- aside: SOH vänder sig casualt till LK i stället -->
+          <div class="node aside-node" id="SOHCAS">
+            <span class="when">✉️ 28 apr 14:03</span> · SOH svarar inte <i>DK</i> · mejlar <i>LK</i> casually<br>
+            · <span class="q">Hur är läget med nummer 1?</span><br>
+          </div>
+
+          <div class="node ok" id="S5c">
+            <span class="when">27 apr 19:59</span> · DK → SOH & redaktionen<br>
+            · <span class="q">Vår debattartikel ifrågasätter just detta.</span>
+            · <span class="q">Varför skall artikeln plötsligt inte ingå i kommande Folkvett?</span>
+          </div>
+
+          <div class="node ok" id="S5d">
+            <span class="when">28 apr 11:07</span> · DK → SOH & redaktionen<br>
+            · <span class="q">styrelsens skribenter tar ställning i frågor som inte kan avgöras med vetenskap</span><br>
+            · <span class="q">det kan skada föreningens rykte.</span>
+          </div>
+
+          <div class="node brott" id="B3">
+            <span class="brott-badge">03</span>
+            <span class="when">28 apr 16:55–17:18</span> · <b>BROTT 3</b><br>
+            Telefonsamtal · SOH & LK · 23 min<br>SOH → LK: <span class="q">Allt är SKIT!</span><br>
+            DK → LK: <span class="q">Har du pratat med honom?</span><br>
+            LK → DK: <span class="q">Vet inte om prata är ordet så mycket som att försöka parera attacker</span>
+          </div>
+
+          <div class="node brott" id="B4">
+            <span class="brott-badge">04</span>
+            <span class="when">3 maj kväll</span> · <b>BROTT 4</b><br>
+            <b>Exkludering</b> efter ett för DK & LK okänt styrelsemöte · SL2 &amp; SL3 reserverade sig
+            · Beslut utan underlag, utan motivering, meddelat via privat gmail
+          </div>
+
+          <div class="node brott" id="B5">
+            <span class="brott-badge">05</span>
+            <span class="when">3 maj kväll</span> · <b>BROTT 5</b><br>
+            Behörigheter dras in några minuter senare · wp-admin, medlemsportal · orelaterade till redaktionsarbetet
+          </div>
+
+          <div class="node endpoint" id="SLUT">🚪 DK &amp; LK är ute ur redaktionen<br>Rättegång utan anklagelse<br>Dom utan skäl</div>
+
+          <!-- Tolkningsmarkör (Mönstret) -->
+          <div class="node markor" id="NOT">
+            <b>Mönstret:</b> medan DK/LK gjorde <b>sju</b> dokumenterade kontaktförsök (SOH ×5, SL1 ×1, LSL ×1) för att lösa situationen, flyttades SOH:s position längre bort för varje försök. Processen bröts <b>uppifrån</b>.
+          </div>
+
+        </div><!-- /spine -->
+      </div><!-- /graph -->
+    </div><!-- /canvas-wrap -->
+
+    <!-- ============ EFTERORD: gulnad boksida (Kafka, Processen) ============ -->
+    <div class="afterword">
+      <p class="biblio-note">Se även: Kafka, Franz — Processen (1925)</p>
+
+      <figure class="book-page" aria-label="Baksidestext, Kafkas Processen">
+        <!-- finkornig pappersnoise via SVG-filter -->
+        <svg class="paper-grain" aria-hidden="true" width="0" height="0">
+          <filter id="bookGrain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+            <feColorMatrix type="saturate" values="0"/>
+          </filter>
+        </svg>
+        <div class="book-blurb">
+          <p>En av världslitteraturens mest inflytelserika romaner. Inledningen är berömd:<br>
+          <br>"Någon måste ha förtalat Josef K., ty utan att han gjort något ont blev han häktad en morgon."<br>
+          <br>Den vindlande berättelse som sedan följer, med underliga gåtfulla förvecklingar har fascinerat läsare världen över och till och med gett upphov till ett begrepp i vardagsspråket – man säger att en stämning, ett tillstånd kan vara kafkaartat, kafkaliknande.</p>
+        </div>
+        <div class="book-footer">
+          <img class="publisher-logo" src="bakhall_logo.png" alt="Bakhåll" width="86">
+          <span class="isbn">ISBN 978-91-7742-187-6<br><p class="book-copy">© Bakhåll 2002</p></span>
+        </div>
+      </figure>
+    </div>
+
+    <footer class="foot">
+      <p>Folkvettkonflikten 2026 · internt analysverktyg · styrelseledamöter anonymiserade (SL1–SL3)</p>
+      <p>Källa: <code>beslutsflodet-artikeln.mmd</code> · varje nod spårbar till master-tidslinjen</p>
+      <p class="sig">🦚 Greve Malcolm — design · 🐡 Futaba — implementation · v2 (graf)</p>
+    </footer>
+  </main>
+
+</div><!-- /shell -->
+
+<script>
+(function () {
+  "use strict";
+
+  var canvas     = document.getElementById("canvas");
+  var svg        = document.getElementById("connectors");
+  var edges      = document.getElementById("edges");
+  var gradients  = document.getElementById("edge-gradients");
+  var graph      = document.getElementById("graph");
+  var spine      = document.getElementById("spine");
+  var kspar      = document.getElementById("kspar");
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var MOBILE_BP = 720;
+
+  /* ---------- Datumet på egen rad ---------- */
+  // .when är nu display:block (egen rad). Markup har "</span> · text" efter
+  // varje datum, vilket annars ger en ledande "·" på textraden. Strippa den
+  // separatorn en gång vid init så textraden börjar rent.
+  function normalizeWhen() {
+    var spans = document.querySelectorAll(".when");
+    for (var i = 0; i < spans.length; i++) {
+      var n = spans[i].nextSibling;
+      // hoppa över tomma textnoder
+      while (n && n.nodeType === 3 && /^\s*$/.test(n.nodeValue)) n = n.nextSibling;
+      if (n && n.nodeType === 3) {
+        n.nodeValue = n.nodeValue.replace(/^\s*[·•]\s*/, " ");
+      }
+    }
+  }
+
+  /* ---------- Kantdefinitioner (facit ur .mmd) ---------- */
+
+  // Ryggradens heldragna flöde
+  var spineFlow = [
+    ["START","S1"],["S1","S2"],["S2","S2b"],["S2b","S2c"],["S2c","S3"],
+    ["S3","D1"],["D1","S4"],["S4","LUCKA"],
+    ["LUCKA","B1"],["B1","S4b"],["S4b","S5"],["S5","S5b"],["S5b","B2"],
+    ["B2","S5c"],["S5c","S5d"],["S5d","B3"],["B3","B4"],["B4","B5"],["B5","SLUT"]
+  ];
+
+  // Parallellgren D1 -.-> LUCKA (prickad)
+  var dottedFlow = [
+    ["D1","LUCKA"]
+  ];
+
+  // K-spårets interna kedja (heldragen, inom vänsterkolumnen)
+  var kChain = [
+    ["K2","KMID"],["KMID","K3"],["K3","K4"],["K4","K5"],["K5","K6"],["K6","K7"]
+  ];
+
+  // Studs-pilar (prickade röda, träffar BROTT-kant, returnerar ut i intet)
+  var bounces = [
+    ["K0","B2"],["K1","B2"],["K2","B2"],
+    ["K3","B3"],["K4","B3"],
+    ["K7","B4"]
+  ];
+
+  // Praxis-trådar (prickade, etiketterade)
+  var praxis = [
+    ["D1","B1","frångår praxis"],
+    ["S4b","B1",""]
+  ];
+
+  // SOHCAS-konvergensen
+  // SOHCAS ──▶ K3 (mauve, semitransparent). S5d→SOHCAS borttagen (Lotten).
+  var sohcasIn  = ["SOHCAS","K3"];
+
+  // Mönstret-noden tar emot en prickad pil (K7→NOT). B4→NOT borttagen (Lotten).
+  var notEdges = [
+    ["K7","NOT"]
+  ];
+
+  /* ---------- Geometri-hjälpare ---------- */
+
+  function rectOf(id) {
+    var el = document.getElementById(id);
+    if (!el) return null;
+    var r = el.getBoundingClientRect();
+    var c = canvas.getBoundingClientRect();
+    return {
+      el: el,
+      left:   r.left   - c.left,
+      right:  r.right  - c.left,
+      top:    r.top    - c.top,
+      bottom: r.bottom - c.top,
+      cx:     r.left - c.left + r.width / 2,
+      cy:     r.top  - c.top  + r.height / 2,
+      w: r.width, h: r.height
+    };
+  }
+
+  function mk(tag, attrs) {
+    var el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (var k in attrs) { if (attrs.hasOwnProperty(k)) el.setAttribute(k, attrs[k]); }
+    return el;
+  }
+
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+
+  /* ---------- Rita en vertikal ryggradspil (botten av A → topp av B) ---------- */
+  function drawFlow(a, b, dotted) {
+    var ra = rectOf(a), rb = rectOf(b);
+    if (!ra || !rb) return;
+    var x1 = ra.cx, y1 = ra.bottom + 1;
+    var x2 = rb.cx, y2 = rb.top - 7;
+    var midY = (y1 + y2) / 2;
+    var d;
+    if (Math.abs(x1 - x2) < 2) {
+      d = "M " + x1 + " " + y1 + " L " + x2 + " " + y2;
+    } else {
+      // mjuk S-kurva när noderna har olika bredd/centrum
+      d = "M " + x1 + " " + y1 +
+          " C " + x1 + " " + midY + " " + x2 + " " + midY + " " + x2 + " " + y2;
+    }
+    var p = mk("path", {
+      d: d,
+      class: "flow-path" + (dotted ? " dotted" : ""),
+      "marker-end": "url(#arrow-flow)"
+    });
+    edges.appendChild(p);
+  }
+
+  /* ---------- Parallellgren: D1 → LUCKA (prickad, viker av åt sidan) ---------- */
+  function drawParallel(a, b) {
+    var ra = rectOf(a), rb = rectOf(b);
+    if (!ra || !rb) return;
+    // utgår från D1:s vänsterkant, bågar ut och kommer in i LUCKA:s vänstra topp
+    var x1 = ra.left + ra.w * 0.25, y1 = ra.bottom + 1;
+    var x2 = rb.left + rb.w * 0.25, y2 = rb.top - 7;
+    var bow = Math.max(40, (x1 - canvas.getBoundingClientRect().width * 0) ) * 0;
+    var ctrlX = Math.min(x1, x2) - 46;
+    var d = "M " + x1 + " " + y1 +
+            " C " + ctrlX + " " + (y1 + 30) + " " + ctrlX + " " + (y2 - 30) + " " + x2 + " " + y2;
+    var p = mk("path", {
+      d: d, class: "flow-path dotted", "marker-end": "url(#arrow-flow)"
+    });
+    edges.appendChild(p);
+  }
+
+  /* ---------- K-kedja: vertikala pilar inom vänsterkolumnen ---------- */
+  function drawKChain(a, b) {
+    var ra = rectOf(a), rb = rectOf(b);
+    if (!ra || !rb) return;
+    var x1 = ra.cx, y1 = ra.bottom + 1;
+    var x2 = rb.cx, y2 = rb.top - 6;
+    var d = "M " + x1 + " " + y1 +
+            " C " + x1 + " " + ((y1+y2)/2) + " " + x2 + " " + ((y1+y2)/2) + " " + x2 + " " + y2;
+    edges.appendChild(mk("path", {
+      d: d, class: "flow-path", "marker-end": "url(#arrow-flow)"
+    }));
+  }
+
+  /* ---------- Praxis-tråd (prickad röd, etikett) ---------- */
+  // Utgår från källnodens vänsterkant, bågar ut i gapet vänster om ryggraden,
+  // och kommer IN mot målnodens vänsterkant — spetsen pekar höger/inåt.
+  function drawPraxis(a, b, label) {
+    var ra = rectOf(a), rb = rectOf(b);
+    if (!ra || !rb) return;
+    // start: källnodens vänsterkant. slut: målnodens vänsterkant (kommer in
+    // utifrån vänster, så pilspetsen pekar inåt mot noden).
+    var x1 = ra.left, y1 = ra.cy;
+    var x2 = rb.left, y2 = rb.cy;
+    var bowX = Math.min(x1, x2) - 46;   // bågens djup ut i gapet
+    // Kontrollpunkten vid slutet hålls strax till vänster om x2 så att
+    // tangenten in i punkten är ~horisontell → spetsen pekar rent inåt.
+    var d = "M " + x1 + " " + y1 +
+            " C " + bowX + " " + y1 +
+            " "   + bowX + " " + y2 +
+            " "   + x2   + " " + y2;
+    edges.appendChild(mk("path", {
+      d: d, class: "praxis-path", "marker-end": "url(#arrow-praxis)"
+    }));
+    if (label) {
+      var t = mk("text", {
+        x: bowX - 4, y: (y1 + y2) / 2, class: "edge-label rouge",
+        "text-anchor": "end"
+      });
+      t.textContent = label;
+      edges.appendChild(t);
+    }
+  }
+
+  /* ---------- SOHCAS-pil ---------- */
+  // SOHCAS → K3 (heldragen mauve): K3 ligger i vänsterkolumnen, lägre ner.
+  // Gå från SOHCAS vänsterkant, svep ner, och kom IN mot K3:s högerkant
+  // horisontellt — spetsen pekar vänster/inåt in i K3. Ingen etikett.
+  function drawSohcasIn(a, b) {
+    var ra = rectOf(a), rb = rectOf(b);
+    if (!ra || !rb) return;
+    var x1 = ra.left, y1 = ra.cy;        // SOHCAS vänsterkant
+    var x2 = rb.right, y2 = rb.cy;       // K3 högerkant
+    // Kontrollpunkterna: första drar vänsterut/nedåt från SOHCAS, andra
+    // hålls strax till höger om x2 på samma höjd som y2 → tangenten in i K3
+    // blir horisontell, spetsen pekar rent inåt (vänster).
+    var d = "M " + x1 + " " + y1 +
+            " C " + (x1 - 60) + " " + y1 +
+            " "   + (x2 + 70) + " " + y2 +
+            " "   + x2        + " " + y2;
+    edges.appendChild(mk("path", {
+      d: d, class: "sohcas-in", "marker-end": "url(#arrow-sohcas)"
+    }));
+  }
+
+  /* ---------- Mönstret-pilar (prickade, svaga) ---------- */
+  function drawNot(a, b) {
+    var ra = rectOf(a), rb = rectOf(b);
+    if (!ra || !rb) return;
+    var x1 = ra.cx, y1 = ra.bottom + 1;
+    var x2 = rb.cx, y2 = rb.top - 4;
+    var d = "M " + x1 + " " + y1 +
+            " C " + x1 + " " + ((y1+y2)/2) + " " + x2 + " " + ((y1+y2)/2) + " " + x2 + " " + y2;
+    edges.appendChild(mk("path", { d: d, class: "not-path" }));
+  }
+
+  /* ---------- Kontaktförsök: rak prickad pil som tonar ut mot målet ------ */
+  // "Faller för döva öron": en rak, huvudlös prickad linje från K-nodens
+  // högerkant mot BROTT-nodens vänsterkant. Opaciteten är full vid avsändaren
+  // och tonar ut mot noll vid mottagaren — meddelandet når aldrig fram.
+  // Ingen animation, ingen studs, inget pilhuvud. En gradient per pil ger
+  // utfasningen (riktningen varierar, så varje pil får sin egen gradient).
+  var bounceGradSeq = 0;
+  function drawBounce(kId, bId) {
+    var rk = rectOf(kId), rb = rectOf(bId);
+    if (!rk || !rb) return;
+
+    var x1 = rk.right + 1, y1 = rk.cy;   // avsändare (full opacitet)
+    var x2 = rb.left - 3,  y2 = rb.cy;    // mottagare (utfasad)
+
+    // unik gradient längs pilens riktning: full → 0
+    var gid = "bgrad-" + (bounceGradSeq++);
+    var grad = mk("linearGradient", {
+      id: gid,
+      gradientUnits: "userSpaceOnUse",
+      x1: x1, y1: y1, x2: x2, y2: y2
+    });
+    var s0 = mk("stop", { offset: "0%",  "stop-color": "var(--rouge-deep)", "stop-opacity": "0.85" });
+    var s1 = mk("stop", { offset: "55%", "stop-color": "var(--rouge-deep)", "stop-opacity": "0.45" });
+    var s2 = mk("stop", { offset: "100%","stop-color": "var(--rouge-deep)", "stop-opacity": "0" });
+    grad.appendChild(s0); grad.appendChild(s1); grad.appendChild(s2);
+    gradients.appendChild(grad);
+
+    // rak linje (lätt mjuk kurva när det finns höjdskillnad, annars rak)
+    var d;
+    if (Math.abs(y1 - y2) < 3) {
+      d = "M " + x1 + " " + y1 + " L " + x2 + " " + y2;
+    } else {
+      var midX = (x1 + x2) / 2;
+      d = "M " + x1 + " " + y1 +
+          " C " + midX + " " + y1 + " " + midX + " " + y2 + " " + x2 + " " + y2;
+    }
+    edges.appendChild(mk("path", {
+      d: d, class: "bounce-path", stroke: "url(#" + gid + ")"
+    }));
+  }
+
+  /* ---------- Placera K-spåret i höjd med BROTT-målen (desktop) ---------- */
+  // Varje K-nod ankras till en Y-position i ryggraden. Noder med studs-mål
+  // ankras till målet; KMID/K5/K6 (utan studs) interpoleras mellan grannar.
+  // Resultat: studs-pilen blir kort och horisontell, som specen kräver.
+  function positionKTrack() {
+    // ankarordning uppifrån-ned (= kronologi = BROTT-ordning)
+    // target = id för noden i ryggraden vars cy K-noden ska ligga i höjd med
+    var anchors = [
+      { k: "K0",   target: "B2", offset: -150 },
+      { k: "K1",   target: "B2", offset:  -75 },
+      { k: "K2",   target: "B2", offset:    0 },
+      { k: "KMID", target: "S5c", offset:   0 },  // mellan B2 och B3, kronologiskt
+      { k: "K3",   target: "B3", offset:  -40 },
+      { k: "K4",   target: "B3", offset:   55 },
+      { k: "K5",   target: "B3", offset:  150 },
+      { k: "K6",   target: "B4", offset:  -30 },
+      { k: "K7",   target: "B4", offset:   45 }
+    ];
+
+    var ksparRect = kspar.getBoundingClientRect();
+    var headH = 22; // utrymme för track-head överst
+    var minGap = 14;
+    var prevBottom = headH;
+
+    anchors.forEach(function (a) {
+      var kn = document.getElementById(a.k);
+      var tEl = document.getElementById(a.target);
+      if (!kn || !tEl) return;
+      var tr = tEl.getBoundingClientRect();
+      var targetCy = (tr.top + tr.height / 2) - ksparRect.top + a.offset;
+      var h = kn.getBoundingClientRect().height;
+      var top = targetCy - h / 2;
+      // lös överlapp: skjut ner om den krockar med föregående
+      if (top < prevBottom + minGap) top = prevBottom + minGap;
+      kn.style.top = top + "px";
+      prevBottom = top + h;
+    });
+
+    // sätt kspar-höjd så kolumnen rymmer alla absolut-placerade noder
+    kspar.style.minHeight = (prevBottom + 20) + "px";
+  }
+
+  /* ---------- Bygg om hela grafen ---------- */
+  function rebuild() {
+    clear(edges);
+    clear(gradients);
+
+    // placera K-spåret innan vi mäter för pilarna (alla bredder — tvåkolumn)
+    positionKTrack();
+
+    // sätt SVG-storlek till canvas (efter K-placering — höjden kan ha ändrats)
+    var c = canvas.getBoundingClientRect();
+    svg.setAttribute("width", c.width);
+    svg.setAttribute("height", c.height);
+    svg.setAttribute("viewBox", "0 0 " + c.width + " " + c.height);
+
+    // statiska flödespilar
+    spineFlow.forEach(function (e) { drawFlow(e[0], e[1], false); });
+    dottedFlow.forEach(function (e) { drawParallel(e[0], e[1]); });
+    kChain.forEach(function (e) { drawKChain(e[0], e[1]); });
+    praxis.forEach(function (e) { drawPraxis(e[0], e[1], e[2]); });
+    drawSohcasIn(sohcasIn[0], sohcasIn[1]);
+    notEdges.forEach(function (e) { drawNot(e[0], e[1]); });
+
+    // kontaktförsök: raka prickade pilar som tonar ut mot målet (ingen animation)
+    bounces.forEach(function (e) { drawBounce(e[0], e[1]); });
+  }
+
+  /* ---------- Layout ---------- */
+  // Tvåkolumnsgrafen behålls på alla bredder (K-spår vänster, ryggrad höger).
+  // K-spåret positioneras i höjd med sina BROTT-mål av positionKTrack(), som
+  // körs i rebuild() — ingen interfoliering behövs längre.
+
+  /* ---------- Init + resize ---------- */
+  var resizeTimer = null;
+  function onResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      rebuild();
+    }, 150);
+  }
+
+  function init() {
+    normalizeWhen();   // datum på egen rad — strippa ledande separator
+    // vänta in fonter så mätningen blir rätt
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { rebuild(); });
+    }
+    rebuild();
+  }
+
+  window.addEventListener("resize", onResize);
+  window.addEventListener("load", init);
+  // initial render direkt också (load kan dröja på fonts)
+  if (document.readyState === "complete") init();
+  else document.addEventListener("DOMContentLoaded", function () { normalizeWhen(); setTimeout(rebuild, 50); });
+
+})();
+</script>
+
+</body>
+</html>

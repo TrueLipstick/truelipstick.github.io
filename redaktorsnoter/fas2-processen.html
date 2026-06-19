@@ -453,6 +453,46 @@ body {
   background: color-mix(in srgb, var(--ok) 10%, var(--surface));
 }
 
+/* ---------- Sektionsrubrik i tidslinjen (kapitelrubrik) ---------- */
+/* Topbaren förblir navigationen; denna H1 är ingången till kronologin.
+   Identisk struktur som fas1 — det är vad som harmoniserar sidorna.
+   Accentstrecket är rouge här (amber i fas1). */
+.timeline-head {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 36px 32px 4px;
+}
+.timeline-head .kicker {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin: 0 0 10px;
+}
+.timeline-head h1 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.8rem, 4.2vw, 2.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+.timeline-head .rule {
+  height: 2px;
+  border: none;
+  margin: 0;
+  background: linear-gradient(to right,
+    var(--rouge) 0,
+    var(--rouge) 56px,
+    var(--hairline) 56px,
+    var(--hairline) 100%);
+}
+@media (max-width: 720px) {
+  .timeline-head { padding: 28px 10px 4px; }
+}
+
 /* ---------- Footer ---------- */
 .foot {
   max-width: 1080px;
@@ -696,6 +736,15 @@ body {
 
   <!-- ============ MAIN ============ -->
   <main class="main">
+
+    <!-- Kapitelrubrik — ingången till kronologin (utanför canvas-wrap så
+         SVG-overlayns koordinater inte påverkas) -->
+    <header class="timeline-head">
+      <p class="kicker">Folkvettkonflikten · Fas 2 · 11 april – 3 maj</p>
+      <h1>Processen: en redaktionell kronologi</h1>
+      <div class="rule"></div>
+    </header>
+
     <div class="canvas-wrap" id="canvas">
 
       <!-- SVG-lager: pilarna ritas hit av JS efter att noderna mätts -->
@@ -947,12 +996,10 @@ body {
           </filter>
         </svg>
         <div class="book-blurb">
-          <p>En av världslitteraturens mest inflytelserika romaner. Inledningen är berömd:<br>
-          <br>"Någon måste ha förtalat Josef K., ty utan att han gjort något ont blev han häktad en morgon."<br>
-          <br>Den vindlande berättelse som sedan följer, med underliga gåtfulla förvecklingar har fascinerat läsare världen över och till och med gett upphov till ett begrepp i vardagsspråket – man säger att en stämning, ett tillstånd kan vara kafkaartat, kafkaliknande.</p>
+          <p>"Någon måste ha förtalat Josef K., ty utan att han gjort något ont blev han häktad en morgon."</p>
         </div>
         <div class="book-footer">
-          <img class="publisher-logo" src="bakhall_logo.png" alt="Bakhåll" width="86">
+          <img class="publisher-logo" src="kafka-passport.png" alt="Bakhåll" width="86">
           <span class="isbn">ISBN 978-91-7742-187-6<br><p class="book-copy">© Bakhåll 2002</p></span>
         </div>
       </figure>

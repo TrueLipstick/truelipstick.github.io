@@ -24,72 +24,74 @@
   /* Signatur-typsnitt (Italiana laddas via länk ovan) */
   --sig:     'Italiana', Georgia, serif;
 
-  /* --- Diagram-specifika semantiska tokens (designspec) --- */
+  /* --- Diagram-tokens, harmoniserade mot fas2:s pergamentpalett --- */
 
-  /* Spår B — Styrelsen + SOH (rosa/carmine) */
-  --spara:           #fce7f3;
-  --spara-stroke:    #db2777;
-  --spara-text:      #1a1020;
+  /* Spår B — Styrelsen + SOH (carmine-tråd) */
+  --spara:           color-mix(in srgb, #db2777 8%, var(--surface));   /* knappt rosatonat pergament */
+  --spara-stroke:    color-mix(in srgb, #db2777 62%, var(--ink));      /* dämpad carmine-kant */
+  --spara-text:      var(--ink);
 
-  /* Spår A — Redaktionen, DK + LK (sage/grön) */
-  --sparb:           #dcfce7;
-  --sparb-stroke:    #059669;
-  --sparb-text:      #1a1020;
+  /* Spår A — Redaktionen, DK + LK (sage-tråd) */
+  --sparb:           color-mix(in srgb, #059669 8%, var(--surface));
+  --sparb-stroke:    color-mix(in srgb, #059669 60%, var(--ink));
+  --sparb-text:      var(--ink);
 
-  /* SMS-noder (blå, kursiv) */
-  --sms-bg:          #e0f2fe;
-  --sms-stroke:      #0284c7;
-  --sms-text:        #0c4a6e;
+  /* SMS-noder (blå tråd) */
+  --sms-bg:          color-mix(in srgb, #0284c7 7%, var(--surface));
+  --sms-stroke:      color-mix(in srgb, #0284c7 58%, var(--ink));
+  --sms-text:        var(--ink);
 
-  /* Markör: SYNKRONICITET + KONVERGENS (amber) */
-  --markor-bg:       #fef3c7;
-  --markor-stroke:   #d97706;
-  --markor-text:     #1a1020;
+  /* Markör: SYNK + KONVERGENS (amber tråd — den enda som får vara varmast) */
+  --markor-bg:       color-mix(in srgb, #d97706 12%, var(--surface));
+  --markor-stroke:   color-mix(in srgb, #d97706 70%, var(--ink));
+  --markor-text:     var(--ink);
 
-  /* Tidsaxel-badge */
-  --axel-bg:         #f5f5f5;
-  --axel-stroke:     #9ca3af;
-  --axel-text:       #1a1020;
+  /* Tidsaxel-badge — neutralast av alla, ren pergament */
+  --axel-bg:         var(--paper-warm);
+  --axel-stroke:     var(--hairline);
+  --axel-text:       var(--mauve);
 
-  /* Kontext-banner */
-  --banner-bg:       color-mix(in srgb, var(--markor-bg) 30%, var(--surface));
-  --banner-stroke:   var(--markor-stroke);
+  /* Kontext-not (avriven anteckningslapp — se Fråga 2) */
+  --banner-bg:       color-mix(in srgb, #d97706 6%, var(--paper-warm));
+  --banner-stroke:   var(--hairline);
 
-  /* Kopplingslinjer */
-  --line-spara:      rgba(219, 39, 119, 0.45);
-  --line-sparb:      rgba(5, 150, 105, 0.45);
-  --line-synk:       rgba(217, 119, 6, 0.55);
+  /* Kopplingslinjer — behåll svag färgning, sänk opacitet ytterligare */
+  --line-spara:      color-mix(in srgb, #db2777 40%, transparent);
+  --line-sparb:      color-mix(in srgb, #059669 40%, transparent);
+  --line-synk:       color-mix(in srgb, #d97706 50%, transparent);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* bas-palett ärvs från ../style.css; bara diagram-tokens överskrivs här */
-    --spara:           #3b0a23;
-    --spara-stroke:    #f472b6;
-    --spara-text:      #f0e8f2;
+    /* bas-palett ärvs från ../style.css; bara diagram-tokens överskrivs här.
+       Samma color-mix-princip som ljust läge — kanten blir ljusare än ytan
+       (blandas mot --ink som nu är ljus), precis som fas2:s BROTT/lucka-noder. */
+    --spara:           color-mix(in srgb, #f472b6 14%, var(--surface));
+    --spara-stroke:    color-mix(in srgb, #f472b6 70%, var(--ink));
+    --spara-text:      var(--ink);
 
-    --sparb:           #052e16;
-    --sparb-stroke:    #34d399;
-    --sparb-text:      #f0e8f2;
+    --sparb:           color-mix(in srgb, #34d399 13%, var(--surface));
+    --sparb-stroke:    color-mix(in srgb, #34d399 66%, var(--ink));
+    --sparb-text:      var(--ink);
 
-    --sms-bg:          #082940;
-    --sms-stroke:      #38bdf8;
-    --sms-text:        #bae6fd;
+    --sms-bg:          color-mix(in srgb, #38bdf8 12%, var(--surface));
+    --sms-stroke:      color-mix(in srgb, #38bdf8 64%, var(--ink));
+    --sms-text:        var(--ink);
 
-    --markor-bg:       #291f00;
-    --markor-stroke:   #fbbf24;
-    --markor-text:     #f0e8f2;
+    --markor-bg:       color-mix(in srgb, #fbbf24 16%, var(--surface));
+    --markor-stroke:   color-mix(in srgb, #fbbf24 72%, var(--ink));
+    --markor-text:     var(--ink);
 
-    --axel-bg:         #201829;
-    --axel-stroke:     #4b5563;
-    --axel-text:       #f0e8f2;
+    --axel-bg:         var(--paper-warm);
+    --axel-stroke:     var(--hairline);
+    --axel-text:       var(--mauve);
 
-    --banner-bg:       color-mix(in srgb, var(--markor-bg) 40%, var(--surface));
-    --banner-stroke:   var(--markor-stroke);
+    --banner-bg:       color-mix(in srgb, #fbbf24 8%, var(--paper-warm));
+    --banner-stroke:   var(--hairline);
 
-    --line-spara:      rgba(244, 114, 182, 0.5);
-    --line-sparb:      rgba(52, 211, 153, 0.5);
-    --line-synk:       rgba(251, 191, 36, 0.6);
+    --line-spara:      color-mix(in srgb, #f472b6 45%, transparent);
+    --line-sparb:      color-mix(in srgb, #34d399 45%, transparent);
+    --line-synk:       color-mix(in srgb, #fbbf24 52%, transparent);
   }
 }
 
@@ -130,34 +132,114 @@ body {
   color: color-mix(in srgb, var(--ink) 60%, transparent);
 }
 
-/* ---------- Kontext-banner (utanför .shell, full bredd) ---------- */
-.kontext-banner {
-  background: var(--banner-bg);
-  border-bottom: 1px solid var(--banner-stroke);
-  padding: 14px 32px 14px 28px;
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
+/* ---------- Sektionsrubrik i tidslinjen (kapitelrubrik) ---------- */
+/* Topbaren förblir navigationen; denna H1 är ingången till kronologin.
+   Samma boksideskänsla som fas2:s efterord: kicker + Fraunces-display +
+   hårlinje med ett kort färgat accentstreck (amber i fas1). */
+.timeline-head {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 36px 24px 4px;
+}
+.timeline-head .kicker {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin: 0 0 10px;
+}
+.timeline-head h1 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.8rem, 4.2vw, 2.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+.timeline-head .rule {
+  height: 2px;
+  border: none;
+  margin: 0;
+  background: linear-gradient(to right,
+    var(--markor-stroke) 0,
+    var(--markor-stroke) 56px,
+    var(--hairline) 56px,
+    var(--hairline) 100%);
+}
+
+/* ---------- Kontextnot: avriven anteckningsbladssida ---------- */
+/* Eko av fas2:s book-page (samma noise-filter, samma rotate-grepp), men
+   kallare papper + linjering = kollegieblock, inte tryckt bok. Sitter
+   infälld överst i .canvas-wrap, på tidslinjen — inte ovanför den. */
+.kontext-note {
+  position: relative;
+  width: min(340px, 100%);
+  margin: 4px 0 22px 8px;
+  padding: 22px 24px 20px;
+  transform: rotate(-1.4deg);
+  color: #2a2535;
+  font-family: var(--body);
+
+  /* blekt gråvitt anteckningspapper med svag blå linjering */
+  background:
+    linear-gradient(transparent 0 23px, color-mix(in srgb, #6b8cae 22%, transparent) 23px 24px) 0 6px / 100% 24px repeat,
+    radial-gradient(120% 120% at 40% 30%, #f7f5ef 0%, #efece2 60%, #e4e0d2 100%);
+
+  /* avriven övre kant — sågtandad polygon */
+  clip-path: polygon(
+    0% 6px, 3% 0, 8% 5px, 14% 1px, 21% 6px, 29% 2px, 38% 7px, 47% 1px,
+    57% 6px, 67% 2px, 77% 7px, 87% 1px, 95% 5px, 100% 0,
+    100% 100%, 0% 100%
+  );
+  box-shadow: 2px 3px 10px rgba(80, 40, 70, 0.18);
+}
+.kontext-note::before {           /* pappersnoise, exakt som book-page */
+  content: "";
+  position: absolute;
+  inset: 0;
+  filter: url(#noteGrain);
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+/* röd marginallinje (kollegieblockets vänstermarginal) — accentfärgen bor här */
+.kontext-note::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 18px;
+  width: 1px;
+  background: color-mix(in srgb, var(--rouge) 55%, transparent);
+  pointer-events: none;
 }
 .kontext-eyebrow {
+  display: block;
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--markor-stroke);
-  flex: 0 0 auto;
-  white-space: nowrap;
+  color: var(--mauve);
+  opacity: 0.75;
+  margin: 0 0 8px 14px;
 }
 .kontext-text {
   font-family: var(--body);
-  font-size: 0.84rem;
+  font-style: italic;
+  font-size: 0.82rem;
   line-height: 1.5;
-  color: var(--ink);
-  margin: 0;
+  margin: 0 0 0 14px;
+  color: #2a2535;
 }
 .kontext-text strong {
-  font-weight: 700;
-  color: var(--markor-stroke);
+  font-style: normal;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--rouge) 60%, #2a2535);
+}
+@media (prefers-color-scheme: dark) {
+  /* lappen motstår mörkret — ett gammalt papper lyser; bara skuggan förstärks */
+  .kontext-note { box-shadow: 2px 3px 14px rgba(0, 0, 0, 0.45); }
 }
 
 /* ---------- Shell & sidebar ---------- */
@@ -430,43 +512,44 @@ body {
 .node .q::before { content: '\2018'; }
 .node .q::after  { content: '\2019'; }
 
-/* Agerande aktörer — fetstil */
+/* Agerande aktörer — fetstil ärver textfärg (trycksvart bläck), ingen egen
+   färgning: kanten bär färgen, inte texten. Eko av fas2:s .node b. */
 .node strong,
 .node b {
   font-weight: 700;
   font-style: normal;
+  color: inherit;
 }
-.node.spara-node strong,
-.node.spara-node b { color: color-mix(in srgb, var(--spara-text) 80%, var(--spara-stroke)); }
-.node.sparb-node strong,
-.node.sparb-node b { color: color-mix(in srgb, var(--sparb-text) 80%, var(--sparb-stroke)); }
 .node.sms-node strong,
-.node.sms-node b { color: var(--sms-text); font-weight: 700; }
+.node.sms-node b { font-weight: 700; }   /* behåll vikt, släpp färg */
 
-/* Spår B-nod (Styrelsen + SOH) */
+/* Spår B-nod (Styrelsen + SOH) — tråden bor i vänsterkanten */
 .node.spara-node {
   background: var(--spara);
-  border: 1px solid var(--spara-stroke);
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--spara-stroke);
   color: var(--spara-text);
 }
 .node.spara-node .when {
   color: color-mix(in srgb, var(--spara-stroke) 80%, var(--spara-text));
 }
 
-/* Spår A-nod (Redaktionen) */
+/* Spår A-nod (Redaktionen) — tråden bor i vänsterkanten */
 .node.sparb-node {
   background: var(--sparb);
-  border: 1px solid var(--sparb-stroke);
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--sparb-stroke);
   color: var(--sparb-text);
 }
 .node.sparb-node .when {
   color: color-mix(in srgb, var(--sparb-stroke) 80%, var(--sparb-text));
 }
 
-/* SMS-nod (blå, kursiv) */
+/* SMS-nod (blå, kursiv) — behåll bubbelform, samma trådprincip */
 .node.sms-node {
   background: var(--sms-bg);
-  border: 1px solid var(--sms-stroke);
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--sms-stroke);
   color: var(--sms-text);
   font-style: italic;
   border-radius: 12px;
@@ -626,10 +709,8 @@ a.konv-node {
 
 /* ---------- Responsivt ---------- */
 @media (max-width: 860px) {
-  .kontext-banner {
-    flex-direction: column;
-    gap: 6px;
-    padding: 12px 16px;
+  .kontext-note {
+    width: min(340px, calc(100% - 16px));
   }
   .shell {
     grid-template-columns: 1fr;
@@ -694,6 +775,9 @@ a.konv-node {
 
 @media (max-width: 480px) {
   .canvas-wrap { padding: 14px 4px 56px; }
+  /* räta upp lappen på smalaste bredd så sågtandkanten inte beskär texten */
+  .kontext-note { transform: rotate(0deg); width: 100%; margin-left: 0; }
+  .timeline-head { padding: 24px 8px 4px; }
   .track-headers { grid-template-columns: 1fr 26px 1fr; gap: 0 4px; }
   .date-row { grid-template-columns: 1fr 26px 1fr; gap: 0 4px; }
   .track-head { font-size: 0.48rem; padding: 4px 2px; letter-spacing: 0.03em; }
@@ -715,16 +799,13 @@ a.konv-node {
   <h1>Informationsklyftan: parallella spår mot getingboet</h1>
 </div>
 
-<!-- ============ KONTEXT-BANNER (utanför .shell, full bredd) ============ -->
-<div class="kontext-banner" role="note" aria-label="Kontextnot">
-  <span class="kontext-eyebrow">Kontextnot</span>
-  <p class="kontext-text">
-    <strong>17–21 apr</strong> — DK skickar en kritisk artikel för granskning
-    hos SOH (17 apr). SOH svarar efter tre dagar (21 apr) utan att nämna att
-    han redan diskuterat en Folkvett-version av styrelsens artikel. DK och LK
-    vet inte att de har trampat i ett getingbo.
-  </p>
-</div>
+<!-- Pappersnoise-filter för kontextlappen (samma teknik som fas2:s boksida) -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <filter id="noteGrain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+</svg>
 
 <div class="shell">
 
@@ -804,6 +885,24 @@ a.konv-node {
   <!-- ============ MAIN ============ -->
   <main class="main">
     <div class="canvas-wrap">
+
+      <!-- Kapitelrubrik — ingången till kronologin -->
+      <header class="timeline-head">
+        <p class="kicker">Folkvettkonflikten · Fas 1 · 10–21 april</p>
+        <h1>Informationsklyftan: parallella spår mot getingboet</h1>
+        <div class="rule"></div>
+      </header>
+
+      <!-- Kontextnot — avriven anteckningslapp, infälld överst på tidslinjen -->
+      <div class="kontext-note" role="note" aria-label="Kontextnot">
+        <span class="kontext-eyebrow">Kontextnot · innan klockan startar</span>
+        <p class="kontext-text">
+          <strong>17–21 apr</strong> — DK och LK skickar en kritisk artikel för granskning
+          hos SOH. SOH svarar efter tre dagar utan att nämna att han redan
+          diskuterat en Folkvett-version av styrelsens artikel. DK och LK vet inte
+          att de trampat i ett getingbo.
+        </p>
+      </div>
 
       <!-- Kolumnrubriker -->
       <div class="track-headers">

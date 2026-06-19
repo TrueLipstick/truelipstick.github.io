@@ -616,6 +616,64 @@ body {
   opacity: 0.92;
   filter: sepia(0.18) contrast(0.98);
   box-shadow: 0 1px 4px rgba(80, 40, 70, 0.22);
+  cursor: zoom-in;        /* signalerar klickbar förstoring */
+  transition: filter 0.15s ease, opacity 0.15s ease;
+}
+.book-footer .publisher-logo:hover,
+.book-footer .publisher-logo:focus-visible {
+  opacity: 1;
+  filter: sepia(0.1) contrast(1.02);
+}
+.book-footer .publisher-logo:focus-visible {
+  outline: 2px solid var(--rouge);
+  outline-offset: 3px;
+}
+
+/* ---------- Lightbox: förstorat passfoto i <dialog> ---------- */
+.lightbox {
+  border: none;
+  padding: 0;
+  background: transparent;
+  max-width: 92vw;
+  max-height: 92vh;
+  overflow: visible;
+}
+.lightbox::backdrop {
+  background: rgba(22, 15, 28, 0.82);   /* fas2:s mörka paper-ton, halvtransparent */
+  backdrop-filter: blur(3px);
+}
+.lightbox img {
+  display: block;
+  max-width: 92vw;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border-radius: 3px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  cursor: zoom-out;
+}
+.lightbox .lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.lightbox .lightbox-close:focus-visible {
+  outline: 2px solid var(--rouge);
+  outline-offset: 2px;
 }
 .book-footer .isbn {
   font-family: var(--mono);
@@ -1002,7 +1060,9 @@ body {
           <p>"Någon måste ha förtalat Josef K., ty utan att han gjort något ont blev han häktad en morgon."</p>
         </div>
         <div class="book-footer">
-          <img class="publisher-logo" src="kafka-passport.png" alt="Franz Kafka, passfoto">
+          <img class="publisher-logo" src="kafka-passport.png" alt="Franz Kafka, passfoto — klicka för att förstora"
+               id="kafkaThumb" tabindex="0" role="button"
+               aria-label="Förstora passfotot av Franz Kafka">
           <span class="isbn">ISBN 978-91-7742-187-6<br><p class="book-copy">© Bakhåll 2002</p></span>
         </div>
       </figure>
@@ -1016,6 +1076,38 @@ body {
   </main>
 
 </div><!-- /shell -->
+
+<!-- Lightbox för förstorat Kafka-passfoto -->
+<dialog class="lightbox" id="kafkaLightbox" aria-label="Förstorat passfoto av Franz Kafka">
+  <button class="lightbox-close" id="kafkaClose" aria-label="Stäng">✕</button>
+  <img src="kafka-passport.png" alt="Franz Kafka, passfoto (förstorat)">
+</dialog>
+
+<script>
+/* ---------- Lightbox: öppna/stäng passfotot ---------- */
+(function () {
+  "use strict";
+  var thumb = document.getElementById("kafkaThumb");
+  var dlg   = document.getElementById("kafkaLightbox");
+  var close = document.getElementById("kafkaClose");
+  if (!thumb || !dlg || typeof dlg.showModal !== "function") return;
+
+  function open() { dlg.showModal(); }
+  function shut() { dlg.close(); }
+
+  thumb.addEventListener("click", open);
+  thumb.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+  });
+  close.addEventListener("click", shut);
+  // klick på bakdrunden (utanför bilden) stänger; <dialog> ger Esc gratis
+  dlg.addEventListener("click", function (e) {
+    if (e.target === dlg) shut();
+  });
+  // klick på själva bilden stänger också (cursor: zoom-out)
+  dlg.querySelector("img").addEventListener("click", shut);
+})();
+</script>
 
 <script>
 (function () {

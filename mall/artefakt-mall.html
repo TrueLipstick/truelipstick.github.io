@@ -3,6 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- ============================================================
+       LAGER-2-SANERING (mänsklig, vid författande av KÄLLAN i _kall/):
+       Skriptet (render.py) byter bara namn → koder (lager 1). De
+       röjande omständigheterna nedan måste en människa ha strukit eller
+       skrivit om i källan INNAN render, annars läcker de i den publika
+       filen. Skriptet kan inte se dem — det finns inget mönster att matcha.
+
+       □ Yrken/titlar som pekar ut en kodad person?
+       □ Orter, avstånd, geografiska ledtrådar?
+       □ Årtal/perioder som smalnar av till en individ?
+       □ Namngivna tredje personer — skyddsvärda eller offentliga?
+       □ Privata förhållanden (familj, relationer, hälsa) utan relevans?
+       □ Unika händelser bara en person kan kopplas till?
+       ============================================================ -->
   <title>Titel på inlägget · 💄 The Lipstick Web</title>
   <link rel="stylesheet" href="../style.css">
 <script data-goatcounter="https://truelipstick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -10,8 +24,17 @@
 <body>
   <main class="wrap">
 
-    <!-- Sätt länken till den kategori inlägget bor i, t ex ../handelser/ -->
-    <a class="backlink" href="../handelser/">Tillbaka</a>
+    <!-- Brödsmula: byt andra länkens TEXT + HREF till inläggets egen kategori.
+         Hem pekar alltid på roten (../). Andra länken pekar på kategorimappen:
+           Redaktörsnoter  → href="../redaktorsnoter/"  text "Redaktörsnoter"
+           Händelser       → href="../handelser/"       text "Händelser"
+           Samtal          → href="../samtal/"          text "Samtal"
+         OBS: href är ../<kategori>/ (inte ./) eftersom inläggssidan ligger
+         I kategorimappen — ./ skulle peka på inlägget självt.
+         Lämna inte kvar platshållaren nedan. -->
+    <nav class="crumbs" aria-label="Brödsmulor">
+      <a href="../">💄 Hem</a><span aria-hidden="true">›</span><a href="../KATEGORI/">Kategori</a>
+    </nav>
 
     <header class="masthead">
       <p class="eyebrow">Kategori · ÅÅÅÅ-MM-DD</p>

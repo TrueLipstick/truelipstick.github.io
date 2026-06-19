@@ -608,11 +608,13 @@ body {
 }
 .book-footer .publisher-logo {
   display: block;
+  width: 100%;            /* Kafka-passfotot täcker boksidans bredd */
   height: auto;
-  /* handskriven Bakhåll-signatur: svart på transparent. Multiply låter
-     papperstonen lysa igenom så loggan ser tryckt på sidan ut. */
-  opacity: 0.78;
-  mix-blend-mode: multiply;
+  border-radius: 2px;
+  /* lätt åldrat: dämpa mättnad så fotot smälter in i det gulnade papperet */
+  opacity: 0.92;
+  filter: sepia(0.18) contrast(0.98);
+  box-shadow: 0 1px 4px rgba(80, 40, 70, 0.22);
 }
 .book-footer .isbn {
   font-family: var(--mono);
@@ -999,7 +1001,7 @@ body {
           <p>"Någon måste ha förtalat Josef K., ty utan att han gjort något ont blev han häktad en morgon."</p>
         </div>
         <div class="book-footer">
-          <img class="publisher-logo" src="kafka-passport.png" alt="Bakhåll" width="86">
+          <img class="publisher-logo" src="kafka-passport.png" alt="Franz Kafka, passfoto">
           <span class="isbn">ISBN 978-91-7742-187-6<br><p class="book-copy">© Bakhåll 2002</p></span>
         </div>
       </figure>

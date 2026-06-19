@@ -108,6 +108,17 @@ a:hover { color: var(--rouge-deep); }
 }
 .backlink::before { content: '← '; }
 
+/* Brödsmula: full sökväg uppe till vänster (💄 Hem › Kategori).
+   Ärver .backlink-typografin; separatorn färgas dämpat via token. */
+.crumbs {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 2.5rem;
+}
+.crumbs a { text-decoration: none; }
+.crumbs span { color: var(--mauve); margin: 0 0.5em; }
+
 /* --- Sidhuvud --- */
 
 .masthead { margin-bottom: 3.5rem; }

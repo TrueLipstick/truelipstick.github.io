@@ -15,3 +15,8 @@ Thumbs.db
 # Temporart byggskrap (lagg loose testfiler har om de inte ska publiceras)
 *.tmp
 *.bak
+
+# Kall resurs: opublicerat kallager for anonymiseringsskriptet (render.py).
+# Innehaller fulla namn + ka:lltabeller. Pushas ALDRIG. render.py la:ser
+# ha:rifran och skriver anonymiserade filer till redaktorsnoter/.
+_kall/

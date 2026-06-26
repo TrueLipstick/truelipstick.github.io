@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Tolv Dagar i September</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital@0;1&family=Italiana&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #F5F0E8;
+    color: #2A2522;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Header ── */
+
+  .page-header {
+    text-align: center;
+    padding: 5rem 2rem 2rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .page-header h1 {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: 42px;
+    color: #2A2522;
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.02em;
+  }
+
+  .page-header .subtitle {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: #6B635B;
+    line-height: 1.55;
+    max-width: 540px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .page-header .period {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: #6B635B;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Prolog ── */
+
+  .prolog {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 2rem 2rem 3rem;
+    text-align: center;
+  }
+
+  .prolog p {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 0.95rem;
+    color: #6B635B;
+    line-height: 1.7;
+    margin-bottom: 0.6rem;
+  }
+
+  .prolog p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Sticky day indicator ── */
+
+  .day-indicator {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245, 240, 232, 0.92);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    text-align: center;
+    padding: 0.5rem 1rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #502846;
+    border-bottom: 1px solid #B8AFA5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .day-indicator.visible {
+    opacity: 1;
+  }
+
+  /* ── Timeline ── */
+
+  .timeline {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  /* Central axis */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent 0%, #B8AFA5 2%, #B8AFA5 98%, transparent 100%);
+  }
+
+  /* ── Day group ── */
+
+  .day {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  /* Day marker on axis */
+  .day-marker {
+    position: relative;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    z-index: 2;
+  }
+
+  .day-marker .dot {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #B8AFA5;
+    border: 3px solid #F5F0E8;
+    vertical-align: middle;
+    position: relative;
+  }
+
+  .day-marker.special .dot {
+    width: 36px;
+    height: 36px;
+    background-color: #D4A853;
+    border: 4px solid #F5F0E8;
+    box-shadow: 0 0 0 2px #D4A853;
+  }
+
+  .day-marker.anniversary .dot {
+    width: 24px;
+    height: 24px;
+    background-color: #B8AFA5;
+    box-shadow: 0 0 0 4px rgba(184, 175, 165, 0.3);
+  }
+
+  .day-marker .label {
+    display: block;
+    margin-top: 0.4rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 28px;
+    color: #2A2522;
+  }
+
+  .day-marker .day-number {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: #6B635B;
+    margin-top: 0.15rem;
+  }
+
+  .day-note {
+    text-align: center;
+    margin-bottom: 1.2rem;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #6B635B;
+  }
+
+  /* ── Cards ── */
+
+  .cards-container {
+    position: relative;
+  }
+
+  .card {
+    position: relative;
+    width: calc(50% - 40px);
+    padding: 18px 22px;
+    border-radius: 6px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+    margin-bottom: 1.4rem;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    cursor: default;
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.11);
+    transform: translateY(-2px);
+  }
+
+  /* Alternating sides */
+  .card.left {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .card.right {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  /* Accent borders */
+  .card--jonathan {
+    background-color: #FDF8F2;
+    border-left: 4px solid #C87533;
+  }
+  .card--jonathan.right {
+    border-left: none;
+    border-right: 4px solid #C87533;
+  }
+
+  .card--lotten {
+    background-color: #FAF5F8;
+    border-left: 4px solid #502846;
+  }
+  .card--lotten.right {
+    border-left: none;
+    border-right: 4px solid #502846;
+  }
+
+  .card--shared {
+    background-color: #FFFCF3;
+    border-left: 4px solid #D4A853;
+  }
+  .card--shared.right {
+    border-left: none;
+    border-right: 4px solid #D4A853;
+  }
+
+  .card--highlight {
+    background-color: #FFF9E8;
+    border: 2px solid #D4A853;
+    box-shadow: 0 2px 12px rgba(212, 168, 83, 0.2);
+  }
+
+  .card .recipient {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: #7A8B99;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .card h3 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #2A2522;
+  }
+
+  .card p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .card blockquote {
+    font-style: italic;
+    margin: 0.7rem 0;
+    padding-left: 1rem;
+    border-left: 2px solid rgba(0, 0, 0, 0.12);
+    color: #3A3530;
+    font-size: 0.93rem;
+    line-height: 1.55;
+  }
+
+  .card .micro {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: #6B635B;
+    font-style: italic;
+  }
+
+  .card .comedy {
+    font-style: italic;
+    color: #6B635B;
+    font-size: 0.88rem;
+    margin-top: 0.6rem;
+    padding-left: 1rem;
+    border-left: 2px dashed #B8AFA5;
+  }
+
+  /* Expandable quote */
+  .card .expandable {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .card.expanded .expandable {
+    max-height: 500px;
+  }
+
+  .card .expand-hint {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: #B8AFA5;
+    cursor: pointer;
+    margin-top: 0.4rem;
+    user-select: none;
+  }
+
+  .card .expand-hint:hover {
+    color: #6B635B;
+  }
+
+  .card.expanded .expand-hint {
+    display: none;
+  }
+
+  /* ── Symbol system — Jonathans tonfall ── */
+
+  .symbol-sol {
+    color: #C87533;   /* Jonathans koppar — solvärme, hans goda humör */
+    font-size: 1.05em;
+  }
+
+  .symbol-storm {
+    color: #4A6B8A;   /* Östersjön i september — skiffer-blå stormigt */
+    font-size: 1.05em;
+  }
+
+  /* Talarmarkeringar — schackpjäserna */
+  .speaker-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .speaker-jonathan {
+    color: #2A2522;
+  }
+
+  .speaker-lotten {
+    color: #502846;
+  }
+
+  /* ── Brake visual ── */
+
+  .brake-marker {
+    text-align: center;
+    margin: 0.8rem 0 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: #B8AFA5;
+    letter-spacing: 0.3em;
+  }
+
+  /* ── Coda-markör — brygga mellan tidslinjen och epilogen ── */
+
+  .coda-marker {
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.4em;
+    color: #B8AFA5;
+    margin: 3.5rem auto 0;
+    user-select: none;
+  }
+
+  /* ── Epilog — dagbokssida ur korrespondenshögen ── */
+
+  .epilog-diary {
+    max-width: 620px;
+    margin: 5rem auto 2rem;
+    padding: 2.4rem 3rem 2.2rem;
+    /* Crème — varmare än sidans bakgrund, som äldre papper */
+    background-color: #FAF7EE;
+    /* Subtila linjer — dagboksregistrens linjatur, aubergine-tonade */
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1.85em - 1px),
+      rgba(80, 40, 70, 0.05) calc(1.85em - 1px),
+      rgba(80, 40, 70, 0.05) 1.85em
+    );
+    background-attachment: local;
+    border: 1px solid rgba(80, 40, 70, 0.12);
+    border-left: 4px solid #502846;
+    border-radius: 2px 4px 4px 2px;
+    /* Lätt snedvinkel — brevet som fallit lite ut ur högen */
+    transform: rotate(-0.3deg);
+    box-shadow:
+      2px 4px 18px rgba(42, 37, 34, 0.09),
+      -1px 2px 6px rgba(42, 37, 34, 0.05);
+  }
+
+  .epilog-diary h2 {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #502846;
+    text-align: left;      /* brevet — vänsterställd rubrik, inte centrerad */
+    margin-bottom: 1.6rem;
+    letter-spacing: 0.04em;
+  }
+
+  .epilog-diary p {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: normal;
+    font-size: 0.95rem;
+    color: #2A2522;
+    line-height: 1.75;
+    margin-bottom: 0.7rem;
+  }
+
+  .epilog-diary p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Avslutningsraden — "Striden pågår alltjämt. Vänskapen likaså." */
+  .epilog-coda {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic;
+    font-size: 1.0rem;
+    color: #502846;
+    text-align: center;
+    margin-top: 1.4rem !important;
+    padding-top: 1.2rem;
+    border-top: 1px solid #B8AFA5;
+    margin-bottom: 0 !important;
+  }
+
+  /* ── Footer / signature ── */
+
+  .page-footer {
+    text-align: center;
+    padding: 7rem 2rem 4rem;
+  }
+
+  .page-footer .signature {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #502846;
+    opacity: 0.7;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── Scroll animation ── */
+
+  .card, .day-marker, .day-note {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .card.visible, .day-marker.visible, .day-note.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card, .day-marker, .day-note {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .day-indicator {
+      display: none;
+    }
+  }
+
+  /* ── Responsive: below 768px ── */
+
+  @media (max-width: 768px) {
+    .timeline::before {
+      left: 20px;
+      transform: none;
+    }
+
+    .day-marker {
+      text-align: left;
+      padding-left: 44px;
+    }
+
+    .day-marker .dot {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .day-marker.special .dot {
+      left: -6px;
+    }
+
+    .day-note {
+      text-align: left;
+      padding-left: 44px;
+    }
+
+    .card {
+      width: auto;
+      margin-left: 44px !important;
+      margin-right: 0 !important;
+    }
+
+    .card--jonathan.right,
+    .card--lotten.right,
+    .card--shared.right {
+      border-right: none;
+      border-left: 4px solid;
+    }
+    .card--jonathan.right { border-left-color: #C87533; }
+    .card--lotten.right { border-left-color: #502846; }
+    .card--shared.right { border-left-color: #D4A853; }
+
+    .page-header {
+      padding: 3rem 1.5rem 1.5rem;
+    }
+
+    .page-header h1 {
+      font-size: 32px;
+    }
+
+    .prolog {
+      text-align: left;
+      padding: 1.5rem;
+    }
+
+    .timeline {
+      padding: 0 1rem 3rem;
+    }
+
+    .epilog-diary {
+      transform: none;   /* rotationen läggs av på mobil */
+      padding: 1.6rem 1.5rem 1.5rem 1.8rem;
+      margin: 3rem 1rem 2rem;
+    }
+
+    .page-footer .signature {
+      font-size: 18px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Sticky day indicator ═══ -->
+<div class="day-indicator" id="dayIndicator"></div>
+
+<!-- ═══ HEADER ═══ -->
+
+<header class="page-header">
+  <h1>Båtyxan &amp; Kalotten</h1>
+  <p class="subtitle">En personlig tidslinje över tolv dagar i september–oktober 2021 då två människor som aldrig mötts stred parallellt på flera fronter, konfronterade en prisjury, ansvarsutkrävde ärkebiskopen och fick en insändare publicerad i DN signerad av elva anhöriga.</p>
+  <p class="period">Ur Lotten Kalenius mailkommunikation<br>25 september – 6 oktober 2021</p>
+  <p class="period">"Varför inte ta ett intressant sidospår om alternativet är att fråga någon hur deras dag har varit?"</p>
+</header>
+
+<!-- ═══ PROLOG ═══ -->
+
+<section class="prolog">
+  <p>Estonia sjönk den 28 september 1994. 852 människor omkom. Bland dem familjemedlemmar till både Jonathan Lindström och Lotten Kalenius.</p>
+  <p>År 2020 sändes en vederstyggelse till självutnämnd dokumentär av "Henke Stjärtsson" som ytterligare systematiserade spridningen av konspirationsteorier om olycksorsaken. Henke tilldelades Stora journalistpriset, mediakåren körde vidare på det spåret. Risken att varje årsdag av katastrofen skulle bli en ny makaber cirkus var påtaglig.</p>
+  <p>Mattias Göransson, chefredaktör på Magasinet Filter samt journalist med ypperligt omdöme, anade en matchning av arga-anhöriga-av-den-bra-sorten och gav Lottens nummer till Jonathan. En gemensam beslutsamhet att göra <i>någonting</i> ledde till en ny sorts galen tidslinje i bådas liv.</p>
+</section>
+
+<!-- ═══ TIMELINE ═══ -->
+
+<section class="timeline">
+
+  <!-- ── DAG 1 ── -->
+  <div class="day" data-day="Dag 1 — 25 september">
+    <div class="day-marker special">
+      <span class="dot"></span>
+      <span class="label">25 september</span>
+      <span class="day-number">Dag 1</span>
+    </div>
+
+    <div class="cards-container">
+      <div class="card card--jonathan left">
+        <div class="recipient">→ Lotten Kalenius</div>
+        <h3>Det börjar med en adress</h3>
+        <p>Jonathan Lindström har just fått ett telefonnummer av en journalist med en uppmuntrande hälsning om att besvära någon annan. Efter ett introducerande samtal inleddes den episka mailkontakten.</p>
+        <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
+        <blockquote>Mattias@magasinfilter.se<br>Eller var det<br>Mattias@magasinetfilter.se<br><br>Jag håller på o pillar på telefonen o blir lite snurrig. Återkommer strax!</blockquote>
+        <p>⏲ <b>5 minuter senare</b></p>
+        <p>Nytt mejl, rätt adress.</p>
+        <blockquote>Det är otroligt viktigt att vi hjälps åt att få fram sanningen och journalisternas misstag, det handlar inte bara om vårt personliga obehag, så jag är jätteglad att du är med!</blockquote>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DAG 2 ── -->
+  <div class="day" data-day="Dag 2 — 26 september">
+    <div class="day-marker">
+      <span class="dot"></span>
+      <span class="label">26 september</span>
+      <span class="day-number">Dag 2</span>
+    </div>
+
+    <div class="cards-container">
+      <div class="card card--jonathan right">
+        <div class="recipient">→ Ärkebiskopen</div>
+        <h3>Brev till ärkebiskopen</h3>
+        <p>Jonathan har skrivit till ärkebiskopen om gravfridsbrott vid vraket och vidarebefordrar det till Lotten i efterhand, eftersom hon nu är en del av... något.</p>
+        <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
+        <blockquote>Skickade detta nyss, för vad det är värt...</blockquote>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DAG 3 ── -->
+  <div class="day" data-day="Dag 3 — 27 september">
+    <div class="day-marker">
+      <span class="dot"></span>
+      <span class="label">27 september</span>
+      <span class="day-number">Dag 3</span>
+    </div>
+
+    <p class="day-note">Fyra fronter på en dag.</p>
+
+    <div class="cards-container">
+      <div class="card card--jonathan left">
+        <div class="recipient">→ Anna Hägg-Sjöquist, Röda korset</div>
+        <h3>Brev till Röda korset</h3>
+        <p>Jonathan vidarebefordrar ett mejl om ännu en front där Lotten nu är vapenbroder ad hoc:</p>
+        <blockquote><b><i>Re: Gällande aktivt spridande av vanföreställningar om Estonia</i></b></blockquote>
+        <p>Ärendet kan sammanfattas med en retorisk fråga:</p>
+        <p><i>Om du har överlevt en olycka och fått minnen av militärtransporter inplanterade i huvudet av opportunister, kvalar du då automatiskt in som krisexpert hos Röda Korset?</i></p>
+      </div>
+
+      <div class="card card--jonathan right">
+        <div class="recipient">→ Alexander Gagliano, SR/Ekot</div>
+        <h3>Jonathan kastar namn och sans omkring sig</h3>
+        <p>Jonathan skriver till en reporter på Sveriges Radio och rekommenderar Lotten som kontaktperson. Som åskådare från kopiaradens bänk ser hon sig själv underligt beskriven som "sansad" och "balanserad".</p>
+        <p class="expand-hint" onclick="this.closest('.card').classList.toggle('expanded')">▸ och apropå balanserad...</p>
+        <div class="expandable">
+          <div class="brake-marker">· · · tonfall i början · · ·</div>
+          <blockquote><span class="symbol-sol">☼</span> Tack för samtal! När ni i fortsättningen gör inslag om Estonia (särskilt imorgon) så <b>får ni mer än gärna kontakta mig</b>.</blockquote>
+          <div class="brake-marker">· · · och mot slutet · · ·</div>
+          <blockquote><span class="symbol-storm">⛈</span> Det står er naturligtvis fritt att välja mer färgstarka och underhållande kommentatorer, men vi skulle uppskatta oerhört om ni ändå lät åtminstone någon mer balanserad anhörig [...] komma till tals.</blockquote>
+        </div>
+        <span class="speaker-label speaker-lotten">♕ Lotten:</span>
+        <blockquote style="border-left-color: #502846;">BAM! Bra "gubbjobbat"!</blockquote>
+        <p>(Smått obegripligt i efterhand, men icke desto mindre en indikation på uppkomsten av någon form av intern jargong.)</p>
+      </div>
+
+      <div class="card card--jonathan left">
+        <div class="recipient">→ Patrik Hadenius &amp; Jack Werner</div>
+        <h3>Brev till prisjuryn</h3>
+        <p>Ett långt, personligt och rasande brev till två jurymedlemmar bakom Stora Journalistpriset.</p>
+        <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
+        <blockquote><span class="symbol-storm">⛈</span> Att knäppskallar som Evertsson får göra film är väl något man också måste acceptera i ett öppet samhälle. Det stora problemet uppkommer när tokerierna tas på allvar av journalistkåren och allmänheten. Och där har ni två båda ett stort personligt ansvar.</blockquote>
+        <blockquote><span class="symbol-storm">⛈</span> Vad ni i praktiken har gjort är alltså att kraftfullt stödja och framhålla en högerextremistisk historieförfalskare som ett föredöme</blockquote>
+        <p>Jonathan presenterar Lotten som sin medarrangör i en debattartikel de ännu inte skrivit.</p>
+        <blockquote><span class="symbol-storm">⛈</span> Lotten Kalenius, som sitter i riksstyrelsen för Vetenskap och folkbildning, är lika ledsen och förtvivlad som jag, och vi håller nu på att skriva en debattartikel som vi hoppas få in i en större tidning.</blockquote>
+        <p>No pressure. Lotten.</p>
+      </div>
+
+      <div class="brake-marker">· ⏲ · paus · ⏲ ·</div>
+
+      <div class="card card--lotten right">
+        <h3>Det enda bromstaget</h3>
+        <p>Sent på kvällen delar Jonathan ett formulerat stycke om filmaren Evertssons högerextrema sympatier. "Godkänt från högsta ort", skriver han, och syftar antingen på Mattias Göransson eller påven.</p>
+        <span class="speaker-label speaker-lotten">♕ Lotten:</span>
+        <blockquote><span class="symbol-storm">⛈</span> Vi kan prata om detta imorgon. Bra att ni är överens, men jag behöver ha mer koll på kontext och intention innan jag säger bu eller bä till något.</blockquote>
+        <p class="micro">Det är det enda ögonblicket under perioden där farten saktar ner en kort, kort stund. Den återupptogs så snart Lotten verifierat både underlag och att Jonathan inte är galen på just <b><i>det</i></b> sättet.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DAG 4 ── -->
+  <div class="day" data-day="Dag 4 — 28 september (årsdagen)">
+    <div class="day-marker anniversary">
+      <span class="dot"></span>
+      <span class="label">28 september</span>
+      <span class="day-number">Dag 4 — årsdagen</span>
+    </div>
+
+    <p class="day-note">Det är den 28 september. 27 år sedan Estonia sjönk.</p>
+
+    <div class="cards-container">
+      <div class="card card--jonathan left">
+        <div class="recipient">→ Cristina Grenholm, Svenska kyrkan</div>
+        <h3>Kyrkan svarar</h3>
+        <p>Professor Cristina Grenholm, kyrkosekreterare, svarar på brevet till ärkebiskopen. "Gravfrid råder på platsen och den ska respekteras." Kyrkan följer situationen.</p>
+        <span class="speaker-label speaker-jonathan">♔ Jonathans kommentar till Lotten:</span>
+        <blockquote>Vår kontakt med Gud har uttalat sig.</blockquote>
+      </div>
+
+      <div class="card card--jonathan right">
+        <div class="recipient">→ Mats Djurberg, Sjöhistoriska museet</div>
+        <h3>Nazistiska medier vid ett statligt museum</h3>
+        <p>Om estniska tidningen Postimees, huvudsponsor till Margus Kurms privata dykningar på Estonia, presskonferens i museets lokaler. Bland medierna som länkat till presskonferensen: Fria Tider, Nya Dagbladet, White TV.</p>
+        <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
+        <blockquote><span class="symbol-storm">⛈</span> Min grundpoäng och åsikt är alltså att ni som statlig myndighet är ålagda att följa förvaltningslagen och den säger att all myndighetsutövning måste vara saklig och opartisk.</blockquote>
+        <blockquote><span class="symbol-storm">⛈</span> I begreppet opartiskhet kan ju inte ligga att ge utrymme åt konspirationsteorier, jfr antisemitism etc.</blockquote>
+        <p class="expand-hint" onclick="this.closest('.card').classList.toggle('expanded')">▸ och apropå ingenting...</p>
+        <div class="expandable">
+          <p class="comedy">* <span class="symbol-sol">☼</span> "Slutligen, helt och hållet vid sidan av detta elände, så är jag chefredaktör på Populär Arkeologi, och hoppas att vi snart kan ha ett stadigt inslag av marinarkeologi, där ni gärna får skicka in nyhetstips!"</p>
+        </div>
+      </div>
+
+      <div class="card card--shared left card--highlight">
+        <h3>Bra jobbat</h3>
+        <p>Kvällen slutar med att <span style="color:#502846;">♕ Lotten</span> skriver "Bra jobbat, Jonathan!" Han svarar:</p>
+        <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
+        <blockquote>Du också! Vi hörs i morgon, men hälsa din mormor redan nu att hon har ett finfint barnbarn!</blockquote>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DAG 5 ── -->
+  <div class="day" data-day="Dag 5 — 29 september">
+    <div class="day-marker">
+      <span class="dot"></span>
+      <span class="label">29 september</span>
+      <span class="day-number">Dag 5</span>
+    </div>
+
+    <div class="cards-container">
+      <div class="card card--jonathan left">
+        <h3>Den gemensamma artikeln</h3>
+        <p>Jonathan ger feedback på Lottens förslag på gemensam debattartikel (VB:at från hennes utkorg, "skickade till min far igår kväll", signerat <i>Loppan</i>)</p>
+        <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
+        <blockquote>Loppan? Jag har just skrivit om Digerdöden, så jag associerar lite obekvämt…</blockquote>
+        <blockquote>Jättefin text. Det är helt uppenbart att detta är en version vi inte ska tryffera med mina nazister och gravplundrare.</blockquote>
+        <p class="micro">Den gemensamma artikeln är klar.</p>
+        <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
+        <blockquote>Bra och sansat. Gör en sista korr och skicka mig, så kan jag skicka ut till undertecknarkandidater.</blockquote>
+        <p class="expand-hint" onclick="this.closest('.card').classList.toggle('expanded')">▸ Men...</p>
+        <div class="expandable">
+          <blockquote>...det vore kul att skicka till sådana som Kent Härstedt mfl.</blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DAG 6 ── -->
+  <div class="day" data-day="Dag 6 — 30 september">
+    <div class="day-marker">
+      <span class="dot"></span>
+      <span class="label">30 september</span>
+      <span class="day-number">Dag 6</span>
+    </div>
+
+    <div class="cards-container">
+      <div class="card card--jonathan right">
+        <h3>Möten bokade</h3>
+        <p>Jonathan informerar Lotten och Mattias Göransson om nästa veckas möten. Måndag: fika vid Gamla stans tunnelbaneuppgång med Hadenius — "och kanske Jack Werner som har snoriga barn." Onsdag: Röda korsets Sverigechef på huvudkontoret vid Mariatorget "och prata känslor kring krisexperten Hedrenius finfina insatser för oss anhöriga".</p>
+        <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
+        <blockquote>* "Min fru prenumererar på magasinet Filter, och jag tänkte ge senaste numret till Röda korset, men du får gärna skicka mig ett extra exemplar. Förresten, skicka gärna flera, så kan jag ge Patrik och Jack varsitt ex också."</blockquote>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DAGAR 7–11 ── -->
+  <div class="day" data-day="Dag 7–11 — 1–5 oktober">
+    <div class="day-marker">
+      <span class="dot"></span>
+      <span class="label">1–5 oktober</span>
+      <span class="day-number">Dag 7–11</span>
+    </div>
+
+    <div class="cards-container">
+      <div class="card card--jonathan left">
+        <div class="recipient">→ anhörig</div>
+        <h3>Insamling underskrifter till DN I</h3>
+        <p>Mejlkommunikationen indikerar parallella pingpongmatcher mejl- och telefonledes för att samla medsignatörer.</p>
+        <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
+        <blockquote>Vi pratades vid för 26 år sedan vid ett tillfälle, bland annat om Lennart ”Bärgarlund” som du kallade honom, han var redan då besvärlig och hade hotat mig på telefon.</blockquote>
+      </div>
+
+      <div class="card card--lotten right">
+        <div class="recipient">→ Jonathan</div>
+        <h3>Insamling underskrifter till DN II</h3>
+        <span class="speaker-label speaker-lotten">♕ Lotten:</span>
+        <blockquote style="border-left-color: #502846;">Fick just godkännande från min moster att använda hennes namn.</blockquote>
+      </div>
+
+      <div class="card card--jonathan left">
+        <div class="recipient">→ Lotten</div>
+        <h3>Insamling underskrifter till DN III</h3>
+        <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
+        <blockquote>Läste igen. Du skriver så bra! Nu hoppas vi på att de tar in den.</blockquote>
+      </div>
+
+      <div class="card card--lotten right">
+        <div class="recipient">→ DN Debatt</div>
+        <h3>Debattartikel till DN</h3>
+        <p>Lotten skickar artikeln till DN Debatt. Ämne: medias behandling av Estoniaårsdagen, konspirationsteoriernas spridning, anhörigas rätt till värdighet och stillhet.</p>
+        <p>DN hänvisar till insändarredaktionen.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DAG 12 ── -->
+  <div class="day" data-day="Dag 12 — 6 oktober">
+    <div class="day-marker special">
+      <span class="dot"></span>
+      <span class="label">6 oktober</span>
+      <span class="day-number">Dag 12</span>
+    </div>
+
+    <div class="cards-container">
+      <div class="card card--shared card--highlight right" style="width: calc(50% + 40px); max-width: 520px;">
+        <h3>Publicerat</h3>
+        <blockquote style="border-left-color: #D4A853; font-size: 1.05rem;">Vi vädjar om värdighet i hanteringen av Estonia.</blockquote>
+        <p>Dagens Nyheter publicerar artikeln som insändare, signerad av Lotten Kalenius, Jonathan Lindström och ytterligare nio anhöriga.</p>
+        <p class="micro">Tolv dagar efter första samtalet, utan att ha träffat varandra.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══ CODA-MARKÖR ═══ -->
+<div class="coda-marker" aria-hidden="true">* * *</div>
+
+<!-- ═══ EPILOG ═══ -->
+
+<section class="epilog-diary">
+  <h2>Vad som sedan hände</h2>
+  <p>De tolv dagarna i september–oktober 2021 lade grunden till något som vid det här laget inte går att avveckla, hur mycket omgivningen än ibland skulle kunna önska sig det.</p>
+  <p>Förvillarpriset 2021 gick till Henrik Evertsson och hela juryn bakom Stora Journalistpriset. Patrik Hadenius kom att offentligt ångra sitt beslut och fick VoF:s för året unikt inrättade pris <i>Årets Pudel</i> — "för den som inser att de haft fel och faktiskt säger det". Någonstans där vände vinden.</p>
+  <p>Hösten 2024 slöt Estoniacirkeln på sätt och vis, när museichefen på Sjöhistoriska av oförklarliga skäl drog tillbaka utlåningen av sin lokal för SEA:s tillställning inför årsdagen, internt kallat för "bajsseminariet". (Dennes chef i sin tur, riksantikvarien, fick något år senare sida 229 av <i>Den sista lögnen</i> signerad av Lotten.)</p>
+  <p>Sedan dess har Jonathan och Lotten varit ett radarpar, med en löpande korrespondens som gärna tar omvägar via historisk lavemangsutrustning eller freudianers oförtjänta presstöd. Jonathan har en obruten förmåga att förmedla det absurda med kort följebrev, och Lotten en lika obruten förmåga att svara i samma anda, vare sig det gäller "Operation Keops" under ledning av en yogaguru från Bali eller onyktra 1600-talsälgar.</p>
+  <p>Att Lotten och Jonathan från första början stred sida vid sida utan att ännu ha träffats är exempel på en osedvanligt klockren personkemi. Det var också rivstarten på det kontinuerliga projektet att rätta till världens alla orättvisor; ett arbete baserat på ömsesidig respekt, mörk humor och en total oförståelse inför kallpratets funktion.</p>
+  <p>Och när Lotten och Dan Katz petades ur Folkvetts redaktion våren 2026 var Jonathan en av de första att flyga i taket och, som han själv sade med en air av "attackhund kedjad vid hundkojan" över sig, göra sig redo att "komma med en bredsida".</p>
+  <p class="epilog-coda">Striden pågår alltjämt. Vänskapen likaså.</p>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+
+<footer class="page-footer">
+  <p class="signature">🦚 Greve Malcolm 2026</p>
+</footer>
+
+<!-- ═══ JavaScript ═══ -->
+
+<script>
+(function () {
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── Scroll animation ──
+  if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+    var fadeObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.card, .day-marker, .day-note').forEach(function (el) {
+      fadeObserver.observe(el);
+    });
+  } else {
+    // Show all immediately
+    document.querySelectorAll('.card, .day-marker, .day-note').forEach(function (el) {
+      el.classList.add('visible');
+    });
+  }
+
+  // ── Sticky day indicator ──
+  if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+    var indicator = document.getElementById('dayIndicator');
+    var currentDay = '';
+
+    var dayObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var label = entry.target.closest('.day').getAttribute('data-day');
+          if (label && label !== currentDay) {
+            currentDay = label;
+            indicator.textContent = label;
+            indicator.classList.add('visible');
+          }
+        }
+      });
+    }, { threshold: 0, rootMargin: '-80px 0px -70% 0px' });
+
+    document.querySelectorAll('.day-marker').forEach(function (el) {
+      dayObserver.observe(el);
+    });
+
+    // Hide indicator when scrolled to top
+    var headerObserver = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        indicator.classList.remove('visible');
+      }
+    }, { threshold: 0.5 });
+
+    headerObserver.observe(document.querySelector('.page-header'));
+  }
+
+  // ── Höjdrapportering till omslagssidan (iframe-värd) ──
+  // Artefakten mäter sin egen höjd och postar den till föräldern, som
+  // sätter iframe-höjden därefter. Säkrar att hela tidslinjen + epilogen
+  // syns utan klippning, i både mobil och desktop.
+  function reportHeight() {
+    // Mät BARA body — documentElement sträcks ut till iframens satta höjd,
+    // så att läsa documentElement.scrollHeight skapar en självförstärkande
+    // loop som blåser upp höjden för varje rapport.
+    var h = Math.max(document.body.scrollHeight, document.body.offsetHeight);
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'batyxan-height', height: h }, '*');
+    }
+  }
+
+  if ('ResizeObserver' in window) {
+    var ro = new ResizeObserver(function () { reportHeight(); });
+    ro.observe(document.body);
+  }
+  window.addEventListener('load', reportHeight);
+  window.addEventListener('resize', reportHeight);
+  // Höjden växer även när kort fälls ut eller fade-animationer ändrar layout.
+  document.addEventListener('click', function () { setTimeout(reportHeight, 400); });
+  // Initial rapport så snart skriptet körts.
+  reportHeight();
+})();
+</script>
+
+</body>
+</html>

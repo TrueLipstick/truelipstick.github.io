@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Håller sidan utanför sökmotorernas register. -->
+  <meta name="robots" content="noindex">
+
+  <!-- Neutral titel. Den syns i webbläsarens flik. -->
+  <title>En delning</title>
+  <link rel="stylesheet" href="../style.css">
+<script data-goatcounter="https://truelipstick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- Den här sidan är medvetet olistad: ingen länk pekar hit från den
+         officiella väven, och den ska inte läggas in i någon kategorilista. -->
+
+    <header class="masthead">
+      <p class="eyebrow">Delad i förtroende</p>
+      <h1 class="site-title" style="font-size:clamp(2rem,5vw,3rem)">Båtyxan &amp; Kalotten</h1>
+      <p class="lede">En personlig tidslinje över tolv dagar i september 2021, då två människor som aldrig mötts stred sida vid sida. <span class="aside">Bläddra nedåt i ramen — den rullar i sin egen takt.</span></p>
+    </header>
+
+    <!-- Inbäddad artefakt. Artefaktfilen ligger i samma losa/-mapp och pekas
+         ut med relativ src. Höjden sätts dynamiskt av skriptet längst ned;
+         height-attributet är en generös reserv om JavaScript är avstängt. -->
+    <div class="artifact-frame">
+      <iframe id="artifact" src="batyxan-kalotten-artefakt.html" height="6000"
+              title="Båtyxan & Kalotten — tidslinje" loading="lazy"></iframe>
+    </div>
+
+    <footer class="foot">
+      <p>Delad enskilt. Inte tänkt för spridning.</p>
+    </footer>
+
+  </main>
+
+  <script>
+    // Artefakten rapporterar sin egen höjd via postMessage. Vi sätter
+    // iframe-höjden därefter så hela tidslinjen + epilogen syns utan
+    // klippning och utan inre rullningslist. Reservhöjden i markup:en
+    // räcker om skriptet eller artefaktens JS inte körs.
+    (function () {
+      var frame = document.getElementById('artifact');
+      window.addEventListener('message', function (e) {
+        var d = e.data;
+        if (d && d.type === 'batyxan-height' && typeof d.height === 'number') {
+          // Liten marginal så inget kant-innehåll skär av.
+          frame.style.height = (d.height + 24) + 'px';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

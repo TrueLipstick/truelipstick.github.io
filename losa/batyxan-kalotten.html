@@ -10,6 +10,108 @@
   <!-- Neutral titel. Den syns i webbläsarens flik. -->
   <title>En delning</title>
   <link rel="stylesheet" href="../style.css">
+
+  <!-- Caveat (handskriven polaroid-notering) — laddas som <link>, inte @import. -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Polaroid-tillägg. Fristående block; hårdkodar inga tokens ur ../style.css. -->
+  <style>
+    .polaroid-group {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin: 2.5rem auto 3.5rem;
+      max-width: 560px;
+      padding: 20px 16px 8px;
+      /* Ingen bakgrund — polaroiderna flyter fritt på omslagssidans papper */
+    }
+
+    .polaroid-foto {
+      background: #FFFFFF;
+      padding: 12px 12px 44px;
+      position: relative;
+      display: inline-block;
+      box-shadow:
+        3px 6px 20px rgba(42, 37, 34, 0.18),
+        1px 2px 5px rgba(42, 37, 34, 0.10);
+    }
+
+    .polaroid-motiv-a {
+      transform: rotate(-5deg);
+      margin-right: -28px; /* överlapp mot Motiv B */
+      z-index: 2;
+      position: relative;
+    }
+
+    .polaroid-motiv-b {
+      transform: rotate(3.5deg);
+      margin-top: 28px; /* B hänger lägre — asymmetri ger liv */
+      z-index: 1;
+      position: relative;
+    }
+
+    .polaroid-bild {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .polaroid-text {
+      font-family: 'Caveat', cursive;
+      font-size: 13px;
+      font-weight: 400;
+      color: #3A3230;
+      text-align: center;
+      margin: 0;
+      padding: 10px 6px 2px;
+      line-height: 1.4;
+      opacity: 0.85;
+    }
+
+    /* Tejpbit — Motiv A: guld-amber, lätt vinklad */
+    .polaroid-motiv-a::before {
+      content: '';
+      position: absolute;
+      width: 58px;
+      height: 18px;
+      background: rgba(212, 168, 83, 0.34);
+      border-radius: 2px;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+    }
+
+    /* Tejpbit — Motiv B: koppar-ton, annan vinkel */
+    .polaroid-motiv-b::before {
+      content: '';
+      position: absolute;
+      width: 54px;
+      height: 18px;
+      background: rgba(200, 117, 51, 0.28);
+      border-radius: 2px;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%) rotate(3deg);
+    }
+
+    @media (max-width: 640px) {
+      .polaroid-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+        margin: 2rem auto;
+        max-width: 280px;
+      }
+
+      .polaroid-motiv-a,
+      .polaroid-motiv-b {
+        transform: none; /* rotation av på mobil, precis som epilogen */
+        margin-right: 0;
+        margin-top: 0;
+      }
+    }
+  </style>
 <script data-goatcounter="https://truelipstick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -22,8 +124,23 @@
       <p class="eyebrow">Delad i förtroende</p>
       <h1 class="site-title" style="font-size:clamp(2rem,5vw,3rem)">Båtyxan &amp; Kalotten</h1>
       <p class="lede">En personlig tidslinje över tolv dagar i september 2021, då två människor som aldrig mötts stred sida vid sida.<br>
-      <span class="aside">Bläddra nedåt i ramen — den rullar i sin egen takt.</span></p>
+      <span class="aside">Bläddra nedåt i ramen — den rullar i sin egen takt.<br>
+      Rader märkta med <b>⇛</b> går att klicka på — då fälls ett extra citat ut. Klicka igen för att fälla ihop det.</span></p>
     </header>
+
+    <!-- Två polaroider, tejpade upp som ett fysiskt förord innan tidslinjen. -->
+    <div class="polaroid-group">
+      <div class="polaroid-foto polaroid-motiv-a">
+        <img class="polaroid-bild" src="img/motiv-a-drottningen.jpg"
+             alt="En schackdrottning placerad på Q-tangenten, september 2021">
+        <p class="polaroid-text">Bäste Ärkebiskop —</p>
+      </div>
+      <div class="polaroid-foto polaroid-motiv-b">
+        <img class="polaroid-bild" src="img/motiv-b-skickat.jpg"
+             alt="Skickat-mappen, september–oktober 2021">
+        <p class="polaroid-text">Vi vädjar om värdighet.</p>
+      </div>
+    </div>
 
     <!-- Inbäddad artefakt. Artefaktfilen ligger i samma losa/-mapp och pekas
          ut med relativ src. Höjden sätts dynamiskt av skriptet längst ned;

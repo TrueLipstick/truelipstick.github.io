@@ -25,7 +25,10 @@
     color: #2A2522;
     font-family: 'Source Serif 4', Georgia, serif;
     font-weight: 400;
-    font-size: 16px;
+    /* Datorvy: något större brödtext så läsglasögonen får vila.
+       rem/em-baserad text i korten skalar med detta; mobilvyn
+       återställer till 16px i media-frågan längst ned. */
+    font-size: 17.5px;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
@@ -335,20 +338,39 @@
 
   .card .expand-hint {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: #B8AFA5;
+    font-size: 12px;
+    color: #786f80;
     cursor: pointer;
-    margin-top: 0.4rem;
+    margin-top: 0.5rem;
     user-select: none;
+    display: inline-block;
+    /* Lätt platta bakom hinten så den läses som en knapp, inte löptext */
+    padding: 0.2rem 0.6rem 0.2rem 0.5rem;
+    border: 1px solid rgba(120, 111, 128, 0.35);
+    border-radius: 4px;
+    background-color: rgba(120, 111, 128, 0.06);
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
   }
 
   .card .expand-hint:hover {
-    color: #6B635B;
+    color: #504153;
+    background-color: rgba(120, 111, 128, 0.12);
+    border-color: rgba(120, 111, 128, 0.55);
   }
 
-  .card.expanded .expand-hint {
-    display: none;
+  /* Pilen i hinten — bär klickbarheten visuellt */
+  .card .expand-hint .hint-arrow {
+    font-style: normal;
+    margin-right: 0.35rem;
   }
+
+  /* Visa rätt etikett beroende på tillstånd. Båda etiketterna ligger
+     i markup:en; CSS växlar vilken som syns. */
+  .card .expand-hint .hint-open { display: inline; }
+  .card .expand-hint .hint-close { display: none; }
+
+  .card.expanded .expand-hint .hint-open { display: none; }
+  .card.expanded .expand-hint .hint-close { display: inline; }
 
   /* ── Symbol system — Jonathans tonfall ── */
 
@@ -508,6 +530,12 @@
   /* ── Responsive: below 768px ── */
 
   @media (max-width: 768px) {
+    /* Mobilvyn fungerade utmärkt på 16px — återställ basstorleken
+       så bara datorvyn växer. */
+    body {
+      font-size: 16px;
+    }
+
     .timeline::before {
       left: 20px;
       transform: none;
@@ -670,7 +698,7 @@
         <div class="recipient">→ Alexander Gagliano, SR/Ekot</div>
         <h3>Jonathan kastar namn och sans omkring sig</h3>
         <p>Jonathan skriver till en reporter på Sveriges Radio och rekommenderar Lotten som kontaktperson. Som åskådare från kopiaradens bänk ser hon sig själv underligt beskriven som "sansad" och "balanserad".</p>
-        <p class="expand-hint" onclick="this.closest('.card').classList.toggle('expanded')">▸ och apropå balanserad...</p>
+        <p class="expand-hint" onclick="this.closest('.card').classList.toggle('expanded')"><span class="hint-open"><span class="hint-arrow">⇛</span>och apropå balanserad…</span><span class="hint-close"><span class="hint-arrow">⇙</span>fäll ihop</span></p>
         <div class="expandable">
           <div class="brake-marker">· · · tonfall i början · · ·</div>
           <blockquote><span class="symbol-sol">☼</span> Tack för samtal! När ni i fortsättningen gör inslag om Estonia (särskilt imorgon) så <b>får ni mer än gärna kontakta mig</b>.</blockquote>
@@ -732,7 +760,7 @@
         <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
         <blockquote><span class="symbol-storm">⛈</span> Min grundpoäng och åsikt är alltså att ni som statlig myndighet är ålagda att följa förvaltningslagen och den säger att all myndighetsutövning måste vara saklig och opartisk.</blockquote>
         <blockquote><span class="symbol-storm">⛈</span> I begreppet opartiskhet kan ju inte ligga att ge utrymme åt konspirationsteorier, jfr antisemitism etc.</blockquote>
-        <p class="expand-hint" onclick="this.closest('.card').classList.toggle('expanded')">▸ och apropå ingenting...</p>
+        <p class="expand-hint" onclick="this.closest('.card').classList.toggle('expanded')"><span class="hint-open"><span class="hint-arrow">⇛</span>och apropå ingenting…</span><span class="hint-close"><span class="hint-arrow">⇙</span>fäll ihop</span></p>
         <div class="expandable">
           <p class="comedy"><span class="symbol-sol">☼ </span> "Slutligen, helt och hållet vid sidan av detta elände, så är jag chefredaktör på Populär Arkeologi, och hoppas att vi snart kan ha ett stadigt inslag av marinarkeologi, där ni gärna får skicka in nyhetstips!"</p>
         </div>
@@ -765,7 +793,7 @@
         <p class="micro">Den gemensamma artikeln är klar.</p>
         <span class="speaker-label speaker-jonathan">♔ Jonathan:</span>
         <blockquote>Bra och sansat. Gör en sista korr och skicka mig, så kan jag skicka ut till undertecknarkandidater.</blockquote>
-        <p class="expand-hint" onclick="this.closest('.card').classList.toggle('expanded')">▸ Men...</p>
+        <p class="expand-hint" onclick="this.closest('.card').classList.toggle('expanded')"><span class="hint-open"><span class="hint-arrow">⇛</span>Men…</span><span class="hint-close"><span class="hint-arrow">⇙</span>fäll ihop</span></p>
         <div class="expandable">
           <blockquote>...det vore kul att skicka till sådana som Kent Härstedt mfl.</blockquote>
         </div>
@@ -857,7 +885,7 @@
 <!-- ═══ EPILOG ═══ -->
 
 <section class="epilog-diary">
-  <h2>Vad som sedan hände</h2>
+  <h2>Vad som hände sedan</h2>
   <p>De tolv dagarna i september–oktober 2021 lade grunden till något som vid det här laget inte går att avveckla, hur mycket omgivningen än ibland skulle kunna önska sig det.</p>
   <p>Förvillarpriset 2021 gick till Henrik Evertsson och hela juryn bakom Stora Journalistpriset. Patrik Hadenius kom att offentligt ångra sitt beslut och fick VoF:s för året unikt inrättade pris <i>Årets Pudel</i> — "för den som inser att de haft fel och faktiskt säger det". Någonstans där vände vinden.</p>
   <p>Hösten 2024 slöt sig Estoniacirkeln på sätt och vis, när museichefen på VRAK av oförklarliga skäl drog tillbaka utlåningen av sina lokaler till SEA:s tillställning inför årsdagen (internt kallat "bajsseminariet"). (Dennes chef i sin tur, riksantikvarien, fick något år senare sida 229 av <i>Den sista lögnen</i> signerad av Lotten.)</p>
@@ -871,7 +899,7 @@
 <!-- ═══ FOOTER ═══ -->
 
 <footer class="page-footer">
-  <p class="signature">🦚 Greve Malcolm 2026</p>
+  <p class="signature">Grafisk design: 🦚 Greve Malcolm, juni 2026</p>
 </footer>
 
 <!-- ═══ JavaScript ═══ -->

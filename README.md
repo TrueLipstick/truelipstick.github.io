@@ -66,6 +66,10 @@ För en sida du vill dela med enskilda men inte skylta officiellt. Den ligger i 
 2. Kopiera en befintlig kategoris `index.html` in i den.
 3. Lägg till en `<li class="strand">` i rotens `index.html`.
 
+## Källmaterial hör inte hemma här
+
+Det här repot ska bara innehålla det GitHub Pages serverar. Underlag som *föregår* en sida — designspecar, godkänd råtext, briefer — bor hos sin upphovsmapp i workspacet, inte här. En designspec för en konstsvit hör t.ex. hemma hos konstens källmapp (`agent-studio/greve-malcolm/art/<svit>/`), tillsammans med bilderna och anteckningarna den gäller. Lägg aldrig sådant löst i repots rot; då hålls sajten ren och allt underlag för en sida samlas på ett ställe.
+
 ## Publicera
 
 1. Skapa ett repo med exakt namnet `truelipstick.github.io` (då blir adressen `https://truelipstick.github.io` utan repo-namn i sökvägen).

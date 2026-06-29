@@ -235,6 +235,138 @@ a:hover { color: var(--rouge-deep); }
 .prose { max-width: var(--measure); }
 .prose p { margin: 0 0 1.1rem; }
 
+/* --- Apokryfer: svit-navigation + verksblock (objekt + läsning) --- */
+
+/* Svit-navigation (ankarmeny över sviten) */
+.suite-nav {
+  margin: 2.5rem 0;
+  padding: 1.25rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+}
+.suite-nav ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+}
+.suite-nav a {
+  font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.04em;
+  text-decoration: none; color: var(--mauve);
+}
+.suite-nav a:hover { color: var(--rouge); }
+
+/* Verksblock — tvåkolumns på dator, staplat på mobil */
+.verk {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+  padding: 3rem 0;
+  border-top: 1px solid var(--hairline);
+  scroll-margin-top: 2rem;
+}
+@media (max-width: 600px) {
+  .verk { grid-template-columns: 1fr; }
+  .verk-bild { display: flex; justify-content: center; }
+}
+
+/* Bild (objektet) — bokformat, subtil skugga, klickbar */
+.verk-bild img {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 4px 18px rgba(var(--photo-shadow), 0.22);
+  border-radius: 2px;
+  cursor: zoom-in;
+}
+.lightbox-trigger {
+  border: 0; padding: 0; background: none; cursor: zoom-in; display: block;
+  width: 100%;
+}
+
+/* 1984: kompakt klickbar rad med de två uppslagen under omslaget */
+.verk-uppslag {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+.verk-uppslag .lightbox-trigger { width: auto; flex: 1; }
+.verk-uppslag img {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 2px 10px rgba(var(--photo-shadow), 0.18);
+  border-radius: 2px;
+  cursor: zoom-in;
+}
+
+/* Notisen (läsningen) */
+.verk-nota .count { font-family: var(--mono); font-size: 0.72rem; color: var(--mauve); letter-spacing: 0.06em; }
+.verk-titel { font-family: var(--display); font-weight: 500; font-size: 1.3rem; margin: 0.2rem 0; }
+.verk-forfattare { font-family: var(--display); color: var(--ink); font-size: 0.95rem; margin: 0 0 0.5rem; }
+.verk-tagline { font-style: italic; color: var(--mauve); margin: 0 0 0.8rem; }
+
+/* Dubbel läsning — utan etikett, distinktion enbart via typografi */
+.lasning {
+  border-left: 2px solid var(--hairline);
+  padding-left: 1rem;
+  margin: 0.8rem 0;
+}
+.lasning-yta  { color: var(--mauve); margin: 0 0 0.4rem; }
+.lasning-djup { color: var(--ink); font-style: italic; margin: 0; }
+
+/* Kuratorisk slutkläm (struken i Cyniska sagor; regeln kvar för framtida bruk) */
+.verk-insikt {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--mauve);
+  margin-top: 0.8rem;
+}
+
+/* --- Lightbox: förstorad bild i <dialog> (samma mönster som fas2-processen) --- */
+.lightbox {
+  border: none;
+  padding: 0;
+  background: transparent;
+  max-width: 92vw;
+  max-height: 92vh;
+  overflow: visible;
+}
+.lightbox::backdrop {
+  background: rgba(22, 15, 28, 0.82);
+  backdrop-filter: blur(3px);
+}
+.lightbox img {
+  display: block;
+  max-width: 92vw;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border-radius: 3px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  cursor: zoom-out;
+}
+.lightbox .lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.lightbox .lightbox-close:focus-visible {
+  outline: 2px solid var(--rouge);
+  outline-offset: 2px;
+}
+
 /* --- Sidfot --- */
 
 .foot {

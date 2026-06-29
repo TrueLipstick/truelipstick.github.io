@@ -31,6 +31,11 @@ truelipstick.github.io/
 ├── handelser/
 ├── samtal/
 ├── redaktorsnoter/
+├── apokryfer/               kategori "05 Apokryfer" (agentisk bildkonst)
+│   ├── index.html           kategoriindex (lista av sviter)
+│   └── cyniska-sagor/
+│       ├── index.html       svit-sidan (tio verk, objekt + läsning)
+│       └── img/             omslagsbilder
 ├── mall/
 │   └── artefakt-mall.html  mall för ett enskilt inlägg
 └── losa/

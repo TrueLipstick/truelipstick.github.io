@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="robots" content="noindex">
+  <title>Kommentarsfältet, 10 april 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <script data-goatcounter="https://truelipstick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --ok: #4f7a60;  /* ej i global style.css — definieras lokalt */
+      --col: 42rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --ok: #7ab894; }
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 18px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap {
+      max-width: var(--col);
+      margin: 0 auto;
+      padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1.25rem, 5vw, 2rem) 4rem;
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--mauve);
+      margin: 0 0 1.4rem;
+    }
+    h1 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-optical-sizing: auto;
+      font-size: clamp(1.85rem, 5.2vw, 2.85rem);
+      line-height: 1.12;
+      letter-spacing: -.01em;
+      margin: 0 0 .6rem;
+      text-wrap: balance;
+    }
+    .lede {
+      font-size: 1rem;
+      color: var(--mauve);
+      margin: 0 0 2.5rem;
+      max-width: 34rem;
+    }
+    .rule {
+      height: 1px;
+      background: var(--hairline);
+      border: 0;
+      margin: 2.5rem 0;
+    }
+
+    /* ── Tidslinje ── */
+    .timeline-wrap {
+      position: relative;
+      margin: 1.5rem 0 2.5rem;
+    }
+    .timeline-axis {
+      position: relative;
+      height: 3px;
+      background: var(--hairline);
+      margin: 1.8rem 0 1.5rem;
+    }
+    .timeline-dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .timeline-dot.critical      { background: var(--rouge); }
+    .timeline-dot.institutional { background: var(--aubergine); }
+    .timeline-dot.supportive    { background: var(--ok); }
+    .timeline-dot.neutral       { background: var(--mauve); }
+    .timeline-shift {
+      position: absolute;
+      top: -1.8rem;
+      width: 1px;
+      height: 3.8rem;
+      background: var(--rouge);
+      opacity: .6;
+      border-left: 1px dashed var(--rouge);
+    }
+    .timeline-shift-label {
+      position: absolute;
+      top: -2.6rem;
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      font-size: .58rem;
+      color: var(--rouge);
+      letter-spacing: .12em;
+      white-space: nowrap;
+    }
+    .timeline-day {
+      position: absolute;
+      top: calc(100% + .4rem);
+      transform: translateX(-50%);
+      height: 1.2rem;
+      border-left: 1px solid var(--hairline);
+      padding-top: .3rem;
+    }
+    .timeline-day-label {
+      position: absolute;
+      top: calc(100% + .5rem);
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      font-size: .58rem;
+      color: var(--mauve);
+      white-space: nowrap;
+    }
+
+    /* ── Inläggets card ── */
+    .post-card {
+      border: 1px solid var(--hairline);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+      background: var(--surface);
+    }
+    .post-head {
+      padding: .7rem 1rem;
+      background: var(--paper-warm);
+      border-bottom: 1px solid var(--hairline);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+    .post-source {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .post-time {
+      font-family: var(--mono);
+      font-size: .68rem;
+      color: var(--mauve);
+    }
+    .post-body {
+      padding: .9rem 1rem;
+      font-family: var(--body);
+      font-size: .98rem;
+      line-height: 1.65;
+    }
+    .post-body p { margin: 0 0 .6rem; }
+    .post-body p:last-child { margin-bottom: 0; }
+    .post-img {
+      display: block;
+      max-width: 360px;
+      width: 100%;
+      height: auto;
+      border-radius: 2px;
+      margin-bottom: .8rem;
+      border: 1px solid var(--hairline);
+    }
+    .post-link-label {
+      font-family: var(--mono);
+      font-size: .66rem;
+      color: var(--mauve);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .post-link-title {
+      font-family: var(--body);
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .post-foot {
+      font-family: var(--mono);
+      font-size: .66rem;
+      color: var(--mauve);
+      padding: 0 1rem .7rem;
+    }
+
+    /* ── Kommentar-card ── */
+    .cc {
+      border-left: 3px solid var(--mauve);
+      margin-bottom: 1.4rem;
+      background: var(--surface);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .cc.critical      { border-left-color: var(--rouge); }
+    .cc.institutional { border-left-color: var(--aubergine); }
+    .cc.ok            { border-left-color: var(--ok); }
+    .cc.neutral       { border-left-color: var(--mauve); }
+    .cc-head {
+      padding: .7rem 1rem;
+      background: var(--paper-warm);
+      border-bottom: 1px solid var(--hairline);
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: .45rem;
+    }
+    .cc-name {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    /* Roll-chip — ENBART för de fyra VoF-funktionärerna */
+    .cc-chip {
+      font-family: var(--mono);
+      font-size: .63rem;
+      color: var(--aubergine);
+      border: 1px solid var(--hairline);
+      border-radius: 2px;
+      padding: .04rem .38rem;
+      letter-spacing: .04em;
+      vertical-align: middle;
+    }
+    @media (prefers-color-scheme: dark) {
+      .cc-chip { color: var(--mauve); }
+    }
+    .cc-time {
+      font-family: var(--mono);
+      font-size: .68rem;
+      color: var(--mauve);
+      margin-left: auto;
+    }
+    .cc-body {
+      padding: .9rem 1rem;
+      font-family: var(--body);
+      font-size: .98rem;
+      line-height: 1.65;
+    }
+    .cc-body p { margin: 0 0 .6rem; }
+    .cc-body p:last-child { margin-bottom: 0; }
+    .cc-img {
+      display: block;
+      max-width: 280px;
+      height: auto;
+      border-radius: 2px;
+      margin-top: .5rem;
+    }
+    .cc-foot {
+      font-family: var(--mono);
+      font-size: .66rem;
+      color: var(--mauve);
+      padding: 0 1rem .7rem;
+    }
+
+    /* ── Trådindragning ── */
+    .replies {
+      margin-left: 1.5rem;
+      border-left: 1px dashed var(--hairline);
+      padding-left: 1rem;
+      margin-top: .5rem;
+    }
+    /* Djupkommentar — lite varmare bakgrund som diskret signal */
+    .cc.depth-deep {
+      background: var(--paper-warm);
+    }
+    /* Djup-chip i header */
+    .cc-depth {
+      font-family: var(--mono);
+      font-size: .58rem;
+      color: var(--mauve);
+      opacity: .8;
+      letter-spacing: .04em;
+    }
+
+    /* ── Skiftlinjen ── */
+    .shift-marker {
+      margin: 3rem 0 2.5rem;
+      border-top: 2px solid var(--rouge);
+      position: relative;
+    }
+    .shift-label {
+      position: absolute;
+      top: -0.75em;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--paper);
+      padding: 0 1rem;
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--rouge);
+      white-space: nowrap;
+    }
+
+    /* ── Sektionsetiketter ── */
+    .section-label {
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--mauve);
+      margin: 0 0 1.4rem;
+    }
+
+    .doc-foot {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--hairline);
+      font-family: var(--mono);
+      font-size: .68rem;
+      color: var(--mauve);
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+<main class="wrap">
+
+  <p class="eyebrow">Vetenskap och Folkbildning · facebookinlägg 10 april 2026</p>
+  <h1>Kommentarsfältet, 10 april 2026</h1>
+  <p class="lede">VoF publicerade en länk till debattartikeln om straffrättsutredningen. 54 kommentarer, 10–15 april.</p>
+
+  <div class="timeline-wrap">
+    <div class="timeline-axis">
+      <!-- prickar -->
+      <span class="timeline-dot critical"      style="left: 2.3%"></span>
+      <span class="timeline-dot critical"      style="left: 4.7%"></span>
+      <span class="timeline-dot institutional" style="left: 7.2%"></span>
+      <span class="timeline-dot critical"      style="left: 6.8%"></span>
+      <span class="timeline-dot critical"      style="left: 6.9%"></span>
+      <span class="timeline-dot institutional" style="left: 7.6%"></span>
+      <span class="timeline-dot institutional" style="left: 8.0%"></span>
+      <span class="timeline-dot critical"      style="left: 8.8%"></span>
+      <span class="timeline-dot critical"      style="left: 8.9%"></span>
+      <span class="timeline-dot supportive"    style="left: 11.0%"></span>
+      <span class="timeline-dot neutral"       style="left: 12.0%"></span>
+      <span class="timeline-dot critical"      style="left: 15.8%"></span>
+      <span class="timeline-dot neutral"       style="left: 22.6%"></span>
+      <span class="timeline-dot neutral"       style="left: 64.0%"></span>
+
+      <!-- skiftlinje -->
+      <span class="timeline-shift" style="left: 11%"></span>
+      <span class="timeline-shift-label" style="left: 11%">23:08</span>
+
+      <!-- dagmarkeringar -->
+      <span class="timeline-day"       style="left: 14.0%"></span>
+      <span class="timeline-day-label" style="left: 14.0%">11 april</span>
+      <span class="timeline-day"       style="left: 32.0%"></span>
+      <span class="timeline-day-label" style="left: 32.0%">12 april</span>
+      <span class="timeline-day"       style="left: 50.0%"></span>
+      <span class="timeline-day-label" style="left: 50.0%">13 april</span>
+      <span class="timeline-day"       style="left: 68.0%"></span>
+      <span class="timeline-day-label" style="left: 68.0%">14 april</span>
+      <span class="timeline-day"       style="left: 86.0%"></span>
+      <span class="timeline-day-label" style="left: 86.0%">15 april</span>
+    </div>
+  </div>
+
+  <article class="post-card">
+    <div class="post-head">
+      <span class="post-source">Vetenskap och Folkbildning</span>
+      <span class="post-time">10 april · kl 08:39</span>
+    </div>
+    <div class="post-body">
+      <img src="img/FB-VOF-0-2026-04-10-kl0839.png"
+           alt="Skärmdump: Vetenskap och Folkbildnings facebookinlägg 10 april 2026 med länk till debattartikeln i Sydsvenskan."
+           class="post-img">
+      <p>Debattartikel i Sydsvenskan idag. Tack alla som jobbat med den!</p>
+      <p class="post-link-label">SYDSVENSKAN.SE</p>
+      <p class="post-link-title">"Fakta och vetenskap får stå tillbaka när nya lagar tas fram."</p>
+    </div>
+    <div class="post-foot">[85 👍 54 💬 21 ↗️]</div>
+  </article>
+
+  <hr class="rule">
+
+  <p class="section-label">Kommentarer · 10 april kl 11:40–20:27</p>
+
+  <!-- ── Johan Svensson (nivå 0) ── -->
+  <article class="cc critical" id="svensson-1140">
+    <div class="cc-head">
+      <span class="cc-name">Johan Svensson</span>
+      <span class="cc-time">10/4 11:40</span>
+    </div>
+    <div class="cc-body">
+      <p>Svensk narkotikapolitik:</p>
+      <img src="img/first-time-meme.jpg"
+           alt="Internetmeme: man i galgkonstruktion med snara ser välkomnande ut; texten 'First time?'"
+           class="cc-img">
+    </div>
+    <div class="cc-foot">[1 👍]</div>
+  </article>
+
+  <!-- ── Magnus Karperyd (nivå 0) ── -->
+  <article class="cc critical" id="karperyd-1449">
+    <div class="cc-head">
+      <span class="cc-name">Magnus Karperyd</span>
+      <span class="cc-time">10/4 14:49</span>
+    </div>
+    <div class="cc-body">
+      <p>Så då är det alltså dags att gå ut ur VoF.</p>
+    </div>
+    <div class="cc-foot">[3 👍]</div>
+  </article>
+  <div class="replies">
+    <!-- nivå 1 -->
+    <article class="cc critical" id="hesselbom-1744">
+      <div class="cc-head">
+        <span class="cc-name">Anders Hesselbom</span>
+        <span class="cc-time">10/4 17:44</span>
+      </div>
+      <div class="cc-body">
+        <p><code>Magnus Karperyd</code> Gjorde detsamma. Tror att föreningen gynnas av att vara vänster, men jag vill inte vara en del av det.</p>
+      </div>
+      <div class="cc-foot">[1 👍]</div>
+    </article>
+    <div class="replies">
+      <!-- nivå 2 -->
+      <article class="cc critical" id="karperyd-1754">
+        <div class="cc-head">
+          <span class="cc-name">Magnus Karperyd</span>
+          <span class="cc-time">10/4 17:54</span>
+        </div>
+        <div class="cc-body">
+          <p>Problemet här är egentligen inte att de skrivit en politisk snarare än faktabaserad debattartikel. Problemet är att de inte förstått problemet. Lagrådets uppgift är inte att likt socialstyrelsen verka för saker som är evidensbaserade eller har beprövad erfarenhet. Så lagrådets kritik är helt enkelt ett metodfel hos lagrådet. Att då lyfta fram ett metodfel som argument för en politisk uppfattning är definitivt varken vetenskapligt eller folkbildande. Om man undrar över vilket uppdrag lagrådet har kan man gå in på deras hemsida och läsa om det, något som författarna borde gjort innan de skrev sin agitation.</p>
+        </div>
+        <div class="cc-foot">[1 👍]</div>
+      </article>
+      <div class="replies">
+        <!-- nivå 3 -->
+        <article class="cc neutral" id="hamberg-1816">
+          <div class="cc-head">
+            <span class="cc-name">Alicia Hamberg</span>
+            <span class="cc-time">10/4 18:16</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Magnus Karperyd</code> det är ju tyvärr väldigt vanligt att folk inte förstår vad lagrådets uppdrag är eller, för den delen, vad lagrådets kritik har gått ut på när sådan har givits.</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+      </div>
+    </div>
+    <!-- nivå 1 -->
+    <article class="cc critical" id="johag-1754">
+      <div class="cc-head">
+        <span class="cc-name">Jesper Johag</span>
+        <span class="cc-time">10/4 17:54</span>
+      </div>
+      <div class="cc-body">
+        <p>Jag gjorde samma val av samma orsak för många år sedan. Det kändes jobbigt men ändå rätt. Vetenskap och skeptisism skall vara konsekvensneutral, inte politiskt marinerad. 😕</p>
+      </div>
+      <div class="cc-foot">[3 👍😡]</div>
+    </article>
+    <div class="replies">
+      <!-- nivå 2 -->
+      <article class="cc institutional" id="lina-2049">
+        <div class="cc-head">
+          <span class="cc-name">Lina Tebbla Fd Hedman</span>
+          <span class="cc-chip">ordförande VoF:s riksstyrelse</span>
+          <span class="cc-time">10/4 20:49</span>
+        </div>
+        <div class="cc-body">
+          <p><code>Jesper Johag</code> har du läst texten ens?</p>
+        </div>
+        <div class="cc-foot">[3 👍]</div>
+      </article>
+      <div class="replies">
+        <!-- nivå 3 -->
+        <article class="cc critical" id="johag-2106">
+          <div class="cc-head">
+            <span class="cc-name">Jesper Johag</span>
+            <span class="cc-time">10/4 21:06</span>
+          </div>
+          <div class="cc-body">
+            <p>Ja.</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+      </div>
+    </div>
+    <!-- nivå 1 -->
+    <article class="cc institutional" id="wallman-1838">
+      <div class="cc-head">
+        <span class="cc-name">Anna Wallman</span>
+        <span class="cc-chip">ledamot VoF:s riksstyrelse</span>
+        <span class="cc-time">10/4 18:38</span>
+      </div>
+      <div class="cc-body">
+        <p><code>Magnus Karperyd</code> jag är förvirrad. Menar du att politik INTE bör bygga på forskning?Eller att politik bygger på fel forskning? För min förhoppning är ju att politik SKA bygga på forskning. Alltid.</p>
+      </div>
+      <div class="cc-foot">[7 👍😆]</div>
+    </article>
+    <div class="replies">
+      <!-- nivå 2 -->
+      <article class="cc critical" id="karperyd-1849">
+        <div class="cc-head">
+          <span class="cc-name">Magnus Karperyd</span>
+          <span class="cc-time">10/4 18:49</span>
+        </div>
+        <div class="cc-body">
+          <p>Politik handlar i grunden om att hantera målkonflikter. Att väga värderingar mot varandra.</p>
+        </div>
+        <div class="cc-foot">[1 👍]</div>
+      </article>
+      <div class="replies">
+        <!-- nivå 3 -->
+        <article class="cc institutional" id="wallman-1853">
+          <div class="cc-head">
+            <span class="cc-name">Anna Wallman</span>
+            <span class="cc-time">10/4 18:53</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Magnus Karperyd</code> fast jag vill ju att värderingarna ska baseras på forskning.</p>
+          </div>
+          <div class="cc-foot">[6 👍]</div>
+        </article>
+
+        <!-- nivå 4 — depth-chip i headern -->
+        <article class="cc critical depth-deep" id="karperyd-1759">
+          <div class="cc-head">
+            <span class="cc-name">Magnus Karperyd</span>
+            <span class="cc-depth">↳ Wallman</span>
+            <span class="cc-time">11/4 17:59</span>
+          </div>
+          <div class="cc-body">
+            <p>Återkom när forskningen definierat "rättvisa"...</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Anders Hesselbom (nivå 0) ── -->
+  <article class="cc critical" id="hesselbom-1739">
+    <div class="cc-head">
+      <span class="cc-name">Anders Hesselbom</span>
+      <span class="cc-time">10/4 17:39</span>
+    </div>
+    <div class="cc-body">
+      <p>Att man förespråkar forskning som gynnar gärningsmännen, helt okommenterat att kriminaliteten minskar, är att tala från ett visst privilegium. Om nu VoF ska ha ett politiskt narrativ i stället för ett vetenskapligt, borde klokare personer sitta bakom spakarna.</p>
+    </div>
+    <div class="cc-foot">[7 👍❤️]</div>
+  </article>
+  <div class="replies">
+    <!-- nivå 1 -->
+      <article class="cc institutional" id="lina-1813">
+      <div class="cc-head">
+        <span class="cc-name">Lina Tebbla Fd Hedman</span>
+        <span class="cc-time">10/4 18:13</span>
+      </div>
+      <div class="cc-body">
+        <p><code>Anders Hesselbom</code> kan du utveckla hur du resonerar för att komma till den slutsatsen?</p>
+      </div>
+      <div class="cc-foot">[7 👍😆]</div>
+    </article>
+    <div class="replies">
+      <!-- nivå 2 -->
+      <article class="cc critical" id="hesselbom-1901">
+        <div class="cc-head">
+          <span class="cc-name">Anders Hesselbom</span>
+          <span class="cc-time">10/4 19:01</span>
+        </div>
+        <div class="cc-body">
+          <p><code>Lina Tebbla Fd Hedman</code> Till att börja med har antalet skjutningar minskat rejält.</p>
+        </div>
+        <div class="cc-foot">[1 👍]</div>
+      </article>
+      <div class="replies">
+        <!-- nivå 3 -->
+        <article class="cc neutral" id="hoffstrom-2156">
+          <div class="cc-head">
+            <span class="cc-name">Henrik Hoffström</span>
+            <span class="cc-time">10/4 21:56</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Anders Hesselbom</code> och det beror på vad då?</p>
+          </div>
+          <div class="cc-foot">[1 👍]</div>
+        </article>
+
+        <!-- nivå 4 -->
+        <article class="cc critical depth-deep" id="hesselbom-2158">
+          <div class="cc-head">
+            <span class="cc-name">Anders Hesselbom</span>
+            <span class="cc-depth">↳ Hoffström</span>
+            <span class="cc-time">10/4 21:58</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Henrik Hoffström</code> Kompetens och goda beslut.</p>
+          </div>
+          <div class="cc-foot">[2 👍😆]</div>
+        </article>
+
+        <!-- nivå 5 -->
+        <article class="cc neutral depth-deep" id="pettersson-0048">
+          <div class="cc-head">
+            <span class="cc-name">Max Pettersson</span>
+            <span class="cc-depth">↳ Hesselbom</span>
+            <span class="cc-time">13/4 00:48</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Anders Hesselbom</code> vad består kompetensen i och vilka beslut.</p>
+            <p>Inget snömos tack. Utgår ifrån att du reder ut källhänvisning.</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+
+        <!-- nivå 5 -->
+        <article class="cc neutral depth-deep" id="hoffstrom-0952">
+          <div class="cc-head">
+            <span class="cc-name">Henrik Hoffström</span>
+            <span class="cc-depth">↳ Hesselbom</span>
+            <span class="cc-time">13/4 09:52</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Anders Hesselbom</code> Säker på det? Inte så att någon sida vunnit något gängkrig och det lugnat ner sig av den anledningen?</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+
+        <!-- nivå 6 -->
+        <article class="cc critical depth-deep" id="hesselbom-1055">
+          <div class="cc-head">
+            <span class="cc-name">Anders Hesselbom</span>
+            <span class="cc-depth">↳ Hoffström</span>
+            <span class="cc-time">13/4 10:55</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Henrik Hoffström</code> Det finns forskning på att inlåsta skyttar inte är ute på stan och mördar folk.</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+
+        <!-- nivå 7 -->
+        <article class="cc neutral depth-deep" id="hoffstrom-1118">
+          <div class="cc-head">
+            <span class="cc-name">Henrik Hoffström</span>
+            <span class="cc-depth">↳ Hesselbom</span>
+            <span class="cc-time">13/4 11:18</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Anders Hesselbom</code> Det finns forskning på att om en skytt försvinner i en pågående konflikt rekryterar gängledningen raskt en ny. Du verkar se världen genom ideologiska glasögon.</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+
+        <!-- nivå 8 -->
+        <article class="cc critical depth-deep" id="hesselbom-1149">
+          <div class="cc-head">
+            <span class="cc-name">Anders Hesselbom</span>
+            <span class="cc-depth">↳ Hoffström</span>
+            <span class="cc-time">13/4 11:49</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Henrik Hoffström</code> Det är inte nödvändigtvis sant. Finland har lyckats hålla gängkriminaliteten borta genom hårda straff. Men självklart har man ideologiska glasögon på sig, och dina, gärningsmannaperspektivet, är ganska populära i Sverige. Brottsoffersperspektivet, som jag ser, är mer vanligt i t.ex. Finland.</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Lina Tebbla Fd Hedman (nivå 0) ── -->
+  <article class="cc institutional" id="lina-1913">
+    <div class="cc-head">
+      <span class="cc-name">Lina Tebbla Fd Hedman</span>
+      <span class="cc-time">10/4 19:13</span>
+    </div>
+    <div class="cc-body">
+      <p>Låt mig förtydliga mig själv. Vad i vår text fick dig att tro att:</p>
+      <p>1) Vi förespråkar forskning som gynnar gärningsmän?<br>
+         2) vilket privilegium tänker du att vi har som leder till att våra slutsatser blir ogiltiga?<br>
+         3) På vilket sätt är det ett politiskt narrativ?<br>
+         4) vem är det som inte är klok? Vem borde sitta bakom spakarna? Och i så fall vad skulle då göras istället?</p>
+    </div>
+    <div class="cc-foot">[10 👍😆]</div>
+  </article>
+  <div class="replies">
+    <!-- nivå 1 -->
+    <article class="cc neutral" id="wiktorsson-2118">
+      <div class="cc-head">
+        <span class="cc-name">Simon Wiktorsson</span>
+        <span class="cc-time">10/4 21:18</span>
+      </div>
+      <div class="cc-body">
+        <p><code>Lina Tebbla Fd Hedman</code> Finns gott om forskning som visar på motsatsen. Du, ni utgår ifrån gärningsmannens perspektiv, så det blir fel från början om man vill se till allmänhetens bästa, åtminstone på kort sikt.</p>
+      </div>
+      <div class="cc-foot"></div>
+    </article>
+    <div class="replies">
+      <!-- nivå 2 -->
+      <article class="cc institutional" id="lina-2118b">
+        <div class="cc-head">
+          <span class="cc-name">Lina Tebbla Fd Hedman</span>
+          <span class="cc-time">10/4 21:18</span>
+        </div>
+        <div class="cc-body">
+          <p><code>Simon Wiktorsson</code> oavsett vad forskningsfältet säger. Vad i debattartikeln säger att vi som skribenter tar gärningsmannens sida?</p>
+        </div>
+        <div class="cc-foot">[6 👍]</div>
+      </article>
+    </div>
+  </div>
+
+  <!-- ── Mattias Olsson (nivå 0) ── -->
+  <article class="cc critical" id="olsson-1743">
+    <div class="cc-head">
+      <span class="cc-name">Mattias Olsson</span>
+      <span class="cc-time">10/4 17:43</span>
+    </div>
+    <div class="cc-body">
+      <p>Valrörelsen har börjat!</p>
+    </div>
+    <div class="cc-foot">[2 👍]</div>
+  </article>
+
+  <!-- SKIFTLINJE -->
+  <div class="shift-marker" role="separator">
+    <span class="shift-label">10 APRIL · 23:08</span>
+  </div>
+
+  <p class="section-label">Kommentarer · 10 april 23:08 och vidare</p>
+
+  <!-- ── Magnus Timmerby (nivå 0) ── -->
+  <article class="cc ok" id="timmerby-2308">
+    <div class="cc-head">
+      <span class="cc-name">Magnus Timmerby</span>
+      <span class="cc-chip">ledamot VoF:s valberedning</span>
+      <span class="cc-time">10/4 23:08</span>
+    </div>
+    <div class="cc-body">
+      <p>Utmärkt debattinlägg av VoF. De som ogillar det tycks ha svårt att formulera sin kritik.</p>
+    </div>
+    <div class="cc-foot">[8 👍❤️]</div>
+  </article>
+
+  <!-- ── Mattias Olsson (nivå 0) ── -->
+  <article class="cc critical" id="olsson-2019">
+    <div class="cc-head">
+      <span class="cc-name">Mattias Olsson</span>
+      <span class="cc-time">10/4 20:19</span>
+    </div>
+    <div class="cc-body">
+      <p>Mördare mördar färre när de sitter i fängelse. Våldtäktsmän våldtar färre när de sitter i fängelse.</p>
+      <p>Det är enkelt att forska sig till.</p>
+    </div>
+    <div class="cc-foot">[2 👍]</div>
+  </article>
+  <div class="replies">
+    <!-- nivå 1 -->
+    <article class="cc institutional" id="lundberg-2025">
+      <div class="cc-head">
+        <span class="cc-name">Linda Strand Lundberg</span>
+        <span class="cc-chip">vice ordförande VoF:s riksstyrelse</span>
+        <span class="cc-time">10/4 20:25, <em>Redigerad</em></span>
+      </div>
+      <div class="cc-body">
+        <p><code>Jacob Mattsson</code> Om man förespråkar individualprevention (som är argumentet du använder) är rimligaste slutsatsen dödsstraff.</p>
+        <p>En död person begår inga brott.</p>
+        <p>Pratar vi däremot allmänprevenation tyder allt på att stränga straff för vardagsbrottslighet (fortkörning och liknande) faktiskt fungerar. Svensson vill inte riskera tio år i fängelse för att ha kört för fort.</p>
+        <p>Sen förstår jag inte vad ditt inlägg har med artikeln att göra, där det förespråkas att politiska beslut ska vara välgrundade.</p>
+      </div>
+      <div class="cc-foot">[5 👍]</div>
+    </article>
+    <div class="replies">
+      <!-- nivå 2 -->
+      <article class="cc critical" id="olsson-0011">
+        <div class="cc-head">
+          <span class="cc-name">Mattias Olsson</span>
+          <span class="cc-time">11/4 00:11</span>
+        </div>
+        <div class="cc-body">
+          <p><code>Linda Strand Lundberg</code> lite unket att dra det till dödsstraff. Det har diverse nackdelar.</p>
+          <p>Förutom det värderingsmässiga.</p>
+        </div>
+        <div class="cc-foot"></div>
+      </article>
+      <div class="replies">
+        <!-- nivå 3 -->
+        <article class="cc institutional" id="lundberg-0836">
+          <div class="cc-head">
+            <span class="cc-name">Linda Strand Lundberg</span>
+            <span class="cc-time">11/4 08:36</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Mattias Olsson</code> Jag redogjorde för några grundläggande straffrättsteorier.</p>
+            <p>Dödsstraff är en irrelevant/dålig allmänpreventiv åtgärd mot grova våldsbrott (se populationsstudier).</p>
+            <p>Samma slags studier kan användas för att titta på utfall av andra straff, såsom längre fängelsestraff.</p>
+            <p>Om argumentet däremot är att en inlåst person inte begår nya brott är det individualpreventiva åtgärder som efterfrågas. Dödsstraff är den mest effektiva av alla.</p>
+            <p>Den grundläggande kurslitteratur jag läst rörande detta är "Straffrättens påföljdslära".</p>
+            <p>Din kommentar om unkenheten i att dra det till dödsstraff kan riktas mot författarna. (Jag är givetvis enig med dig om dödsstraffets problematik och det går helt stick i stäv med mina personliga värderingar, säkert de flesta svenskars värderingar)</p>
+          </div>
+          <div class="cc-foot">[1 👍]</div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Jacob Mattsson (nivå 0) ── -->
+  <article class="cc neutral" id="mattsson-2125">
+    <div class="cc-head">
+      <span class="cc-name">Jacob Mattsson</span>
+      <span class="cc-time">10/4 21:25</span>
+    </div>
+    <div class="cc-body">
+      <p>Det hade varit perfekt.</p>
+    </div>
+    <div class="cc-foot"></div>
+  </article>
+
+  <!-- ── Peter Samir Ek (nivå 0) ── -->
+  <article class="cc critical" id="ek-2027">
+    <div class="cc-head">
+      <span class="cc-name">Peter Samir Ek</span>
+      <span class="cc-time">10/4 20:27</span>
+    </div>
+    <div class="cc-body">
+      <p>Det bästa med vänstermänniskor är att de alltid avslöjar sig då de inte klarar av att skilja på sin politik och resten av deras värv.</p>
+    </div>
+    <div class="cc-foot">[2 👍]</div>
+  </article>
+  <div class="replies">
+    <!-- nivå 1 -->
+    <article class="cc neutral" id="pettersson-0050">
+      <div class="cc-head">
+        <span class="cc-name">Max Pettersson</span>
+        <span class="cc-time">13/4 00:50</span>
+      </div>
+      <div class="cc-body">
+        <p><code>Peter Samir Ek</code> vad är deras värv och varför är det relevant?</p>
+      </div>
+      <div class="cc-foot"></div>
+    </article>
+  </div>
+
+  <!-- ── Anders Lindén (nivå 0) ── -->
+  <article class="cc neutral" id="linden-0032">
+    <div class="cc-head">
+      <span class="cc-name">Anders Lindén</span>
+      <span class="cc-time">11/4 00:32</span>
+    </div>
+    <div class="cc-body">
+      <p>Det handlar ytterst om prioritering - buset eller offren? 🙃</p>
+    </div>
+    <div class="cc-foot">[1 👍]</div>
+  </article>
+  <div class="replies">
+    <!-- nivå 1 -->
+    <article class="cc neutral" id="pettersson-0051">
+      <div class="cc-head">
+        <span class="cc-name">Max Pettersson</span>
+        <span class="cc-time">13/4 00:51</span>
+      </div>
+      <div class="cc-body">
+        <p><code>Anders Lindén</code> långsiktigt eller kortsiktigt? Förebyggande eller reaktivt? För individen eller hela samhället?</p>
+      </div>
+      <div class="cc-foot"></div>
+    </article>
+    <div class="replies">
+      <!-- nivå 2 -->
+      <article class="cc neutral" id="linden-0311">
+        <div class="cc-head">
+          <span class="cc-name">Anders Lindén</span>
+          <span class="cc-time">13/4 03:11</span>
+        </div>
+        <div class="cc-body">
+          <p><code>Max Pettersson</code> Både och!</p>
+        </div>
+        <div class="cc-foot"></div>
+      </article>
+    </div>
+  </div>
+
+  <!-- ── Mikko Hernborg (nivå 0) ── -->
+  <article class="cc critical" id="hernborg-0527">
+    <div class="cc-head">
+      <span class="cc-name">Mikko Hernborg</span>
+      <span class="cc-time">11/4 05:27</span>
+    </div>
+    <div class="cc-body">
+      <p>Fakta och vetenskap har fått sitta i baksätet för politik i alla tider, men det bryr sig inte vänstern om när det är deras politik som trampar över fakta. Fråga dem om män kan bli kvinnor. Det kallas hyckleri.</p>
+    </div>
+    <div class="cc-foot"></div>
+  </article>
+  <div class="replies">
+    <!-- nivå 1 -->
+    <article class="cc neutral" id="eriksson-0725">
+      <div class="cc-head">
+        <span class="cc-name">Lars-Henrik Eriksson</span>
+        <span class="cc-time">13/4 07:25</span>
+      </div>
+      <div class="cc-body">
+        <p><code>Mikko Hernborg</code> Du menar att Vetenskap och Folkbildning är en vänsterorganisation?</p>
+      </div>
+      <div class="cc-foot"></div>
+    </article>
+    <div class="replies">
+      <!-- nivå 2 -->
+      <article class="cc critical" id="hernborg-0957">
+        <div class="cc-head">
+          <span class="cc-name">Mikko Hernborg</span>
+          <span class="cc-time">14/4 09:57</span>
+        </div>
+        <div class="cc-body">
+          <p><code>Lars-Henrik Eriksson</code> uppenbarligen är folk som är involverade i VoF kraftigt vänsterlutande. Det är ett politiskt debattinlägg, och vänstern är förtjust i att göra politik av allt; det är en väsentlig del av deras strategi. Hur vet jag det? Jag har varit medlem i den politiska vänstern tidigare.</p>
+        </div>
+        <div class="cc-foot"></div>
+      </article>
+      <div class="replies">
+        <!-- nivå 3 -->
+        <article class="cc neutral" id="eriksson-1144">
+          <div class="cc-head">
+            <span class="cc-name">Lars-Henrik Eriksson</span>
+            <span class="cc-time">14/4 11:44</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Mikko Hernborg</code> Om faktabaserad politik är vänster, vad är i så fall högerpolitik?</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+
+        <!-- nivå 4 -->
+        <article class="cc critical depth-deep" id="hernborg-1652">
+          <div class="cc-head">
+            <span class="cc-name">Mikko Hernborg</span>
+            <span class="cc-depth">↳ Eriksson</span>
+            <span class="cc-time">14/4 16:52</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Lars-Henrik Eriksson</code> nej, det stämmer inte. Vänstern vill gärna tro att de är faktabaserade, men ofta dikterar ideologin vad som tolereras som 'vetenskap' - det är så man får Lysenkoism. Att ställa upp det som att ena sidan eller andra är faktabaserad är en falsk dikotomi.</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+
+        <!-- nivå 5 -->
+        <article class="cc neutral depth-deep" id="eriksson-1941">
+          <div class="cc-head">
+            <span class="cc-name">Lars-Henrik Eriksson</span>
+            <span class="cc-depth">↳ Hernborg</span>
+            <span class="cc-time">14/4 19:41</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Mikko Hernborg</code> Men nu handlar det ju om att Vetenskap och Folkbildning argumenterar för faktabaserad politik och då säger du att de är vänster?</p>
+          </div>
+          <div class="cc-foot">[1 👍]</div>
+        </article>
+
+        <!-- nivå 6 -->
+        <article class="cc critical depth-deep" id="hernborg-1307">
+          <div class="cc-head">
+            <span class="cc-name">Mikko Hernborg</span>
+            <span class="cc-depth">↳ Eriksson</span>
+            <span class="cc-time">15/4 13:07</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Lars-Henrik Eriksson</code> jag säger att de är vänster och att deras argument för 'faktabaserad politik' är ett sätt att argumentera för att vänsterpolitik ska genomföras oavsett vem som styr - smyga in ulven genom att klä den med döda får.</p>
+            <p>Fakta är en sak, att tolka dem och utforma en policy är en helt annan. Båda är bristande punkter som är sårbara för manipulation; fakta kan fabriceras, tolkning kan ske med illvilja.</p>
+            <p>Det är inte så självklart som du får det att låta - hade det funnits ren 'faktabaserad politik' baserad på logik och naturlagarna så hade demokrati blivit överflödigt, eftersom det hade bara funnits ett 'rätt' val... om man bortser från de antaganden och föresatser om vad som är värt att prioritera och hur man baserar vad som är 'rätt'. Gränssnittet är mänskligt, vilket gör att saken inte är så självklar som du försöker få den att låta.</p>
+          </div>
+          <div class="cc-foot">[2 👍]</div>
+        </article>
+
+        <!-- nivå 7 -->
+        <article class="cc neutral depth-deep" id="eriksson-1450">
+          <div class="cc-head">
+            <span class="cc-name">Lars-Henrik Eriksson</span>
+            <span class="cc-depth">↳ Hernborg</span>
+            <span class="cc-time">15/4 14:50</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Mikko Hernborg</code> Inte alls! Du måste skilja på vad man vill åstadkomma -- vilket inte är en faktafråga utan en politisk fråga -- och hur man skall åstadkomma det -- vilket <em>är</em> en faktafråga. Detta framgår alldeles tydligt av artikeln så jag undrar om du faktiskt har läst den? En central del i artikeln:</p>
+            <p>I instruktionerna till utredaren anger regeringen att "ett av kriminalpolitikens främsta syften är att förebygga brott" och att regelverket som utgångspunkt bör utformas "på det sätt som bäst tillgodoser detta syfte".</p>
+            <p>För att kunna arbeta vetenskapligt hade utredaren behövt få i uppdrag att undersöka och föreslå lagar som kan uppfylla det angivna målet. Men något sådant uppdrag fick inte utredaren. I stället anger regeringen att utredaren, "oavsett ställningstagande i sak", ska föreslå lagstiftning som, om den genomförs, innebär kraftiga straffskärpningar. Det ger intryck av att regeringen på förhand bestämt sig för att genomföra sådana lagändringar, även om de inte kan förväntas leda till den önskade effekten.</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Mattias Westermark (nivå 0) ── -->
+  <article class="cc neutral" id="westermark-0611">
+    <div class="cc-head">
+      <span class="cc-name">Mattias Westermark</span>
+      <span class="cc-time">13/4 06:11, <em>Redigerad</em></span>
+    </div>
+    <div class="cc-body">
+      <p><code>Mikko Hernborg</code> könskorrigerande behandling handlar om psykologi och hälsa, inte nödvändigtvis hård vetenskap. Det går inte att jämföra med att motarbeta vacciner, brottsförebyggande eller klimatåtgärder.</p>
+    </div>
+    <div class="cc-foot"></div>
+  </article>
+  <div class="replies">
+    <!-- nivå 1 -->
+    <article class="cc critical" id="hernborg-0950">
+      <div class="cc-head">
+        <span class="cc-name">Mikko Hernborg</span>
+        <span class="cc-time">14/4 09:50, <em>Redigerad</em></span>
+      </div>
+      <div class="cc-body">
+        <p><code>Mattias Westermark</code> jodå, det går - eftersom det handlar om ideologin bakom som driver 'behandlingen' som jämförs. Det finns människor som på fullaste allvar hävdar att skillnaden mellan en transkvinna och en naturligt född kvinna är noll och ingenting. Men det är inte en 'korrigering', det är en kosmetisk omstrukturering som måste underhållas på artificiell väg med hormoner.</p>
+      </div>
+      <div class="cc-foot"></div>
+    </article>
+    <div class="replies">
+      <!-- nivå 2 -->
+      <article class="cc neutral" id="westermark-1125">
+        <div class="cc-head">
+          <span class="cc-name">Mattias Westermark</span>
+          <span class="cc-time">14/4 11:25</span>
+        </div>
+        <div class="cc-body">
+          <p><code>Mikko Hernborg</code> du hittar på ett forskningsläge som inte finns. Du slåss mot väderkvarnar, och använder det för att kritisera vetenskap.</p>
+        </div>
+        <div class="cc-foot"></div>
+      </article>
+      <div class="replies">
+        <!-- nivå 3 -->
+        <article class="cc critical" id="hernborg-1712">
+          <div class="cc-head">
+            <span class="cc-name">Mikko Hernborg</span>
+            <span class="cc-time">14/4 17:12</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Mattias Westermark</code> uttrycket du använder - 'könskorrigerande' kommer med implikationen att det kön personen föds med är inkorrekt, och att operationerna utförs för att ge dem 'rätt' kön. Tror du att folk forskade fram metoderna för det, och hormoner och andra läkemedel som används inom sådana behandlingar i något slags vakuum? Eller menar du att sådana behandlingar inte har någon vetenskaplig grund?</p>
+            <p>Vetenskap som inte får kritiseras eller ifrågasättas är inte vetenskap, det är dogma. Men du får tycka vad du vill om sättet jag ifrågasätter saker på.</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+
+        <!-- nivå 4 -->
+        <article class="cc neutral depth-deep" id="westermark-1726">
+          <div class="cc-head">
+            <span class="cc-name">Mattias Westermark</span>
+            <span class="cc-depth">↳ Hernborg</span>
+            <span class="cc-time">14/4 17:26</span>
+          </div>
+          <div class="cc-body">
+            <p><code>Mikko Hernborg</code> könskorrigerande är det vedertagna uttrycket för en könsbytesprocess med anledning av att personen lider av könsdysfori. Det finns sällsynta andra anledningar också</p>
+            <p>Vetenskap får och kan alltid kritiseras. Då brukar de som helt enkelt inte ha koll få höra att de har fel. Då brukar de klaga på att "man inte får kritisera klimatreligionen" eller vad de nu fått om bakfoten.</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+
+        <!-- nivå 5 -->
+        <article class="cc critical depth-deep" id="hernborg-1318">
+          <div class="cc-head">
+            <span class="cc-name">Mikko Hernborg</span>
+            <span class="cc-depth">↳ Westermark</span>
+            <span class="cc-time">15/4 13:18, <em>Redigerad</em></span>
+          </div>
+          <div class="cc-body">
+            <p><code>Mattias Westermark</code> tja... Religion har en lång tradition av att förutspå domedagen, och klimatvetenskapen likaså. På 70-talet pratade de om den kommande istiden (som inte blev av), tidigt 2000-tal pratade de om att polarisarna skulle ha försvunnit inom 20 år (vilket inte hände), är det konstigt att folk drar sådana paralleller? Klimatet förändras, det har det alltid gjort... Men kan de säga med säkerhet hur? Deras historik säger att det är tveksamt.</p>
+          </div>
+          <div class="cc-foot"></div>
+        </article>
+
+        <!-- nivå 6 -->
+        <article class="cc neutral depth-deep" id="westermark-1414">
+          <div class="cc-head">
+            <span class="cc-name">Mattias Westermark</span>
+            <span class="cc-depth">↳ Hernborg</span>
+            <span class="cc-time">15/4 14:14, <em>Redigerad</em></span>
+          </div>
+          <div class="cc-body">
+            <p><code>Mikko Hernborg</code> problemet här är att du nämner medias rubriker som inte motsvarar vad forskningen säger, eller har sagt. Din bild av vad vetenskapen säger är helt enkelt felaktig, och du har också fel i vad vetenskapen sagt förut. Vill du ha något förklarat lovar jag svara.</p>
+          </div>
+          <div class="cc-foot">[1 👍]</div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Linus Broström (nivå 0) ── -->
+  <article class="cc neutral" id="brostrom-1429">
+    <div class="cc-head">
+      <span class="cc-name">Linus Broström</span>
+      <span class="cc-time">11/4 14:29, <em>Redigerad</em></span>
+    </div>
+    <div class="cc-body">
+      <p>Tänk bara om det kunde bli samma debatt och uppmärksamhet i samband med riksdagsomröstningarna i som gjort så många grundlagsändringar möjliga. Och kommer att göra. Men grundlagsändringarna brukar gå större delen av Sveriges befolkning förbi - även VoF:s medlemmar har jag fräckheten att påstå.😀 Förmodligen för att alla dessa valdebatter tyvärr sorterar bort sådana frågor - för elpriser, jobbskatteavdrag och vem som kommer samarbeta med vem.</p>
+    </div>
+    <div class="cc-foot">[2 👍]</div>
+  </article>
+
+  <!-- ── Anne Liljeblad (nivå 0) ── -->
+  <article class="cc neutral" id="liljeblad-2106">
+    <div class="cc-head">
+      <span class="cc-name">Anne Liljeblad</span>
+      <span class="cc-time">13/4 21:06</span>
+    </div>
+    <div class="cc-body">
+      <p>Fråga till valda delar av kommentarsfältet: sedan när blev biologi "vänster"?</p>
+    </div>
+    <div class="cc-foot"></div>
+  </article>
+
+  <footer class="doc-foot">
+    <p>Transkribering av kommentarsfältet under VoF:s facebookinlägg 10 april 2026. Källa: <a href="https://www.facebook.com/vetenskap/posts/pfbid02c89168A6pzemZvx2K6nnfoSTgNsV4S75JYnRcdtQgfhjA8a1Yp2941qd8ikLKpiBl">facebook.com/vetenskap</a>. Transkriberat av Lotten Kalenius, 27 maj 2026, kontrollerat 27 juli 2026.</p>
+  </footer>
+
+</main>
+</body>
+</html>

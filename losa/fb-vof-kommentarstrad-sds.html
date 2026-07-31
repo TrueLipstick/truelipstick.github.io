@@ -14,7 +14,9 @@
   <style>
     :root {
       --ok: #4f7a60;  /* ej i global style.css — definieras lokalt */
-      --col: 42rem;
+      --col: 42rem;              /* läskolumn, mobil-först */
+      --col-read: 52rem;         /* bredare läskolumn på dator */
+      --col-outer: 64rem;        /* yttre container: tidslinjen får full bredd */
     }
     @media (prefers-color-scheme: dark) {
       :root { --ok: #7ab894; }
@@ -34,6 +36,25 @@
       max-width: var(--col);
       margin: 0 auto;
       padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1.25rem, 5vw, 2rem) 4rem;
+    }
+    /* Header, kommentarer och footer håller läskolumnens bredd och centreras;
+       tidslinjen får spänna hela den yttre containern (se .timeline-wrap).
+       Endast .wrap:s DIREKTA barn centreras — nästlade .replies/.cc ärver
+       sin plats i flödet och behåller sitt indrag. */
+    @media (min-width: 48rem) {
+      .wrap { max-width: var(--col-outer); }
+      .wrap > .eyebrow,
+      .wrap > h1,
+      .wrap > .lede,
+      .wrap > .post-card,
+      .wrap > .rule,
+      .wrap > .cc,
+      .wrap > .replies,
+      .wrap > .doc-foot {
+        max-width: var(--col-read);
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
     .eyebrow {
       font-family: var(--mono);
@@ -66,64 +87,64 @@
       margin: 2.5rem 0;
     }
 
-    /* ── Tidslinje ── */
+    /* ── Tidslinje: staplade prickar per dag ── */
+    /* En kolumn per aktiv dag. Prickarna staplas nedifrån och upp
+       (en prick per kommentar den dagen). Stapelhöjden = aktivitet.
+       Ingen tolkning, bara mängd och sentiment-färg. */
     .timeline-wrap {
-      position: relative;
-      margin: 1.5rem 0 2.5rem;
+      margin: 1.5rem 0 3rem;
     }
-    .timeline-axis {
-      position: relative;
-      height: 3px;
-      background: var(--hairline);
-      margin: 1.8rem 0 1.5rem;
+    .timeline-cols {
+      display: flex;
+      align-items: flex-end;      /* alla staplar vilar på samma baslinje */
+      justify-content: space-between;
+      gap: clamp(.6rem, 3vw, 2rem);
+      min-height: 9rem;
+      border-bottom: 1px solid var(--hairline);
+      padding-bottom: .1rem;
+    }
+    .timeline-col {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* Prickstapel — kolumn av prickar, nyaste överst */
+    .timeline-stack {
+      display: flex;
+      flex-direction: column-reverse;   /* första pricken hamnar längst ned */
+      align-items: center;
+      gap: 3px;
     }
     .timeline-dot {
-      position: absolute;
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      flex: 0 0 auto;
     }
     .timeline-dot.critical      { background: var(--rouge); }
     .timeline-dot.institutional { background: var(--aubergine); }
     .timeline-dot.supportive    { background: var(--ok); }
     .timeline-dot.neutral       { background: var(--mauve); }
-    .timeline-shift {
-      position: absolute;
-      top: -1.8rem;
+    /* Tom dag (12/4) — tunn gap-markör så frånvaron syns */
+    .timeline-col.empty {
+      flex: 0 0 auto;
+      justify-content: flex-end;
+    }
+    .timeline-gap {
       width: 1px;
-      height: 3.8rem;
-      background: var(--rouge);
-      opacity: .6;
-      border-left: 1px dashed var(--rouge);
-    }
-    .timeline-shift-label {
-      position: absolute;
-      top: -2.6rem;
-      transform: translateX(-50%);
-      font-family: var(--mono);
-      font-size: .58rem;
-      color: var(--rouge);
-      letter-spacing: .12em;
-      white-space: nowrap;
-    }
-    .timeline-day {
-      position: absolute;
-      top: calc(100% + .4rem);
-      transform: translateX(-50%);
-      height: 1.2rem;
-      border-left: 1px solid var(--hairline);
-      padding-top: .3rem;
+      height: 1.4rem;
+      background: var(--hairline);
     }
     .timeline-day-label {
-      position: absolute;
-      top: calc(100% + .5rem);
-      transform: translateX(-50%);
       font-family: var(--mono);
-      font-size: .58rem;
+      font-size: .6rem;
       color: var(--mauve);
+      margin-top: .5rem;
       white-space: nowrap;
+    }
+    .timeline-col.empty .timeline-day-label {
+      opacity: .55;
     }
 
     /* ── Inläggets card ── */
@@ -216,7 +237,7 @@
       font-weight: 500;
       font-size: 1rem;
     }
-    /* Roll-chip — ENBART för de fyra VoF-funktionärerna */
+    /* Roll-chip — på VARJE förekomst av de fyra VoF-funktionärerna */
     .cc-chip {
       font-family: var(--mono);
       font-size: .63rem;
@@ -278,37 +299,6 @@
       letter-spacing: .04em;
     }
 
-    /* ── Skiftlinjen ── */
-    .shift-marker {
-      margin: 3rem 0 2.5rem;
-      border-top: 2px solid var(--rouge);
-      position: relative;
-    }
-    .shift-label {
-      position: absolute;
-      top: -0.75em;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--paper);
-      padding: 0 1rem;
-      font-family: var(--mono);
-      font-size: .72rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--rouge);
-      white-space: nowrap;
-    }
-
-    /* ── Sektionsetiketter ── */
-    .section-label {
-      font-family: var(--mono);
-      font-size: .72rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--mauve);
-      margin: 0 0 1.4rem;
-    }
-
     .doc-foot {
       margin-top: 4rem;
       padding-top: 1.5rem;
@@ -327,39 +317,105 @@
   <h1>Kommentarsfältet, 10 april 2026</h1>
   <p class="lede">VoF publicerade en länk till debattartikeln om straffrättsutredningen. 54 kommentarer, 10–15 april.</p>
 
-  <div class="timeline-wrap">
-    <div class="timeline-axis">
-      <!-- prickar -->
-      <span class="timeline-dot critical"      style="left: 2.3%"></span>
-      <span class="timeline-dot critical"      style="left: 4.7%"></span>
-      <span class="timeline-dot institutional" style="left: 7.2%"></span>
-      <span class="timeline-dot critical"      style="left: 6.8%"></span>
-      <span class="timeline-dot critical"      style="left: 6.9%"></span>
-      <span class="timeline-dot institutional" style="left: 7.6%"></span>
-      <span class="timeline-dot institutional" style="left: 8.0%"></span>
-      <span class="timeline-dot critical"      style="left: 8.8%"></span>
-      <span class="timeline-dot critical"      style="left: 8.9%"></span>
-      <span class="timeline-dot supportive"    style="left: 11.0%"></span>
-      <span class="timeline-dot neutral"       style="left: 12.0%"></span>
-      <span class="timeline-dot critical"      style="left: 15.8%"></span>
-      <span class="timeline-dot neutral"       style="left: 22.6%"></span>
-      <span class="timeline-dot neutral"       style="left: 64.0%"></span>
+  <div class="timeline-wrap" role="img"
+       aria-label="Aktivitet per dag: 10 april 25 kommentarer, 11 april 6, 12 april inga, 13 april 11, 14 april 8, 15 april 4. Prickarna är färgade efter tonläge.">
+    <div class="timeline-cols">
 
-      <!-- skiftlinje -->
-      <span class="timeline-shift" style="left: 11%"></span>
-      <span class="timeline-shift-label" style="left: 11%">23:08</span>
+      <!-- 10 april — 25 prickar -->
+      <div class="timeline-col">
+        <div class="timeline-stack">
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot institutional"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot institutional"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot institutional"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot institutional"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot institutional"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot institutional"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot institutional"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot supportive"></span>
+        </div>
+        <span class="timeline-day-label">10 apr</span>
+      </div>
 
-      <!-- dagmarkeringar -->
-      <span class="timeline-day"       style="left: 14.0%"></span>
-      <span class="timeline-day-label" style="left: 14.0%">11 april</span>
-      <span class="timeline-day"       style="left: 32.0%"></span>
-      <span class="timeline-day-label" style="left: 32.0%">12 april</span>
-      <span class="timeline-day"       style="left: 50.0%"></span>
-      <span class="timeline-day-label" style="left: 50.0%">13 april</span>
-      <span class="timeline-day"       style="left: 68.0%"></span>
-      <span class="timeline-day-label" style="left: 68.0%">14 april</span>
-      <span class="timeline-day"       style="left: 86.0%"></span>
-      <span class="timeline-day-label" style="left: 86.0%">15 april</span>
+      <!-- 11 april — 6 prickar -->
+      <div class="timeline-col">
+        <div class="timeline-stack">
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot institutional"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot critical"></span>
+        </div>
+        <span class="timeline-day-label">11 apr</span>
+      </div>
+
+      <!-- 12 april — tom dag (0 kommentarer), gap-markör -->
+      <div class="timeline-col empty">
+        <span class="timeline-gap"></span>
+        <span class="timeline-day-label">12 apr</span>
+      </div>
+
+      <!-- 13 april — 11 prickar -->
+      <div class="timeline-col">
+        <div class="timeline-stack">
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot neutral"></span>
+        </div>
+        <span class="timeline-day-label">13 apr</span>
+      </div>
+
+      <!-- 14 april — 8 prickar -->
+      <div class="timeline-col">
+        <div class="timeline-stack">
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot neutral"></span>
+        </div>
+        <span class="timeline-day-label">14 apr</span>
+      </div>
+
+      <!-- 15 april — 4 prickar -->
+      <div class="timeline-col">
+        <div class="timeline-stack">
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot critical"></span>
+          <span class="timeline-dot neutral"></span>
+          <span class="timeline-dot neutral"></span>
+        </div>
+        <span class="timeline-day-label">15 apr</span>
+      </div>
+
     </div>
   </div>
 
@@ -380,8 +436,6 @@
   </article>
 
   <hr class="rule">
-
-  <p class="section-label">Kommentarer · 10 april kl 11:40–20:27</p>
 
   <!-- ── Johan Svensson (nivå 0) ── -->
   <article class="cc critical" id="svensson-1140">
@@ -514,6 +568,7 @@
         <article class="cc institutional" id="wallman-1853">
           <div class="cc-head">
             <span class="cc-name">Anna Wallman</span>
+            <span class="cc-chip">ledamot VoF:s riksstyrelse</span>
             <span class="cc-time">10/4 18:53</span>
           </div>
           <div class="cc-body">
@@ -554,6 +609,7 @@
       <article class="cc institutional" id="lina-1813">
       <div class="cc-head">
         <span class="cc-name">Lina Tebbla Fd Hedman</span>
+        <span class="cc-chip">ordförande VoF:s riksstyrelse</span>
         <span class="cc-time">10/4 18:13</span>
       </div>
       <div class="cc-body">
@@ -672,6 +728,7 @@
   <article class="cc institutional" id="lina-1913">
     <div class="cc-head">
       <span class="cc-name">Lina Tebbla Fd Hedman</span>
+      <span class="cc-chip">ordförande VoF:s riksstyrelse</span>
       <span class="cc-time">10/4 19:13</span>
     </div>
     <div class="cc-body">
@@ -700,6 +757,7 @@
       <article class="cc institutional" id="lina-2118b">
         <div class="cc-head">
           <span class="cc-name">Lina Tebbla Fd Hedman</span>
+          <span class="cc-chip">ordförande VoF:s riksstyrelse</span>
           <span class="cc-time">10/4 21:18</span>
         </div>
         <div class="cc-body">
@@ -721,13 +779,6 @@
     </div>
     <div class="cc-foot">[2 👍]</div>
   </article>
-
-  <!-- SKIFTLINJE -->
-  <div class="shift-marker" role="separator">
-    <span class="shift-label">10 APRIL · 23:08</span>
-  </div>
-
-  <p class="section-label">Kommentarer · 10 april 23:08 och vidare</p>
 
   <!-- ── Magnus Timmerby (nivå 0) ── -->
   <article class="cc ok" id="timmerby-2308">
@@ -788,6 +839,7 @@
         <article class="cc institutional" id="lundberg-0836">
           <div class="cc-head">
             <span class="cc-name">Linda Strand Lundberg</span>
+            <span class="cc-chip">vice ordförande VoF:s riksstyrelse</span>
             <span class="cc-time">11/4 08:36</span>
           </div>
           <div class="cc-body">

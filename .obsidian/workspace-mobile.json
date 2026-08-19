@@ -1,0 +1,207 @@
+{
+  "main": {
+    "id": "98ab4c84d5f3414e",
+    "type": "split",
+    "children": [
+      {
+        "id": "42719b4f2bc937b5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "96999b8ca5cd87dc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Website-suggestion-Lumo.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Website-suggestion-Lumo"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "0ad4e18805e3b3c4",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "e8cc662bfb7827b3",
+        "type": "leaf",
+        "state": {
+          "type": "file-explorer",
+          "state": {
+            "sortOrder": "alphabetical",
+            "autoReveal": false,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-folder-closed",
+          "title": "Files"
+        }
+      },
+      {
+        "id": "636305b81fbb4209",
+        "type": "leaf",
+        "state": {
+          "type": "search",
+          "state": {
+            "query": "",
+            "matchingCase": false,
+            "explainSearch": false,
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical"
+          },
+          "icon": "lucide-search",
+          "title": "Search"
+        }
+      },
+      {
+        "id": "b1773e4a31b91529",
+        "type": "leaf",
+        "state": {
+          "type": "tag",
+          "state": {
+            "sortOrder": "frequency",
+            "useHierarchy": true,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-tags",
+          "title": "Tags"
+        }
+      },
+      {
+        "id": "88bb641c0b21787e",
+        "type": "leaf",
+        "state": {
+          "type": "all-properties",
+          "state": {
+            "sortOrder": "frequency",
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-archive",
+          "title": "All properties"
+        }
+      },
+      {
+        "id": "cce7061e93fb9cca",
+        "type": "leaf",
+        "state": {
+          "type": "bookmarks",
+          "state": {
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-bookmark",
+          "title": "Bookmarks"
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "right": {
+    "id": "6d990fe430bc8fc0",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "2951a8bcffd22ae5",
+        "type": "leaf",
+        "state": {
+          "type": "backlink",
+          "state": {
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical",
+            "showSearch": false,
+            "searchQuery": "",
+            "backlinkCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-coming-in",
+          "title": "Backlinks"
+        }
+      },
+      {
+        "id": "58919c823db51582",
+        "type": "leaf",
+        "state": {
+          "type": "outgoing-link",
+          "state": {
+            "linksCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-going-out",
+          "title": "Outgoing links"
+        }
+      },
+      {
+        "id": "735f2696b3b9cfbb",
+        "type": "leaf",
+        "state": {
+          "type": "outline",
+          "state": {
+            "followCursor": false,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-list",
+          "title": "Outline"
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "96999b8ca5cd87dc",
+  "lastOpenFiles": [
+    "samtal/index.html",
+    "Website-suggestion-Lumo.md",
+    "fran-ide-till-sida.md",
+    "apokryfer/cyniska-sagor/index.html",
+    "losa/fb-vof-kommentarstrad-sds.html",
+    "losa/img/first-time-meme.jpg",
+    "losa/batyxan-kalotten.html",
+    "losa/img/motiv-b-skickat.jpg",
+    "losa/img/FB-VOF-0-2026-04-10-kl0839.png",
+    "README.md",
+    "DESIGNSPEC-schrodingers-troll.md",
+    "index.html",
+    "style.css",
+    "ARKITEKTUR-kandidatur.md",
+    "mall/artefakt-mall.html",
+    "mall",
+    "vardagsobservationer/index.html",
+    "vardagsobservationer",
+    "docs/github-pages-for-humanister.md",
+    "docs/github-pages-uppslagsord.md",
+    "docs",
+    "apokryfer/cyniska-sagor/img/skriet-fran-vildmarken.png",
+    "apokryfer/cyniska-sagor/img/framlingen.png",
+    "apokryfer/cyniska-sagor/img/glaskupan.png",
+    "apokryfer/cyniska-sagor/img/utvandrarna.jpg",
+    "apokryfer/cyniska-sagor/img/mastaren-och-margarita.jpg",
+    "apokryfer/cyniska-sagor/img/brott-och-straff.png",
+    "apokryfer/cyniska-sagor/img/1984-3.png",
+    "DESIGNSPEC-malcolm-palette.md",
+    "PLAN.md"
+  ]
+}

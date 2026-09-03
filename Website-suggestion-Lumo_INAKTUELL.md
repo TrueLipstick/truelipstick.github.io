@@ -26,13 +26,13 @@ Given the static hosting constraint and your content mix, here's a layered struc
 
 ### Technology Stack
 
-| Component | Recommendation | Why |
-| --- | --- | --- |
-| Static generator | Jekyll or Hugo | Native GitHub Pages support, Markdown-based |
-| Search | Meilisearch (self-hosted) or Algolia | Semantic search requires vector/embedding support; client-side Fuse.js for simpler keyword |
-| Forum archival | HTML dump + Jekyll collection | Preserves structure, no backend needed |
-| Magazine archive | PDFs + searchable OCR text | Downloadable originals + machine-readable content |
-| Deployment | GitHub Actions CI/CD | Automatic rebuilds on content updates |
+| Component        | Recommendation                       | Why                                                                                        |
+| ---------------- | ------------------------------------ | ------------------------------------------------------------------------------------------ |
+| Static generator | Jekyll or Hugo                       | Native GitHub Pages support, Markdown-based                                                |
+| Search           | Meilisearch (self-hosted) or Algolia | Semantic search requires vector/embedding support; client-side Fuse.js for simpler keyword |
+| Forum archival   | HTML dump + Jekyll collection        | Preserves structure, no backend needed                                                     |
+| Magazine archive | PDFs + searchable OCR text           | Downloadable originals + machine-readable content                                          |
+| Deployment       | GitHub Actions CI/CD                 | Automatic rebuilds on content updates                                                      |
 
 ### Site Structure
 

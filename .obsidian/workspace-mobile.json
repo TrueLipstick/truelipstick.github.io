@@ -28,8 +28,8 @@
               "type": "markdown",
               "state": {
                 "file": "DiogenasTunna_website-suggestion_mistral.md",
-                "mode": "source",
-                "source": false
+                "mode": "preview",
+                "source": true
               },
               "icon": "lucide-file",
               "title": "DiogenasTunna_website-suggestion_mistral"
@@ -189,6 +189,14 @@
   },
   "active": "fe51c34550e51ef8",
   "lastOpenFiles": [
+    "DESIGNSPEC-styrelsen-fartblinda.md",
+    "DESIGNSPEC-styrelsen-fartblinda-tillagg.md",
+    "/apokryfer/cyniska-sagor-vernissageaffisch.html",
+    "apokryfer/cyniska-sagor-vernissageaffisch.html",
+    "/apokryfer",
+    "/README.md",
+    "/DESIGNSPEC-styrelsen-fartblinda.md",
+    "/DESIGNSPEC-styrelsen-fartblinda-tillagg.md",
     "Website-suggestion-Lumo_INAKTUELL.md",
     "DiogenasTunna_website-suggestion_mistral.md",
     "samtal/index.html",
@@ -205,9 +213,6 @@
     "style.css",
     "ARKITEKTUR-kandidatur.md",
     "mall/artefakt-mall.html",
-    "mall",
-    "vardagsobservationer/index.html",
-    "vardagsobservationer",
     "docs/github-pages-for-humanister.md",
     "docs/github-pages-uppslagsord.md",
     "apokryfer/cyniska-sagor/img/skriet-fran-vildmarken.png",

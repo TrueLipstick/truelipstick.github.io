@@ -1,5 +1,5 @@
 # Diogenas tunna – Arkitekturalternativ
-!—@💄 korrekturläst 2026-09-03–>
+<!—@>💄 korrekturläst 2026-09-03–>
 
 > *Ett digitalt arkiv för den svenska skepticismens historia*
 

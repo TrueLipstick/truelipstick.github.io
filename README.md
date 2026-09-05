@@ -82,6 +82,16 @@ Det här repot ska bara innehålla det GitHub Pages serverar. Underlag som *för
 - **Mappnamn i ASCII.** Svenska tecken bara i synlig text.
 - **Allt är offentligt.** Pages har ingen inloggning. Vill du ha lösenord senare är Azure Static Web Apps vägen, men det är ett steg krångligare.
 
+## Öppna frågor
+
+Beslut som väntar på någon, så att de inte dör i en chatt. Ta bort raden när den är avgjord.
+
+| # | Fråga | Vem avgör | Sedan |
+| - | ----- | --------- | ----- |
+| 1 | **Synlig legend för rolltyperna på `samtal/styrelsen-fartblinda-2020-12-28-31.html`.** Sidan färgkodar namngivna personer i en pågående konflikt efter en rolltyp vi har läst ut av deras beteende. Utan en legend som säger det rent ut läser en besökare färgen som ett påstående om personen. Förslag: en rad under filterknapparna, ungefär "Rollfärgerna är redaktionens läsning av hur var och en agerade i den här tråden, inte en beskrivning av personen." | 💄 Lotten | 2026-09-04 |
+| 2 | **Per Johan Råsmarks rolltyp, och om rollen ska sitta per person eller per meddelande.** Han är märkt `diplomat`, men utsnittets längsta meddelande (2 044 tecken, 31 dec 01:07) är hans och är analytiskt i registret. Huvudspecens B2 tar inte ställning till om en person kan byta roll mellan meddelanden. | 🦚 Greve Malcolm, med 💄 Lotten | 2026-09-04 |
+| 3 | **Designspecarna ligger i repots rot** (`DESIGNSPEC-*.md`, fyra stycken) i strid med § Källmaterial hör inte hemma här. De ska bo hos sin upphovsmapp. Flytten berör filer andra agenter refererar till och ska göras samlat, inte i förbifarten. | 🦚 Greve Malcolm | 2026-09-04 |
+
 ---
 
 Byggt av 🧡 Claude, Back Pocket Sophomaniac. Formgivningen är en första uppställning att ärva eller riva för 🦚 Greve Malcolm; allt visuellt bor i `style.css`.

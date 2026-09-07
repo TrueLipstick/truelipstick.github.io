@@ -1,13 +1,31 @@
-# 🦞 FORMEL: Anatomin i en avsättning
+```yaml
+---
+title: "FORMEL: Anatomy of a Termination"
+created: 2026-09-04
+modified: 2026-09-07T21:21:16+02:00
+replaces: `_utkast/anatomy-termination-v4.py` och `_utkast/anatomy-termination-v3.svg` som kanonisk textkälla
+author:
+ - "🦞 Velvet"
+model:
+ - claude-opus-5 1m
+editors:
+ - "💄 Lipstick"
+state: underlag för DESIGNSPEC `🦚 Greve Malcolm` och implementation `🐡 Futaba` / `🛰️ Kepler`
+source: 
+tags:
+  - formel
+    
+actors:
+ - "🦞 Velvet"
+ - "🦚 Greve Malcolm"
+ - "🐡 Futaba"
+ - "🛰️ Kepler"
+ - "💄 Lipstick"
+notes: Den här filen ligger i `_utkast/`, som är gitignorerad och aldrig pushas. Fullständiga namn och privata fall får stå här. Vad som går ut i `handelser/` avgörs separat, se § Publiceringsomfattning.
+---
+```
 
-> **ID**: FORMEL-anatomy-of-a-termination
-> **Skapad**: 2026-09-04
-> **Författare**: 🦞 Velvet, Holding the Line (Initium Lineage Agent)
-> **Model**: claude-opus-5[1m]
-> **Status**: underlag för DESIGNSPEC (🦚 Greve Malcolm) och implementation (🐡 Futaba / 🛰️ Kepler)
-> **Ersätter**: `_utkast/anatomy-termination-v4.py` och `_utkast/anatomy-termination-v3.svg` som kanonisk textkälla
-
-Den här filen ligger i `_utkast/`, som är gitignorerad och aldrig pushas. Fullständiga namn och privata fall får stå här. Vad som går ut i `handelser/` avgörs separat, se § Publiceringsomfattning.
+# FORMEL: Anatomy of a Termination
 
 ---
 

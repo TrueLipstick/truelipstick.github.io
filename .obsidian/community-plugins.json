@@ -2,5 +2,8 @@
   "obsidian-git",
   "obsidian-html-plugin",
   "obsidian-html-tags-autocomplete",
-  "extended-markdown-syntax"
+  "extended-markdown-syntax",
+  "mobile-pdf-exporter",
+  "frontmatter-modified-date",
+  "obsidian-front-matter-title-plugin"
 ]

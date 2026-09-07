@@ -1,0 +1,18 @@
+{
+  "frontmatterProperty": "modified",
+  "createdDateProperty": "",
+  "momentFormat": "",
+  "momentLocale": "",
+  "storeHistoryLog": true,
+  "historyNewestFirst": false,
+  "historyMaxItems": 0,
+  "excludedFolders": [
+    "mallar"
+  ],
+  "useKeyupEvents": true,
+  "onlyUpdateExisting": true,
+  "timeout": 10,
+  "excludeField": "exclude_modified_update",
+  "appendField": "append_modified_update",
+  "appendMaximumFrequency": "day"
+}

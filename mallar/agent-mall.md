@@ -1,0 +1,18 @@
+---
+title:
+created:
+modified:
+replaces:
+author:
+  - 
+model:
+  - 
+editors:
+  - 
+state:
+source:
+tags:
+actors:
+  - 
+notes:
+---

@@ -86,11 +86,15 @@ Det här repot ska bara innehålla det GitHub Pages serverar. Underlag som *för
 
 Beslut som väntar på någon, så att de inte dör i en chatt. Ta bort raden när den är avgjord.
 
+Avgjorda frågor bor i det dokument de gäller. 💄 Lotten avgjorde legenden för rollfärgerna och Per Johan Råsmarks rolltyp 2026-09-05; båda besluten står i [`DESIGNSPEC-styrelsen-fartblinda-tillagg.md`](DESIGNSPEC-styrelsen-fartblinda-tillagg.md) § Beslutsnot 2026-09-05.
+
 | # | Fråga | Vem avgör | Sedan |
 | - | ----- | --------- | ----- |
-| 1 | **Synlig legend för rolltyperna på `samtal/styrelsen-fartblinda-2020-12-28-31.html`.** Sidan färgkodar namngivna personer i en pågående konflikt efter en rolltyp vi har läst ut av deras beteende. Utan en legend som säger det rent ut läser en besökare färgen som ett påstående om personen. Förslag: en rad under filterknapparna, ungefär "Rollfärgerna är redaktionens läsning av hur var och en agerade i den här tråden, inte en beskrivning av personen." | 💄 Lotten | 2026-09-04 |
-| 2 | **Per Johan Råsmarks rolltyp, och om rollen ska sitta per person eller per meddelande.** Han är märkt `diplomat`, men utsnittets längsta meddelande (2 044 tecken, 31 dec 01:07) är hans och är analytiskt i registret. Huvudspecens B2 tar inte ställning till om en person kan byta roll mellan meddelanden. | 🦚 Greve Malcolm, med 💄 Lotten | 2026-09-04 |
-| 3 | **Designspecarna ligger i repots rot** (`DESIGNSPEC-*.md`, fyra stycken) i strid med § Källmaterial hör inte hemma här. De ska bo hos sin upphovsmapp. Flytten berör filer andra agenter refererar till och ska göras samlat, inte i förbifarten. | 🦚 Greve Malcolm | 2026-09-04 |
+| 1 | **`--aubergine` saknar värde i mörkt läge.** Den är den enda token i `style.css` som `:root` definierar men `@media (prefers-color-scheme: dark)` inte redefinierar. Mot mörk yta (`--surface` #201829) ger #502846 kontrastkvoten **1,42**; övriga rollfärger ligger på 4,98–7,93. På `styrelsen-fartblinda`-sidan försvinner därför `analytiker`-strecket helt i mörkt läge. Sidan bär tills vidare en egen uppljusad ton (#b47aaa, kontrast 5,15, samma nyans) som provisorium. Den riktiga åtgärden är ett mörkt värde i `style.css` — men den träffar fem andra filer som använder `var(--aubergine)` och ska göras samlat. | 🦚 Greve Malcolm | 2026-09-05 |
+| 2 | **Fyra skärmdumpar: två ska göras, tre ska maskas.** Instruktionen ligger i `_utkast/fartblinda-bilder/SKARMDUMPAR-ATT-GORA.md` med de två länkarna kopieringsfärdiga och registret över vilken kod varje maskad person har. Filerna läggs i samma mapp; sidan behöver inte byggas om. Generatorn skriver ut vilka skärmdumpar som saknas vid varje bygge. | 💄 Lotten | 2026-09-05 |
+| 3 | **Zoom-länken renderas som död text, inte som länk.** `seq` 490 bär mötets id och lösenord i sin query. Mötet hölls 28 december 2020 och länken är sedan länge död, men en lösenordsbärande sträng hör inte hemma på en publik sida. Den visas därför som *"Zoom-länk till mötet 17:30"* utan `href`. Säg till om den ska bort helt i stället. | 💄 Lotten | 2026-09-05 |
+| 4 | **`CS` betyder fortfarande två personer i 222 markdown-träffar.** Cecilia Sahlström är omdöpt till `CSm` i `KEYNOTES.md` och `10-register/register.md` 2026-09-05, men ingen genomgång per förekomst är gjord. Tills den är det kan en `CS` i korpusen avse antingen henne eller Clas Svahn. | 🦞 Velvet | 2026-09-05 |
+| 5 | **Designspecarna ligger i repots rot** (`DESIGNSPEC-*.md`, fyra stycken) i strid med § Källmaterial hör inte hemma här. De ska bo hos sin upphovsmapp. Flytten berör filer andra agenter refererar till och ska göras samlat, inte i förbifarten. | 🦚 Greve Malcolm | 2026-09-04 |
 
 ---
 

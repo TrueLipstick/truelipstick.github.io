@@ -3,7 +3,6 @@
 > **Tillägg till**: `DESIGNSPEC-styrelsen-fartblinda.md`
 > **Skapad**: 2026-09-03 av 🛰️ Kepler
 > **Reviderad**: 2026-09-04 av 🛰️ Kepler efter verifiering av 🐡 Futaba
-> **Reviderad**: 2026-09-05 av 🐡 Futaba — 💄 Lottens beslut i de två öppna frågorna infört
 > **Syfte**: Komplettera huvudspecifikationen med data Futaba behöver för att koda korrekt första gången
 
 ---
@@ -15,20 +14,6 @@ Version 1 av det här dokumentet innehöll sju sakfel. Futaba fann sex av dem vi
 **Allt i §1, §3 och §5 nedan är omräknat från `D:\Backup\Facebook\messenger-samlad.db`, `thread_id = 3389523537802855`, `seq` 64–531.** Varje siffra och varje citat bär sitt `seq`-nummer. §2 och §4 innehåller inga sakpåståenden om materialet och är oförändrade utom rättade stavfel.
 
 Se även **§6 — parsningsanmärkning**, som förklarar varför siffror räknade ur `.md`-filen inte längre stämmer med basen.
-
----
-
-## Beslutsnot 2026-09-05
-
-Infört av 🐡 Futaba på 💄 Lottens beslut. Dokumentet är 🛰️ Keplers, så tilläggen är märkta i stället för tysta.
-
-De två öppna frågor som blockerade kodningen är avgjorda och raderna är borttagna ur `README.md` § Öppna frågor enligt dess egen regel.
-
-**1 — synlig legend.** Sidan bär en brasklapp under filterraden. Ordalydelsen är Lottens och återges ordagrant i §1, *Synlig legend*.
-
-**2 — Per Johan Råsmarks rolltyp.** Han förblir `diplomat`, eftersom det är hans övervägande beteende i tråden. Rollen sitter **per person**, inte per meddelande, och huvudspecens B2 ändras inte. `data-role` behåller alltså sina fem värden.
-
-Den tredje frågan, designspecarnas plats i repot, är noterad och lämnas liggande.
 
 ---
 
@@ -80,44 +65,7 @@ Kriteriet svarar också på en invändning Futaba reste: Lotten Kalenius ger fle
 
 **Per Johan Råsmark.** Han är märkt `diplomat` på sitt löpande beteende i tråden, men han skriver också utsnittets längsta meddelande — 2044 tecken, seq 79, 31 dec 01:07, det nattliga brevet — och det är analytiskt i registret ("det finns inget protokoll"). En läsare som ser `diplomat` på det meddelandet kommer att tycka att märkningen sitter fel, och har fog för det. Alternativet är att låta rollen växla per meddelande i stället för per person, vilket huvudspecen inte har tagit ställning till.
 
-**Avgjort 2026-09-05 av 💄 Lotten.** Han förblir `diplomat`. Rollen sitter per person, inte per meddelande, så seq 79 kodas `diplomat` som hans övriga meddelanden. Förbehållet står kvar som anmärkning, inte som en sjätte rolltyp: en hybrid av typen `klurande-diplomat` hade infört en färgkategori med en enda bärare och ändrat en taxonomi som bor i huvudspecen.
-
-**Rollen syns på sidan.** Färgstrecket och roll-chippet är vår läsning av namngivna personer, publicerat. Kepler rekommenderade en synlig legend som säger det rent ut. **Avgjort 2026-09-05 av 💄 Lotten:** sidan bär en, med hennes ordalydelse. Se *Synlig legend* nedan.
-
-### Synlig legend — beslutad text
-
-Beslutad av 💄 Lotten 2026-09-05. Texten är hennes och återges ordagrant; ändra den inte utan att fråga henne.
-
-> Biskop Brasklapp: Roller och färger är lekfull redaktionell tolkning av gruppdynamiken vid ett tillfälle och skall inte läsas som ett utlåtande från Oraklet i Delfi.
-
-Den sitter **direkt under filterraden** (§4), före första meddelandet, så att den syns innan någon hinner läsa en färg som ett påstående.
-
-```html
-<p class="roll-brasklapp">
-  <strong>Biskop Brasklapp:</strong> Roller och färger är lekfull redaktionell tolkning av
-  gruppdynamiken vid ett tillfälle och skall inte läsas som ett utlåtande från Oraklet i Delfi.
-</p>
-```
-
-```css
-.roll-brasklapp {
-  max-width: var(--measure);
-  margin: 0 0 1.5rem;
-  padding: 0.6rem 0.8rem;
-  border-left: 2px solid var(--hairline);
-  font-family: var(--body);
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--mauve);
-}
-
-.roll-brasklapp strong {
-  color: var(--ink);
-  font-weight: 600;
-}
-```
-
-Bara befintliga tokens, så den följer med i både ljust och mörkt läge utan egen regel.
+**Rollen syns på sidan.** Färgstrecket och roll-chippet är vår läsning av namngivna personer, publicerat. Jag rekommenderar att sidan bär en synlig legend som säger det rent ut. Det beslutet är Lottens, inte mitt, och det ligger i handoffen.
 
 ### Implementeringsnot — `data-role`-attribut
 
@@ -308,8 +256,6 @@ Huvudspecen (B7) säger "En rad knappar högst upp, varje knapp visar aktörens 
 ```
 
 Notera att "Alla"-knappen bär `data-sender="all"`, inte `data-filter="all"`. Version 1 av det här dokumentet hade `data-filter` i HTML:en men läste `dataset.sender` i skriptet, vilket gjorde att knappen dolde allt i stället för att visa allt.
-
-Direkt efter `.filter-bar`, före första meddelandet, sitter brasklappen om rollfärgerna. Markup och CSS i §1, *Synlig legend*.
 
 ### JavaScript (fristående, ingen state)
 

@@ -1,5 +1,0 @@
----
-title:
-created:
-modified:
----

@@ -21,4 +21,7 @@ Thumbs.db
 # ha:rifran och skriver anonymiserade filer till redaktorsnoter/.
 _kall/
 
-
+# Lottens egna utkast: opublicerad arbetsyta for sidor pa vag att bli till.
+# Bor granne med vaven for bekvamlighet, men pushas ALDRIG. Fardiga sidor
+# flyttas harifran ut i ratt kategorimapp.
+_utkast/

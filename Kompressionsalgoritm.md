@@ -1,2 +1,0 @@
-”Kompressionsalgoritmen för vår kommunikationskanal har inte kommit till TypeScript än.”
-Ludwigs beskrivning av varför vi inte förstår varandra lika bra när vi parkodar som annars Där vi i vanliga fall bara behöver säga en bråkdel av en mening innan den andre förstår poängen och kan gå vidare i konversationen, så vi måste nu börja avsluta våra meningar för att begripa varandra.

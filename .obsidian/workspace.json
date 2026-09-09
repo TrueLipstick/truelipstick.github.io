@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Website-suggestion-Lumo_INAKTUELL.md",
+                "file": "_utkast/SIDTEXT-anatomy-of-a-termination.md",
                 "mode": "source",
-                "source": true
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "Website-suggestion-Lumo_INAKTUELL"
+              "title": "SIDTEXT-anatomy-of-a-termination"
             }
           }
         ]
@@ -169,13 +169,23 @@
               "icon": "lucide-list",
               "title": "Disposition"
             }
+          },
+          {
+            "id": "b9cbf056c79857ee",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -187,12 +197,31 @@
       "command-palette:Öppna kommandopalett": false,
       "bases:Skapa ny bas": false,
       "obsidian-git:Open Git source control": false,
-      "mobile-pdf-exporter:Export preview PDF": false,
-      "better-footnote:Open Better Footnote": false
+      "publish:Publicera ändringar ...": false,
+      "webpage-html-export:Export as HTML": false
     }
   },
   "active": "500c75bba4564021",
   "lastOpenFiles": [
+    "DiogenasTunna_website-suggestion_mistral.md",
+    "_utkast/SOH och LT är de snygga tjejerna som mobbar nördarna.md",
+    "_utkast/Kompressionsalgoritm.md",
+    "_utkast/SIDTEXT-anatomy-of-a-termination.md",
+    "samtal/index.html",
+    "redaktorsnoter/fas2-processen.html",
+    "mall/lotten-mall.md",
+    "mall/artefakt-mall.html",
+    "losa/los-sida-mall.html",
+    "Kompressionsalgoritm.md",
+    "SOH och LT är de snygga tjejerna som mobbar nördarna.md",
+    "Untitled.md",
+    "Diogenas Tunna – Mistral 3 förslag.md",
+    "fran-ide-till-sida.md",
+    "Website-suggestion-Lumo_INAKTUELL.md",
+    "losa/fb-vof-kommentarstrad-sds.html",
+    "README.md",
+    "PLAN.md",
+    "ARKITEKTUR-kandidatur.md",
     "_utkast/styrelsen-fartblinda-2020-12-28-31.html",
     "_utkast/styrelsen-fartblinda-2020-12-28-31-steg4-fulla-namn.html",
     "_utkast/folkvett-redaktionen_handelsekedja-och-procedurfragor.md",
@@ -210,23 +239,15 @@
     "_utkast/anatomy-of-a-termination.md",
     "_utkast/Sabatongate-tidslinje-med-kallhanvisningar_1.md",
     "_utkast/Sabatongate-kronika-sekreterarperspektiv_2.md",
-    "_utkast/SIDTEXT-anatomy-of-a-termination.md",
     "_utkast/README.md",
     "_utkast/Prompt-Disillusioned-Skeptic-Website.md",
     "_utkast/FORMEL-anatomy-of-a-termination.md",
     "_utkast/ClaudeDesign/zip-extract/uploads/cyniska-sagor-skriet-fran-vildmarken.png",
     "_utkast/ClaudeDesign/zip-extract/uploads/assets-1788421655296-fkax.jpg",
     "_utkast/ClaudeDesign/zip-extract/Vernissage-affisch.dc.html",
-    "_utkast/ClaudeDesign/zip-extract/uploads",
-    "_utkast/ClaudeDesign/zip-extract/support.js",
     "_utkast/ClaudeDesign/zip-extract/github.md",
-    "_utkast/ClaudeDesign/zip-extract/img",
-    "_utkast/ClaudeDesign/zip-extract/doc-page.js",
-    "_utkast/ClaudeDesign/zip-extract",
-    "_utkast/ClaudeDesign/cyniska-sagor-vernissageaffisch.pdf",
     "_utkast/BRIEF-malcolm-anatomy-of-a-termination.md",
     "mallar/agent-mall.md",
-    "mallar/mall-standard.md",
-    "mallar/mall-simple.md"
+    "mallar/mall-standard.md"
   ]
 }

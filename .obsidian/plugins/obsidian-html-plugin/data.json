@@ -5,5 +5,7 @@
   "zoomByWheelAndGesture": true,
   "zoomValue": 1,
   "extraFileExt": "",
-  "mhtmlSupport": false
+  "mhtmlSupport": false,
+  "saveFormState": false,
+  "autoReloadOnChange": true
 }

@@ -1,6 +1,9 @@
 # The Lipstick Web — sajt-repo .gitignore
 # Endast OS-skrap och temporart byggskrap. Sajtfilerna ska med.
 
+# Obsidian
+.obsidian/
+
 # Windows
 desktop.ini
 Thumbs.db

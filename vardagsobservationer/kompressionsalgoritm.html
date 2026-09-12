@@ -16,7 +16,7 @@
       flex-wrap: wrap;
       align-items: baseline;
       gap: 0.4rem 2rem;
-      margin: 0 0 3.5rem;
+      margin: 0 0 0.8rem;
       padding: 0.75rem 0;
       border-top: 1px solid var(--hairline);
       border-bottom: 1px solid var(--hairline);
@@ -30,21 +30,48 @@
     .kanal dd { display: inline; margin: 0 0 0 0.6em; color: var(--ink); }
     .kanal .par { white-space: nowrap; }
 
-    /* Knappen ser ut som ett fält i avläsningen, inte som en knapp. */
+    /* Reglaget. Båda lägena står framme samtidigt och det aktiva lyser —
+       ett ensamt fält som visar nuvarande läge läses som en avläsning och
+       inte som något man kan röra. */
     .kanal-knapp {
       font: inherit;
       letter-spacing: inherit;
       text-transform: inherit;
-      color: var(--rouge);
       background: none;
       border: 1px solid var(--hairline);
       border-radius: 2px;
-      padding: 0.15em 0.6em;
+      padding: 0.2em 0.7em;
       margin-left: 0.6em;
       cursor: pointer;
-      transition: border-color 0.18s ease, color 0.18s ease;
+      transition: border-color 0.18s ease;
     }
-    .kanal-knapp:hover { color: var(--rouge-deep); border-color: var(--rouge); }
+    .kanal-knapp:hover { border-color: var(--rouge); }
+
+    .kanal-knapp .lage { color: var(--mauve); transition: color 0.25s ease; }
+    .kanal-knapp .lage + .lage::before {
+      content: '/';
+      color: var(--hairline);
+      margin: 0 0.55em;
+    }
+    /* Det aktiva läget är det som lyser, och vilket det är avgörs av
+       samma attribut som styr sagan — ett tillstånd, en sanning. */
+    main:not([data-kanal="komprimerad"]) .kanal-knapp .lage[data-lage="ur-synk"],
+    main[data-kanal="komprimerad"] .kanal-knapp .lage[data-lage="aktiv"] {
+      color: var(--rouge);
+    }
+
+    /* Tipsraden säger att reglaget finns. Den säger inte vad man ska känna. */
+    .kanal-tips {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--mauve);
+      margin: 0 0 3.5rem;
+    }
+    /* Utan JavaScript finns inget reglage, och då ska statusraden bära
+       sin egen luft i stället för tipsradens. */
+    .kanal-tips[hidden] { display: none; }
+    .kanal:has(+ .kanal-tips[hidden]) { margin-bottom: 3.5rem; }
 
     /* --- Sagan --- */
     .saga { max-width: var(--measure); }
@@ -171,9 +198,11 @@
          som har JavaScript avstängt. -->
     <dl class="kanal">
       <div class="par"><dt>Kanal</dt><dd>💄 ⇄ ⚜️</dd></div>
-      <div class="par"><dt>Komprimering</dt><dd><button type="button" id="komp-knapp" class="kanal-knapp" aria-pressed="false"><span class="sr">Växla komprimering, nuvarande läge: </span><span id="komp-etikett">ur synk</span></button></dd></div>
+      <div class="par"><dt>Komprimering</dt><dd><button type="button" id="komp-knapp" class="kanal-knapp" aria-pressed="false"><span class="sr">Ställ om komprimeringen. Lägen: </span><span class="lage" data-lage="ur-synk">ur synk</span><span class="lage" data-lage="aktiv">aktiv</span></button></dd></div>
       <div class="par" hidden id="ord-par"><dt>Ord som sägs</dt><dd id="ord-tal">—</dd></div>
     </dl>
+
+    <p class="kanal-tips" hidden id="kanal-tips">↑ Kanalen går att ställa om.</p>
 
     <article class="saga" id="saga">
 
@@ -229,12 +258,13 @@
     // sägas står kvar svart). Ordräkningen mäts ur sidan själv, så den kan
     // inte hamna i otakt med texten.
     (function () {
-      var knapp   = document.getElementById('komp-knapp');
-      var etikett = document.getElementById('komp-etikett');
-      var saga    = document.getElementById('saga');
-      var ordPar  = document.getElementById('ord-par');
-      var ordTal  = document.getElementById('ord-tal');
-      if (!knapp || !saga) return;
+      var knapp  = document.getElementById('komp-knapp');
+      var saga   = document.getElementById('saga');
+      var huvud  = document.querySelector('main');
+      var ordPar = document.getElementById('ord-par');
+      var ordTal = document.getElementById('ord-tal');
+      var tips   = document.getElementById('kanal-tips');
+      if (!knapp || !saga || !huvud) return;
 
       function rakna(noder) {
         var n = 0;
@@ -252,16 +282,19 @@
                   rakna(saga.querySelectorAll('.insikt p')) +
                   rakna(saga.querySelectorAll('.slutet'));
 
+      // Nämnaren står alltid kvar, annars säger siffran ingenting om vad
+      // som hänt — 96 ensamt är inte en komprimering, det är bara ett tal.
+      function visa(n) { ordTal.textContent = n + ' av ' + alla; }
+
       ordPar.hidden = false;
-      ordTal.textContent = alla;
+      tips.hidden = false;
+      visa(alla);
 
       knapp.addEventListener('click', function () {
-        var komprimerad = saga.parentElement.dataset.kanal === 'komprimerad';
-        var nyttLage = komprimerad ? '' : 'komprimerad';
-        document.querySelector('main').dataset.kanal = nyttLage;
+        var komprimerad = huvud.dataset.kanal === 'komprimerad';
+        huvud.dataset.kanal = komprimerad ? '' : 'komprimerad';
         knapp.setAttribute('aria-pressed', komprimerad ? 'false' : 'true');
-        etikett.textContent = komprimerad ? 'ur synk' : 'aktiv';
-        ordTal.textContent = komprimerad ? alla : kvar;
+        visa(komprimerad ? alla : kvar);
       });
     })();
   </script>

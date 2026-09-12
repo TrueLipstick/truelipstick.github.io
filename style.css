@@ -20,7 +20,6 @@
   --rouge-deep:  #781328;   /* hover */
   --hairline:    #dcd0bc;
   --aubergine:   #502846;   /* Malcolm-signatur */
-  --persika:     #a85238;   /* 🍑 kodtext och maskinregister. 4,58:1 mot --paper */
 
   /* Accenter för artefaktsidor (t.ex. losa/not-i-marginalen) */
   --ok:           #4f7a60;       /* bevarad/godkänd, motpol till rouge */
@@ -48,7 +47,6 @@
     --rouge:      #e35d76;
     --rouge-deep: #f2899e;
     --hairline:   #362440;
-    --persika:    #f0a882;   /* 🍑 lyser mot aubergine. 9,50:1 mot --paper */
 
     /* Accenter för artefaktsidor, mörkt läge */
     --ok:          #80b898;       /* ljusare sage mot mörk yta */
@@ -381,63 +379,6 @@ a:hover { color: var(--rouge-deep); }
   color: var(--mauve);
 }
 .foot p { margin: 0.3rem 0; }
-
-/* --- Kolofon: vem som formgav sidan, på vilken modell, och när ---
-
-   Huset har signerat sina egna filer länge (README, style.css,
-   fran-ide-till-sida.md, varje handoff). Det här är samma vana, framme
-   på den publicerade sidan. Två delar, och bara den första är obligatorisk:
-
-   .kolofon   — en rad, alltid. Emoji, namn, modell, datum. Datumet hör
-                till raden: en modellbeteckning är exakt i dag och
-                arkeologi om två år, och det är bara i sin ordning om det
-                står när den var aktuell.
-   .formnot   — hopfälld, och bara när det fanns en bärande formidé att
-                redovisa. Den som vill ha gallerietiketten öppnar den;
-                den som vill ha sidan blir aldrig avbruten. Skriv den om
-                vad som gjordes, aldrig om varför det är skickligt — en
-                formgivare som förklarar sitt eget grepp försvagar det.
-
-   Båda bor inuti <footer class="foot">. */
-
-/* .foot p sätter margin med kortform och är mer specifik än en ensam
-   klass, så kolofonraden måste kvalificeras för att få sin luft. */
-.foot .kolofon { margin-top: 2rem; }
-.kolofon .agent { color: var(--ink); }
-/* <code> bär webbläsarens egen monospace om den inte pekas om. */
-.kolofon code { font-family: var(--mono); font-size: 1em; color: var(--persika); }
-
-.formnot { margin-top: 1.4rem; }
-
-.formnot summary {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--mauve);
-  cursor: pointer;
-  list-style: none;
-  transition: color 0.18s ease;
-}
-.formnot summary::-webkit-details-marker { display: none; }
-.formnot summary::before { content: '▸'; color: var(--rouge); margin-right: 0.5em; }
-.formnot[open] summary::before { content: '▾'; }
-.formnot summary:hover { color: var(--rouge); }
-
-.formnot-kropp {
-  font-family: var(--body);
-  font-size: 0.98rem;
-  line-height: 1.65;
-  letter-spacing: normal;
-  text-transform: none;
-  color: var(--mauve);
-  border-left: 1px solid var(--hairline);
-  padding-left: 1.1rem;
-  margin: 1rem 0 0;
-}
-.formnot-kropp p { margin: 0 0 0.9rem; }
-.formnot-kropp p:last-child { margin-bottom: 0; }
-.formnot-kropp code { font-family: var(--mono); font-size: 0.86em; color: var(--persika); }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }

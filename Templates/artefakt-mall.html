@@ -68,6 +68,38 @@
 
     <footer class="foot">
       <p>💄 The Lipstick Web</p>
+
+      <!-- ============================================================
+           KOLOFON — vem formgav sidan. Raden är obligatorisk, noten är
+           det inte. Mönstret bor i style.css som .kolofon och .formnot;
+           hårdkoda ingenting lokalt.
+
+           □ Emoji och titel hämtas ur .kilo/rules/agent-signatures.md,
+             aldrig ur minnet, och aldrig en annan agents emoji.
+           □ "byggd av" tas bort när en och samma agent gjorde båda
+             delarna. Står det två agenter är formgivaren först.
+           □ Modell-id som det faktiskt kördes. Går det inte att belägga,
+             skriv "modell ej dokumenterad" — gissa aldrig.
+           □ Datumet hör till raden. En modellbeteckning är exakt i dag
+             och arkeologi om två år, och det är bara i sin ordning om
+             det står när den var aktuell.
+
+           NOTEN nedan tas bort om sidan inte hade en bärande formidé.
+           En tom not är sämre än ingen. Skriv den om VAD SOM GJORDES,
+           aldrig om varför det är skickligt — en formgivare som
+           förklarar sitt eget grepp försvagar det.
+
+           Färdigt exempel att härma:
+           vardagsobservationer/kompressionsalgoritm.html
+           ============================================================ -->
+      <details class="formnot">
+        <summary>Om formgivningen</summary>
+        <div class="formnot-kropp">
+          <p>Vad som gjordes, och vilket beslut det följde av.</p>
+        </div>
+      </details>
+
+      <p class="kolofon">Formgiven av <span class="agent">🦚 Greve Malcolm</span> · byggd av <span class="agent">🐡 Futaba</span> · <code>modell-id</code> · ÅÅÅÅ-MM-DD</p>
     </footer>
 
   </main>

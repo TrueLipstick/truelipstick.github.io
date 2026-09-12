@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_utkast/SIDTEXT-anatomy-of-a-termination.md",
+                "file": "_utkast/katz-for-folket.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SIDTEXT-anatomy-of-a-termination"
+              "title": "katz-for-folket"
             }
           }
         ]
@@ -203,10 +203,10 @@
   },
   "active": "500c75bba4564021",
   "lastOpenFiles": [
+    "_utkast/SIDTEXT-anatomy-of-a-termination.md",
     "DiogenasTunna_website-suggestion_mistral.md",
     "_utkast/SOH och LT är de snygga tjejerna som mobbar nördarna.md",
     "_utkast/Kompressionsalgoritm.md",
-    "_utkast/SIDTEXT-anatomy-of-a-termination.md",
     "samtal/index.html",
     "redaktorsnoter/fas2-processen.html",
     "mall/lotten-mall.md",

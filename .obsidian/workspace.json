@@ -11,14 +11,12 @@
             "id": "ab7c77284add3e1e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "html-view",
               "state": {
-                "file": "vardagsobservationer/20260909-kompressionsalgoritm.md",
-                "mode": "source",
-                "source": false
+                "file": "losa/fb-vof-kommentarstrad-sds.html"
               },
-              "icon": "lucide-file",
-              "title": "20260909-kompressionsalgoritm"
+              "icon": "code-glyph",
+              "title": "fb-vof-kommentarstrad-sds"
             }
           }
         ]
@@ -203,6 +201,7 @@
   },
   "active": "ab7c77284add3e1e",
   "lastOpenFiles": [
+    "vardagsobservationer/20260909-kompressionsalgoritm.md",
     "_utkast/styrelsen-fartblinda-2020-12-28-31.html",
     "_utkast/styrelsen-fartblinda-2020-12-28-31-steg4-fulla-namn.html",
     "_utkast/folkvett-redaktionen_handelsekedja-och-procedurfragor.md",
@@ -233,9 +232,7 @@
     "_utkast/ClaudeDesign/zip-extract/doc-page.js",
     "_utkast/ClaudeDesign/zip-extract/github.md",
     "_utkast/ClaudeDesign/zip-extract",
-    "_utkast/ClaudeDesign/cyniska-sagor-vernissageaffisch.pdf",
     "_utkast/BRIEF-malcolm-anatomy-of-a-termination.md",
-    "vardagsobservationer/20260909-kompressionsalgoritm.md",
     "fran-ide-till-sida.md",
     "DESIGNSPEC-malcolm-palette.md",
     "_utkast/katz-for-folket.md",

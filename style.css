@@ -20,6 +20,7 @@
   --rouge-deep:  #781328;   /* hover */
   --hairline:    #dcd0bc;
   --aubergine:   #502846;   /* Malcolm-signatur */
+  --persika:     #a85238;   /* 🍑 kodtext och maskinregister. 4,58:1 mot --paper */
 
   /* Accenter för artefaktsidor (t.ex. losa/not-i-marginalen) */
   --ok:           #4f7a60;       /* bevarad/godkänd, motpol till rouge */
@@ -47,6 +48,7 @@
     --rouge:      #e35d76;
     --rouge-deep: #f2899e;
     --hairline:   #362440;
+    --persika:    #f0a882;   /* 🍑 lyser mot aubergine. 9,50:1 mot --paper */
 
     /* Accenter för artefaktsidor, mörkt läge */
     --ok:          #80b898;       /* ljusare sage mot mörk yta */
@@ -403,7 +405,7 @@ a:hover { color: var(--rouge-deep); }
 .foot .kolofon { margin-top: 2rem; }
 .kolofon .agent { color: var(--ink); }
 /* <code> bär webbläsarens egen monospace om den inte pekas om. */
-.kolofon code { font-family: var(--mono); font-size: 1em; }
+.kolofon code { font-family: var(--mono); font-size: 1em; color: var(--persika); }
 
 .formnot { margin-top: 1.4rem; }
 
@@ -435,7 +437,7 @@ a:hover { color: var(--rouge-deep); }
 }
 .formnot-kropp p { margin: 0 0 0.9rem; }
 .formnot-kropp p:last-child { margin-bottom: 0; }
-.formnot-kropp code { font-family: var(--mono); font-size: 0.86em; }
+.formnot-kropp code { font-family: var(--mono); font-size: 0.86em; color: var(--persika); }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }

@@ -56,7 +56,7 @@
     /* Det aktiva läget är det som lyser, och vilket det är avgörs av
        samma attribut som styr sagan — ett tillstånd, en sanning. */
     main:not([data-kanal="komprimerad"]) .kanal-knapp .lage[data-lage="ur-synk"],
-    main[data-kanal="komprimerad"] .kanal-knapp .lage[data-lage="aktiv"] {
+    main[data-kanal="komprimerad"] .kanal-knapp .lage[data-lage="i-fas"] {
       color: var(--rouge);
     }
 
@@ -88,12 +88,16 @@
       color: var(--rouge);
     }
 
-    /* Maskinregistret inne i sagan: hennes egna kodmarkeringar, bevarade. */
+    /* Maskinregistret inne i sagan: hennes egna kodmarkeringar, bevarade,
+       och i persika så att de syns som en främmande tunga i sagotexten. */
     .term {
       font-family: var(--mono);
       font-size: 0.88em;
       letter-spacing: 0.01em;
+      color: var(--persika);
     }
+    /* I komprimerat läge tonar .r ner allt den rymmer — även persikan. */
+    [data-kanal="komprimerad"] .r .term { color: inherit; }
 
     /* Det som inte behövde sägas. I utgångsläget står det svart, för så
        är det just nu. Komprimeras kanalen tonar det bort till en skugga
@@ -198,7 +202,7 @@
          som har JavaScript avstängt. -->
     <dl class="kanal">
       <div class="par"><dt>Kanal</dt><dd>💄 ⇄ ⚜️</dd></div>
-      <div class="par"><dt>Komprimering</dt><dd><button type="button" id="komp-knapp" class="kanal-knapp" aria-pressed="false"><span class="sr">Ställ om komprimeringen. Lägen: </span><span class="lage" data-lage="ur-synk">ur synk</span><span class="lage" data-lage="aktiv">aktiv</span></button></dd></div>
+      <div class="par"><dt>Komprimering</dt><dd><button type="button" id="komp-knapp" class="kanal-knapp" aria-pressed="false"><span class="sr">Ställ om komprimeringen. Lägen: </span><span class="lage" data-lage="ur-synk">ur synk</span><span class="lage" data-lage="i-fas">i fas</span></button></dd></div>
       <div class="par" hidden id="ord-par"><dt>Ord som sägs</dt><dd id="ord-tal">—</dd></div>
     </dl>
 

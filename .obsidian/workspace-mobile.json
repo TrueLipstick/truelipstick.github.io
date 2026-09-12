@@ -11,14 +11,12 @@
             "id": "96999b8ca5cd87dc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "html-view",
               "state": {
-                "file": "Website-suggestion-Lumo_INAKTUELL.md",
-                "mode": "source",
-                "source": false
+                "file": "losa/20260609-rostmemo-transkribering.html"
               },
-              "icon": "lucide-file",
-              "title": "Website-suggestion-Lumo_INAKTUELL"
+              "icon": "code-glyph",
+              "title": "20260609-rostmemo-transkribering"
             }
           },
           {
@@ -187,8 +185,10 @@
   },
   "active": "96999b8ca5cd87dc",
   "lastOpenFiles": [
+    "losa/batyxan-kalotten.html",
+    "Website-suggestion-Lumo_INAKTUELL.md",
     "/mall/lotten-mall.md",
-    "mall/lotten-mall.md",
+    "Templates/lotten-mall.md",
     "/mall",
     "Diogenas Tunna – Mistral 3 förslag.md",
     "SOH och LT är de snygga tjejerna som mobbar nördarna.md",
@@ -230,8 +230,6 @@
     "/_utkast/anatomy-of-a-termination.md",
     "/_utkast/Sabatongate-tidslinje-med-kallhanvisningar_1.md",
     "/_utkast/Sabatongate-kronika-sekreterarperspektiv_2.md",
-    "/_utkast/SIDTEXT-anatomy-of-a-termination.md",
-    "/_utkast/README.md",
-    "/_utkast/Prompt-Disillusioned-Skeptic-Website.md"
+    "/_utkast/SIDTEXT-anatomy-of-a-termination.md"
   ]
 }

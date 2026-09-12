@@ -1,9 +1,6 @@
 # The Lipstick Web — sajt-repo .gitignore
 # Endast OS-skrap och temporart byggskrap. Sajtfilerna ska med.
 
-# Obsidian
-.obsidian/
-
 # Windows
 desktop.ini
 Thumbs.db
@@ -28,14 +25,3 @@ _kall/
 # Bor granne med vaven for bekvamlighet, men pushas ALDRIG. Fardiga sidor
 # flyttas harifran ut i ratt kategorimapp.
 _utkast/
-# Markdown under roten publiceras aldrig. Sajten serverar allt som ligger
-# i repot, sa en .md som hamnar i en kategorimapp gar live inom en minut
-# (20260909-kompressionsalgoritm.md gjorde det 2026-09-12). Fardiga sidor
-# ar .html; underlaget bor i Dev/HackerLipstick/utkast-lipstickweb/.
-# Undantag: repots egna dokument i roten, docs/ och Templates/.
-# OBS: en regel biter inte pa nagot som redan ligger i git-indexet.
-# Lagg till en rad har och kor `git rm --cached` pa filen i samma andetag.
-*.md
-!/*.md
-!docs/*.md
-!Templates/*.md

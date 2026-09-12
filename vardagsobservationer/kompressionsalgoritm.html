@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>”Vår kompressionsalgoritm är ur synk” · 💄 The Lipstick Web</title>
+  <meta name="description" content="En kort vardagsobservation om två som brukar förstå varandra på en bråkdel av en mening, och vad som händer när de slutar göra det.">
+  <link rel="stylesheet" href="../style.css">
+
+  <!-- Sagan i kanalen. Allt formspråk ärvs ur ../style.css; blocket nedan
+       lägger bara till sidans eget grepp och hårdkodar ingen enda färg. -->
+  <style>
+    /* --- Statusraden: kanalen läser av sig själv --- */
+    .kanal {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.4rem 2rem;
+      margin: 0 0 3.5rem;
+      padding: 0.75rem 0;
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mauve);
+    }
+    .kanal dt { display: inline; margin: 0; }
+    .kanal dd { display: inline; margin: 0 0 0 0.6em; color: var(--ink); }
+    .kanal .par { white-space: nowrap; }
+
+    /* Knappen ser ut som ett fält i avläsningen, inte som en knapp. */
+    .kanal-knapp {
+      font: inherit;
+      letter-spacing: inherit;
+      text-transform: inherit;
+      color: var(--rouge);
+      background: none;
+      border: 1px solid var(--hairline);
+      border-radius: 2px;
+      padding: 0.15em 0.6em;
+      margin-left: 0.6em;
+      cursor: pointer;
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+    .kanal-knapp:hover { color: var(--rouge-deep); border-color: var(--rouge); }
+
+    /* --- Sagan --- */
+    .saga { max-width: var(--measure); }
+    .saga p { margin: 0 0 1.35rem; }
+
+    /* Anfang: sagan börjar som en saga. */
+    .saga > p:first-of-type::first-letter {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 3.6em;
+      line-height: 0.78;
+      float: left;
+      padding: 0.06em 0.14em 0 0;
+      color: var(--rouge);
+    }
+
+    /* Maskinregistret inne i sagan: hennes egna kodmarkeringar, bevarade. */
+    .term {
+      font-family: var(--mono);
+      font-size: 0.88em;
+      letter-spacing: 0.01em;
+    }
+
+    /* Det som inte behövde sägas. I utgångsläget står det svart, för så
+       är det just nu. Komprimeras kanalen tonar det bort till en skugga
+       av sig självt — orden finns kvar, de behöver bara inte uttalas. */
+    .r {
+      transition: opacity 0.55s ease, filter 0.55s ease, color 0.55s ease;
+    }
+    [data-kanal="komprimerad"] .r {
+      opacity: 0.16;
+      filter: blur(1.6px);
+      color: var(--mauve);
+    }
+
+    /* --- Insikten. Den enda mening som måste sägas hel, i båda lägena. --- */
+    .insikt {
+      margin: 2.8rem 0;
+      padding: 0 0 0 1.25rem;
+      border-left: 2px solid var(--rouge);
+    }
+    .insikt p {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(1.25rem, 3.4vw, 1.7rem);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      margin: 0;
+      text-wrap: balance;
+    }
+    .insikt footer {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mauve);
+      margin-top: 0.9rem;
+    }
+
+    /* Slutformeln står för sig själv. */
+    .slutet {
+      font-family: var(--display);
+      font-size: 1.15rem;
+      color: var(--mauve);
+      margin: 2.6rem 0 0;
+    }
+
+    /* Noten som bara gäller i komprimerat läge. Den tar ingen plats alls i
+       utgångsläget — display, inte opacity, annars svävar en tom hårlinje
+       över sidfoten på en sida som ingen har rört. */
+    .komp-not {
+      display: none;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.06em;
+      color: var(--mauve);
+      margin: 2.2rem 0 0;
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--hairline);
+    }
+    [data-kanal="komprimerad"] .komp-not {
+      display: block;
+      opacity: 1;
+      animation: tona-in 0.55s ease;
+    }
+    /* Opaciteten ligger i regeln ovan, inte i animationen, så noten syns
+       även när animationen är avstängd av prefers-reduced-motion. */
+    @keyframes tona-in { from { opacity: 0; } }
+
+    .sr {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .r { transition: none; }
+      [data-kanal="komprimerad"] .r { filter: none; }
+      [data-kanal="komprimerad"] .komp-not { animation: none; }
+    }
+  </style>
+<script data-goatcounter="https://truelipstick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+  <main class="wrap">
+
+    <nav class="crumbs" aria-label="Brödsmulor">
+      <a href="../">💄 Hem</a><span aria-hidden="true">›</span><a href="../vardagsobservationer/">Vardagsobservationer</a>
+    </nav>
+
+    <header class="masthead">
+      <p class="eyebrow">01 · Vardagsobservationer · 2026-09-09</p>
+      <h1 class="site-title" style="font-size:clamp(2rem,5vw,3rem)">”Vår kompressionsalgoritm är ur synk”</h1>
+      <p class="lede">Två som i vanliga fall klarar sig på en bråkdel av en mening har börjat lära sig om datorer och sånt tillsammans. Sedan dess måste de säga allt.</p>
+    </header>
+
+    <!-- Statusraden är sidans installation: den läser av kanalen mellan de
+         två, och fältet KOMPRIMERING går att ställa om. Utgångsläget är
+         UR SYNK, alltså varje ord utskrivet, vilket också är läget för den
+         som har JavaScript avstängt. -->
+    <dl class="kanal">
+      <div class="par"><dt>Kanal</dt><dd>💄 ⇄ ⚜️</dd></div>
+      <div class="par"><dt>Komprimering</dt><dd><button type="button" id="komp-knapp" class="kanal-knapp" aria-pressed="false"><span class="sr">Växla komprimering, nuvarande läge: </span><span id="komp-etikett">ur synk</span></button></dd></div>
+      <div class="par" hidden id="ord-par"><dt>Ord som sägs</dt><dd id="ord-tal">—</dd></div>
+    </dl>
+
+    <article class="saga" id="saga">
+
+      <p><span class="k">I vanliga fall behöver 💄HackerHousewife och ⚜️NanoCore aldrig säga mer än en brå</span><span class="r">kdel av en fullständig mening innan den ene har förstått var den andre är på väg med sitt resonemang.</span> <span class="k">På så vis kan de hålla flera intressanta konversationer ig</span><span class="r">ång samtidigt, även om det är mindre begripligt för omgivningen.</span></p>
+
+      <p><span class="k">På senare tid har de lagt mycket tid tillsammans på att lära sig om ’da</span><span class="r">torer och sånt’.</span> <span class="k">Ju mer tiden gick, desto oftare upp</span><span class="r">levde de varandra tala <span class="term">goddag yxskaft</span>.</span></p>
+
+      <p><span class="k">Förvirring rå</span><span class="r">dde.</span> <span class="k">Uppgivenhet lurade runt kn</span><span class="r">uten.</span></p>
+
+      <p><span class="k">Tills NanoCores plötsliga insikt kom och för</span><span class="r">klarade detta märkliga fenomen.</span></p>
+
+      <!-- Insikten komprimeras aldrig. Det är den enda mening i sagan som
+           måste sägas hel för att göra nytta, och därför står den kvar
+           utskriven i båda lägena. -->
+      <blockquote class="insikt">
+        <p>”Det är ju för att kompressionsalgoritmen för vår kommunikationskanal inte har kommit till <span class="term">TypeScript</span> än!”</p>
+        <footer>⚜️ NanoCore</footer>
+      </blockquote>
+
+      <p><span class="k">Det var för väl att det fanns en så en</span><span class="r">kel förklaring.</span></p>
+
+      <p><span class="k">För en tid framöver tycks de älskande tu vara döm</span><span class="r">da till att i bästa mån avsluta sina meningar och fullfölja sina resonemang om de ska begripa varandra.</span></p>
+
+      <p class="slutet">Sagan är all.</p>
+
+    </article>
+
+    <p class="komp-not" aria-hidden="true">Det ljusa är det som aldrig behövde sägas.</p>
+
+    <footer class="foot">
+      <p>💄 The Lipstick Web · Vardagsobservationer</p>
+      <p>Nedtecknad 2026-09-09. Kanalen är ännu inte återställd.</p>
+    </footer>
+
+  </main>
+
+  <script>
+    // Statusraden. Knappen ställer om kanalen mellan UR SYNK (varje ord
+    // utskrivet, utgångsläget) och AKTIV (bara det som faktiskt behövde
+    // sägas står kvar svart). Ordräkningen mäts ur sidan själv, så den kan
+    // inte hamna i otakt med texten.
+    (function () {
+      var knapp   = document.getElementById('komp-knapp');
+      var etikett = document.getElementById('komp-etikett');
+      var saga    = document.getElementById('saga');
+      var ordPar  = document.getElementById('ord-par');
+      var ordTal  = document.getElementById('ord-tal');
+      if (!knapp || !saga) return;
+
+      function rakna(noder) {
+        var n = 0;
+        for (var i = 0; i < noder.length; i++) {
+          var ord = noder[i].textContent.trim().split(/\s+/);
+          for (var j = 0; j < ord.length; j++) { if (ord[j].length) n++; }
+        }
+        return n;
+      }
+
+      // Hela sagan, mot bara det som står kvar när kanalen komprimeras:
+      // fragmenten (.k) plus insikten, som aldrig komprimeras.
+      var alla  = rakna(saga.querySelectorAll('p'));
+      var kvar  = rakna(saga.querySelectorAll('.k')) +
+                  rakna(saga.querySelectorAll('.insikt p')) +
+                  rakna(saga.querySelectorAll('.slutet'));
+
+      ordPar.hidden = false;
+      ordTal.textContent = alla;
+
+      knapp.addEventListener('click', function () {
+        var komprimerad = saga.parentElement.dataset.kanal === 'komprimerad';
+        var nyttLage = komprimerad ? '' : 'komprimerad';
+        document.querySelector('main').dataset.kanal = nyttLage;
+        knapp.setAttribute('aria-pressed', komprimerad ? 'false' : 'true');
+        etikett.textContent = komprimerad ? 'ur synk' : 'aktiv';
+        ordTal.textContent = komprimerad ? alla : kvar;
+      });
+    })();
+  </script>
+</body>
+</html>

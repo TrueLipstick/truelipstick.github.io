@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Website-suggestion-Lumo_INAKTUELL.md",
+                "file": "fran-ide-till-sida.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Website-suggestion-Lumo_INAKTUELL"
+              "title": "fran-ide-till-sida"
             }
           }
         ]
@@ -203,6 +203,7 @@
   },
   "active": "ab7c77284add3e1e",
   "lastOpenFiles": [
+    "Website-suggestion-Lumo_INAKTUELL.md",
     "losa/fb-vof-kommentarstrad-sds.html",
     "vardagsobservationer/20260909-kompressionsalgoritm.md",
     "_utkast/styrelsen-fartblinda-2020-12-28-31.html",
@@ -234,7 +235,6 @@
     "_utkast/ClaudeDesign/zip-extract/support.js",
     "_utkast/ClaudeDesign/zip-extract/doc-page.js",
     "_utkast/ClaudeDesign/zip-extract/github.md",
-    "_utkast/ClaudeDesign/zip-extract",
     "_utkast/BRIEF-malcolm-anatomy-of-a-termination.md",
     "fran-ide-till-sida.md",
     "DESIGNSPEC-malcolm-palette.md",
@@ -247,7 +247,6 @@
     "Kompressionsalgoritm.md",
     "SOH och LT är de snygga tjejerna som mobbar nördarna.md",
     "Untitled.md",
-    "Diogenas Tunna – Mistral 3 förslag.md",
-    "Website-suggestion-Lumo_INAKTUELL.md"
+    "Diogenas Tunna – Mistral 3 förslag.md"
   ]
 }

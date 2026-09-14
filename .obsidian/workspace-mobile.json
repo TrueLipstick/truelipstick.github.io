@@ -11,12 +11,14 @@
             "id": "96999b8ca5cd87dc",
             "type": "leaf",
             "state": {
-              "type": "html-view",
+              "type": "markdown",
               "state": {
-                "file": "losa/20260609-rostmemo-transkribering.html"
+                "file": "_utkast/Sabatongate-tidslinje-med-kallhanvisningar_1.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "code-glyph",
-              "title": "20260609-rostmemo-transkribering"
+              "icon": "lucide-file",
+              "title": "Sabatongate-tidslinje-med-kallhanvisningar_1"
             }
           },
           {
@@ -185,6 +187,16 @@
   },
   "active": "96999b8ca5cd87dc",
   "lastOpenFiles": [
+    "/vardagsobservationer/20260909-kompressionsalgoritm.md",
+    "vardagsobservationer/20260909-kompressionsalgoritm.md",
+    "/vardagsobservationer",
+    "/losa/los-sida-mall.html",
+    "/losa",
+    "/index.html",
+    "/Templates/artefakt-mall.html",
+    "/Templates",
+    "/README.md",
+    "losa/20260609-rostmemo-transkribering.html",
     "losa/batyxan-kalotten.html",
     "Website-suggestion-Lumo_INAKTUELL.md",
     "/mall/lotten-mall.md",
@@ -203,16 +215,8 @@
     "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna_crop-mtleh5vx-pcba.jpg",
     "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna-mtlei99f-mdow.jpg",
     "_utkast/ClaudeDesign/zip-extract/img",
-    "_utkast/ClaudeDesign/zip-extract/Vernissage-affisch.dc.html",
-    "_utkast/ClaudeDesign/zip-extract/support.js",
-    "_utkast/ClaudeDesign/zip-extract/uploads",
-    "_utkast/ClaudeDesign/zip-extract/doc-page.js",
     "_utkast/ClaudeDesign/zip-extract/github.md",
     "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna-mtlecx89-jrkx.jpg",
-    "_utkast/ClaudeDesign/cyniska-sagor-vernissageaffisch-artifact_files/saved_resource.html",
-    "_utkast/ClaudeDesign/cyniska-sagor-vernissageaffisch-artifact_files/frame-shell-Dde3uxCC.js.ladda ned",
-    "_utkast/ClaudeDesign/cyniska-sagor-vernissageaffisch-clean.html",
-    "_utkast/ClaudeDesign/cyniska-sagor-vernissageaffisch.html",
     "_utkast/fartblinda-bilder/lank-aktiva-i-vof.png",
     "_utkast/fartblinda-bilder/SKARMDUMPAR-ATT-GORA.md",
     "_utkast/fartblinda-bilder/seq90-gruppkommentar-unmasked.png",
@@ -228,8 +232,6 @@
     "/_utkast/folkvett-redaktionen_handelsekedja-och-procedurfragor.md",
     "/_utkast/fartblinda-bilder/SKARMDUMPAR-ATT-GORA.md",
     "/_utkast/anatomy-of-a-termination.md",
-    "/_utkast/Sabatongate-tidslinje-med-kallhanvisningar_1.md",
-    "/_utkast/Sabatongate-kronika-sekreterarperspektiv_2.md",
-    "/_utkast/SIDTEXT-anatomy-of-a-termination.md"
+    "/_utkast/Sabatongate-tidslinje-med-kallhanvisningar_1.md"
   ]
 }

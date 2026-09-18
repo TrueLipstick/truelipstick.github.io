@@ -7,9 +7,7 @@ titel:
 > Gäller sidan `_utkast/styrelsen-fartblinda-2020-12-28-31.html`.
 
 <!--@ **Till 🐡Futaba: jag har uppdaterat och justerat de maskade namnen, så alias tilldelas personer i den ordning de dyker upp kronologiskt. /💄Lotten-->
-Sidan är byggd. Den saknar två skärmdumpar och två maskningar. När filerna
-ligger i den här mappen med rätt namn syns de på sidan direkt, utan att något
-behöver byggas om.
+Sidan är byggd. Den saknar två skärmdumpar och två maskningar. När filerna ligger i den här mappen med rätt namn syns de på sidan direkt, utan att något behöver byggas om.
 
 ---
 

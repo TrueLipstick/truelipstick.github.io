@@ -11,10 +11,12 @@
             "id": "78912b5208485209",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "image",
+              "state": {
+                "file": "redaktorsnoter/kafka-passport.png"
+              },
+              "icon": "lucide-image",
+              "title": "kafka-passport"
             }
           }
         ]
@@ -113,6 +115,7 @@
         "state": {
           "type": "backlink",
           "state": {
+            "file": "redaktorsnoter/kafka-passport.png",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -131,6 +134,7 @@
         "state": {
           "type": "outgoing-link",
           "state": {
+            "file": "redaktorsnoter/kafka-passport.png",
             "linksCollapsed": false,
             "unlinkedCollapsed": true
           },
@@ -144,6 +148,7 @@
         "state": {
           "type": "outline",
           "state": {
+            "file": "redaktorsnoter/kafka-passport.png",
             "followCursor": false,
             "showSearch": false,
             "searchQuery": ""
@@ -167,5 +172,50 @@
     }
   },
   "active": "78912b5208485209",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "DESIGNSPEC-schrodingers-troll.md",
+    "vardagsobservationer/20260909-kompressionsalgoritm.md",
+    "vardagsobservationer/index.html",
+    "vardagsobservationer",
+    "samtal/index.html",
+    "samtal",
+    "Website-suggestion-Lumo_INAKTUELL.md",
+    "style.css",
+    "README.md",
+    "Untitled.md",
+    "handelser/perplexity-kafka-bot.html",
+    "handelser/perplexity-legendary-conversation.png",
+    "handelser/schrodingers-troll.svg",
+    "handelser/index.html",
+    "handelser",
+    "DESIGNSPEC-styrelsen-fartblinda-tillagg.md",
+    "docs/github-pages-for-humanister.md",
+    "docs/github-pages-uppslagsord.md",
+    "docs",
+    "Templates/artefakt-mall.html",
+    "Templates/lotten-mall.md",
+    "_utkast/ClaudeDesign/zip-extract/img/skriet-fran-vildmarken.png",
+    "_utkast/ClaudeDesign/zip-extract/img/processen.jpg",
+    "_utkast/ClaudeDesign/zip-extract/uploads/cyniska-sagor-skriet-fran-vildmarken.png",
+    "_utkast/ClaudeDesign/zip-extract/uploads/assets-1788421655296-fkax.jpg",
+    "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna_crop-mtleh5vx-pcba.jpg",
+    "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna-mtlei99f-mdow.jpg",
+    "_utkast/ClaudeDesign/zip-extract/github.md",
+    "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna-mtlecx89-jrkx.jpg",
+    "_utkast/fartblinda-bilder/lank-aktiva-i-vof.png",
+    "_utkast/fartblinda-bilder/SKARMDUMPAR-ATT-GORA.md",
+    "_utkast/Prompt-Disillusioned-Skeptic-Website.md",
+    "_utkast/README.md",
+    "_utkast/anatomy-of-a-termination.md",
+    "_utkast/FORMEL-anatomy-of-a-termination.md",
+    "_utkast/folkvett-redaktionen_handelsekedja-och-procedurfragor.md",
+    "_utkast/SIDTEXT-anatomy-of-a-termination.md",
+    "_utkast/BRIEF-malcolm-anatomy-of-a-termination.md",
+    "_utkast/Sabatongate-kronika-sekreterarperspektiv_2.md",
+    "_utkast/Sabatongate-tidslinje-med-kallhanvisningar_1.md",
+    "fran-ide-till-sida.md",
+    "PLAN.md",
+    "DESIGNSPEC-styrelsen-fartblinda.md",
+    "DESIGNSPEC-malcolm-palette.md"
+  ]
 }

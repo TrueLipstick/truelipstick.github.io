@@ -11,14 +11,12 @@
             "id": "78912b5208485209",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "html-view",
               "state": {
-                "file": "fran-ide-till-sida.md",
-                "mode": "source",
-                "source": false
+                "file": "losa/20260609-rostmemo-transkribering.html"
               },
-              "icon": "lucide-file",
-              "title": "fran-ide-till-sida"
+              "icon": "code-glyph",
+              "title": "20260609-rostmemo-transkribering"
             }
           }
         ]
@@ -176,6 +174,7 @@
   },
   "active": "78912b5208485209",
   "lastOpenFiles": [
+    "fran-ide-till-sida.md",
     "redaktorsnoter/kafka-passport.png",
     "DESIGNSPEC-schrodingers-troll.md",
     "vardagsobservationer/20260909-kompressionsalgoritm.md",
@@ -206,7 +205,6 @@
     "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna-mtlei99f-mdow.jpg",
     "_utkast/ClaudeDesign/zip-extract/github.md",
     "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna-mtlecx89-jrkx.jpg",
-    "_utkast/fartblinda-bilder/lank-aktiva-i-vof.png",
     "_utkast/fartblinda-bilder/SKARMDUMPAR-ATT-GORA.md",
     "_utkast/Prompt-Disillusioned-Skeptic-Website.md",
     "_utkast/README.md",
@@ -217,7 +215,6 @@
     "_utkast/BRIEF-malcolm-anatomy-of-a-termination.md",
     "_utkast/Sabatongate-kronika-sekreterarperspektiv_2.md",
     "_utkast/Sabatongate-tidslinje-med-kallhanvisningar_1.md",
-    "fran-ide-till-sida.md",
     "PLAN.md",
     "DESIGNSPEC-styrelsen-fartblinda.md",
     "DESIGNSPEC-malcolm-palette.md"

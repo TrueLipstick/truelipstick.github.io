@@ -11,12 +11,14 @@
             "id": "78912b5208485209",
             "type": "leaf",
             "state": {
-              "type": "html-view",
+              "type": "markdown",
               "state": {
-                "file": "losa/20260609-rostmemo-transkribering.html"
+                "file": "DESIGNSPEC-styrelsen-fartblinda-tillagg.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "code-glyph",
-              "title": "20260609-rostmemo-transkribering"
+              "icon": "lucide-file",
+              "title": "DESIGNSPEC-styrelsen-fartblinda-tillagg"
             }
           }
         ]
@@ -174,6 +176,7 @@
   },
   "active": "78912b5208485209",
   "lastOpenFiles": [
+    "losa/20260609-rostmemo-transkribering.html",
     "fran-ide-till-sida.md",
     "redaktorsnoter/kafka-passport.png",
     "DESIGNSPEC-schrodingers-troll.md",

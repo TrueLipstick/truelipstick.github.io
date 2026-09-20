@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DESIGNSPEC-styrelsen-fartblinda-tillagg.md",
+                "file": "fran-ide-till-sida.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "DESIGNSPEC-styrelsen-fartblinda-tillagg"
+              "title": "fran-ide-till-sida"
             }
           }
         ]
@@ -176,6 +176,7 @@
   },
   "active": "78912b5208485209",
   "lastOpenFiles": [
+    "DESIGNSPEC-styrelsen-fartblinda-tillagg.md",
     "losa/20260609-rostmemo-transkribering.html",
     "fran-ide-till-sida.md",
     "redaktorsnoter/kafka-passport.png",
@@ -194,11 +195,9 @@
     "handelser/schrodingers-troll.svg",
     "handelser/index.html",
     "handelser",
-    "DESIGNSPEC-styrelsen-fartblinda-tillagg.md",
     "docs/github-pages-for-humanister.md",
     "docs/github-pages-uppslagsord.md",
     "docs",
-    "Templates/artefakt-mall.html",
     "Templates/lotten-mall.md",
     "_utkast/ClaudeDesign/zip-extract/img/skriet-fran-vildmarken.png",
     "_utkast/ClaudeDesign/zip-extract/img/processen.jpg",

@@ -11,12 +11,14 @@
             "id": "78912b5208485209",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "redaktorsnoter/kafka-passport.png"
+                "file": "fran-ide-till-sida.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "kafka-passport"
+              "icon": "lucide-file",
+              "title": "fran-ide-till-sida"
             }
           }
         ]
@@ -174,6 +176,7 @@
   },
   "active": "78912b5208485209",
   "lastOpenFiles": [
+    "redaktorsnoter/kafka-passport.png",
     "DESIGNSPEC-schrodingers-troll.md",
     "vardagsobservationer/20260909-kompressionsalgoritm.md",
     "vardagsobservationer/index.html",

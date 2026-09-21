@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "fran-ide-till-sida.md",
+                "file": "_utkast/fartblinda-bilder/SKARMDUMPAR-ATT-GORA.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "fran-ide-till-sida"
+              "title": "SKARMDUMPAR-ATT-GORA"
             }
           }
         ]
@@ -175,9 +175,9 @@
   },
   "active": "78912b5208485209",
   "lastOpenFiles": [
+    "fran-ide-till-sida.md",
     "DESIGNSPEC-styrelsen-fartblinda-tillagg.md",
     "losa/20260609-rostmemo-transkribering.html",
-    "fran-ide-till-sida.md",
     "redaktorsnoter/kafka-passport.png",
     "DESIGNSPEC-schrodingers-troll.md",
     "vardagsobservationer/20260909-kompressionsalgoritm.md",

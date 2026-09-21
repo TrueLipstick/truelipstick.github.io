@@ -1,6 +1,6 @@
 {
-  "bgColorEnabled": false,
-  "bgColor": "#ffffff",
+  "bgColorEnabled": true,
+  "bgColor": "#ff95c6",
   "opMode": "BalanceMode",
   "zoomByWheelAndGesture": true,
   "zoomValue": 1,

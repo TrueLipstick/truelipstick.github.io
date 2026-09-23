@@ -176,8 +176,8 @@
             "state": {
               "type": "git-view",
               "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "icon": "lucide-ghost",
+              "title": "git-view"
             }
           }
         ],
@@ -196,13 +196,12 @@
       "templates:Infoga mall": false,
       "command-palette:Öppna kommandopalett": false,
       "bases:Skapa ny bas": false,
-      "obsidian-git:Open Git source control": false,
-      "publish:Publicera ändringar ...": false,
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "ab7c77284add3e1e",
+  "active": "b9cbf056c79857ee",
   "lastOpenFiles": [
+    "fran-ide-till-sida.md",
     "Website-suggestion-Lumo_INAKTUELL.md",
     "losa/fb-vof-kommentarstrad-sds.html",
     "vardagsobservationer/20260909-kompressionsalgoritm.md",
@@ -236,7 +235,6 @@
     "_utkast/ClaudeDesign/zip-extract/doc-page.js",
     "_utkast/ClaudeDesign/zip-extract/github.md",
     "_utkast/BRIEF-malcolm-anatomy-of-a-termination.md",
-    "fran-ide-till-sida.md",
     "DESIGNSPEC-malcolm-palette.md",
     "_utkast/katz-for-folket.md",
     "Templates/lotten-mall.md",

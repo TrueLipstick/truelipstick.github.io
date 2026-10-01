@@ -3,13 +3,17 @@
   "templates": {
     "common": {
       "main": "title",
-      "fallback": "fallback_title"
+      "fallback": "{{ID|#heading}}"
     }
   },
   "rules": {
     "paths": {
       "mode": "black",
-      "values": []
+      "values": [
+        "Templates ",
+        "Template",
+        "_templates"
+      ]
     },
     "delimiter": {
       "enabled": false,
@@ -23,7 +27,7 @@
   },
   "features": {
     "alias": {
-      "enabled": false,
+      "enabled": true,
       "strategy": "ensure",
       "validator": "fr",
       "templates": {
@@ -32,7 +36,7 @@
       }
     },
     "explorer": {
-      "enabled": false,
+      "enabled": true,
       "sort": false,
       "templates": {
         "main": "",

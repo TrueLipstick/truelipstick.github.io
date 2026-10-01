@@ -13,12 +13,22 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_utkast/fartblinda-bilder/SKARMDUMPAR-ATT-GORA.md",
+                "file": "_templates/lotten-mall.md",
                 "mode": "source",
-                "source": false
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
               "icon": "lucide-file",
-              "title": "SKARMDUMPAR-ATT-GORA"
+              "title": "lotten-mall"
             }
           }
         ]
@@ -117,7 +127,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "redaktorsnoter/kafka-passport.png",
+            "file": "_agents/agent-claude.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -158,6 +168,18 @@
           "icon": "lucide-list",
           "title": "Outline"
         }
+      },
+      {
+        "id": "8d9e45b5f3406bea",
+        "type": "leaf",
+        "state": {
+          "type": "footnotes",
+          "state": {
+            "file": "_agents/agent-claude.md"
+          },
+          "icon": "lucide-file-signature",
+          "title": "Footnotes"
+        }
       }
     ],
     "currentTab": 0
@@ -175,30 +197,44 @@
   },
   "active": "78912b5208485209",
   "lastOpenFiles": [
-    "fran-ide-till-sida.md",
-    "_utkast/ClaudeDesign/cyniska-sagor-vernissageaffisch.html",
-    "_utkast/ClaudeDesign/cyniska-sagor-vernissageaffisch.pdf",
-    "_utkast/fartblinda-bilder/SKARMDUMPAR-ATT-GORA.md",
-    "DESIGNSPEC-styrelsen-fartblinda-tillagg.md",
-    "losa/20260609-rostmemo-transkribering.html",
-    "redaktorsnoter/kafka-passport.png",
-    "DESIGNSPEC-schrodingers-troll.md",
-    "vardagsobservationer/20260909-kompressionsalgoritm.md",
-    "vardagsobservationer/index.html",
-    "vardagsobservationer",
+    "_agents/agent-greve-malcolm.md",
+    "_agents/agent-malcolm.md",
+    "_agents/agent-claude.md",
+    "_agents/agent-velvet.md",
+    "_agents/agent-kepler.md",
+    "_agents/agent-futaba.md",
+    "_utkast/agent-futaba.md",
+    "_agents/agent-futaba.txt",
+    "template-workingdoc.md",
+    "_utkast/Anatomy-of-a-Termination/SIDTEXT-anatomy-of-a-termination.md",
+    "_utkast/SabatonGate",
+    "_archive",
+    "_utkast/Fartblinda",
+    "_utkast/Anatomy-of-a-Termination",
+    "_utkast/ClaudeDesign/10timmar7minuter/DESIGNSPEC-tio-timmar-sju-minuter.md",
+    "_agents",
+    "agent-compte-malcolm.md",
+    "PLAN.md",
+    "docs/github-pages-for-humanister.md",
+    "_archive/Prompt-Disillusioned-Skeptic-Website.md",
+    "_archive/Website-suggestion-Lumo_INAKTUELL.md",
+    "_utkast/agenter-som-dignar-under-kontextborda.md",
+    "docs/lipstick-styleguide.html",
+    "docs/DESIGNSPEC-malcolm-palette.md",
+    "handelser/index.html",
     "samtal/index.html",
-    "samtal",
-    "Website-suggestion-Lumo_INAKTUELL.md",
-    "style.css",
+    "vardagsobservationer/index.html",
+    "_templates/lotten-mall.md",
+    "_utkast/Fartblinda/fartblinda-bilder/SKARMDUMPAR-ATT-GORA.md",
+    "fran-ide-till-sida.md",
+    "docs/DESIGNSPEC-styrelsen-fartblinda-tillagg.md",
+    "redaktorsnoter/kafka-passport.png",
+    "docs/DESIGNSPEC-schrodingers-troll.md",
+    "vardagsobservationer/20260909-kompressionsalgoritm.md",
     "README.md",
-    "Untitled.md",
-    "handelser/perplexity-kafka-bot.html",
     "handelser/perplexity-legendary-conversation.png",
     "handelser/schrodingers-troll.svg",
-    "handelser/index.html",
-    "docs/github-pages-for-humanister.md",
     "docs/github-pages-uppslagsord.md",
-    "Templates/lotten-mall.md",
     "_utkast/ClaudeDesign/zip-extract/img/skriet-fran-vildmarken.png",
     "_utkast/ClaudeDesign/zip-extract/img/processen.jpg",
     "_utkast/ClaudeDesign/zip-extract/uploads/cyniska-sagor-skriet-fran-vildmarken.png",
@@ -206,18 +242,6 @@
     "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna_crop-mtleh5vx-pcba.jpg",
     "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna-mtlei99f-mdow.jpg",
     "_utkast/ClaudeDesign/zip-extract/github.md",
-    "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna-mtlecx89-jrkx.jpg",
-    "_utkast/Prompt-Disillusioned-Skeptic-Website.md",
-    "_utkast/README.md",
-    "_utkast/anatomy-of-a-termination.md",
-    "_utkast/FORMEL-anatomy-of-a-termination.md",
-    "_utkast/folkvett-redaktionen_handelsekedja-och-procedurfragor.md",
-    "_utkast/SIDTEXT-anatomy-of-a-termination.md",
-    "_utkast/BRIEF-malcolm-anatomy-of-a-termination.md",
-    "_utkast/Sabatongate-kronika-sekreterarperspektiv_2.md",
-    "_utkast/Sabatongate-tidslinje-med-kallhanvisningar_1.md",
-    "PLAN.md",
-    "DESIGNSPEC-styrelsen-fartblinda.md",
-    "DESIGNSPEC-malcolm-palette.md"
+    "_utkast/ClaudeDesign/zip-extract/cyniska-sagor-utvandrarna-mtlecx89-jrkx.jpg"
   ]
 }

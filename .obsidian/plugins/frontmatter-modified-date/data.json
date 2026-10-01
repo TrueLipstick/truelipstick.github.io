@@ -7,7 +7,8 @@
   "historyNewestFirst": false,
   "historyMaxItems": 0,
   "excludedFolders": [
-    "Templates, mall"
+    "Templates",
+    "_templates"
   ],
   "useKeyupEvents": true,
   "onlyUpdateExisting": false,

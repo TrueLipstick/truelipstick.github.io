@@ -1,1 +1,8 @@
-{}
+{
+  "accentColor": "#9d0044",
+  "cssTheme": "Apatheia",
+  "interfaceFontFamily": "Hiragino Sans",
+  "textFontFamily": "Hiragino Mincho ProN",
+  "monospaceFontFamily": "Courier",
+  "baseFontSize": 18
+}

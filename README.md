@@ -36,8 +36,9 @@ truelipstick.github.io/
 │   └── cyniska-sagor/
 │       ├── index.html       svit-sidan (tio verk, objekt + läsning)
 │       └── img/             omslagsbilder
-├── Templates/
-│   └── artefakt-mall.html  mall för ett enskilt inlägg
+├── _templates/
+│   ├── artefakt-mall.html  mall för ett enskilt inlägg
+│   └── lotten-mall.md      Lottens .md-mall för utkast
 └── losa/
     └── los-sida-mall.html  mall för en olistad, löst hängande sida (noindex)
 ```
@@ -45,7 +46,7 @@ truelipstick.github.io/
 ## Lägg till ett inlägg
 
 1. Spara artefakten (tidslinje, samtal, etc) som en HTML-fil i rätt kategorimapp, t ex `handelser/estonia-tidslinje.html`.
-2. Kopiera `Templates/artefakt-mall.html` till samma mapp, döp den, och peka iframens `src` mot artefaktfilen. (Eller skriv prosa direkt, metod B i mallen.)
+2. Kopiera `_templates/artefakt-mall.html` till samma mapp, döp den, och peka iframens `src` mot artefaktfilen. (Eller skriv prosa direkt, metod B i mallen.)
 3. Öppna kategorins `index.html`, kopiera ett `<li class="entry">` och länka till det nya inlägget. Radera exempelinlägget.
 
 ## Löst hängande sidor (olistade)

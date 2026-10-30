@@ -25,3 +25,7 @@ _kall/
 # Bor granne med vaven for bekvamlighet, men pushas ALDRIG. Fardiga sidor
 # flyttas harifran ut i ratt kategorimapp.
 _utkast/
+
+# Obsidian-plugin som är ett eget git-repo. Incheckad som gitlink utan
+# .gitmodules stoppar den varje Pages-bygge (se 2026-09-09 och 2026-09-12).
+.obsidian/plugins/obsidian-html-viewer/

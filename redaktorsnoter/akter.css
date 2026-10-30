@@ -367,7 +367,7 @@
 .screen {
   position: relative;
   z-index: 1;
-  max-width: 22rem;
+  max-width: 26rem;
   margin: -2.2rem 0.4rem 3rem auto;
   padding: 0.6rem 0.6rem 0.7rem;
   background: var(--paper-frame);
@@ -378,17 +378,20 @@
   .screen { background: var(--surface); }
 }
 .screen img { display: block; width: 100%; height: auto; }
-.screen .cut {
+.screen .standin { position: relative; margin: 0.5rem 0; }
+.screen .standin img { border: 1px dashed var(--mauve); }
+.screen .standin-label {
+  position: absolute;
+  left: 0.4rem; bottom: 0.4rem;
   margin: 0;
-  padding: 0.55rem 0;
-  border-top: 1px dashed var(--mauve);
-  border-bottom: 1px dashed var(--mauve);
-  text-align: center;
+  padding: 0.2rem 0.45rem;
+  background: var(--ink);
+  color: var(--paper);
   font-family: var(--mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.12em;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--mauve);
+  border-radius: 2px;
 }
 .screen figcaption {
   margin-top: 0.55rem;

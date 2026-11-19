@@ -83,6 +83,17 @@ Det här repot ska bara innehålla det GitHub Pages serverar. Underlag som *för
 - **Mappnamn i ASCII.** Svenska tecken bara i synlig text.
 - **Allt är offentligt.** Pages har ingen inloggning. Vill du ha lösenord senare är Azure Static Web Apps vägen, men det är ett steg krångligare.
 
+## Synka mellan enheter, utan att behöva minnas något
+
+**Du behöver inte komma ihåg att hämta innan du synkar.** Git klarar en enhet som har legat oanvänd i veckor: dina egna ändringar committas ovanpå den gamla versionen och vävs sedan ihop med det nya. Det enda git inte klarar är när två verktyg slåss om samma mapp.
+
+**Därför finns bara en regel: en enhet, ett synkverktyg.**
+
+- På mobilen: antingen Working Copy eller Obsidian Git för det här valvet, aldrig båda. Överskrivningen 2026-09-12 kom från CloudGoverness, som hade båda igång. Det ena verktyget hade hämtat det nya, men filerna i mappen var fortfarande de gamla, och det andra committade dem.
+- Ingen annan molnsynk (iCloud Drive, Obsidian Sync, Dropbox) på samma mapp som git.
+
+**Och om det ändå händer, tar Vakten hand om det.** Efter varje push kontrollerar `.github/workflows/vakten.yml` om någon enhet har satt tillbaka filer till äldre versioner. Hittar den det, återställer den sajten själv inom ett par minuter och öppnar ett ärende, så att du får ett mejl som säger vilken enhet det var. Vanliga ändringar och raderingar rör den inte. Vill du sätta tillbaka en gammal version med flit, skriv `[avsiktligt]` i commitmeddelandet. Reglerna står i `.github/vakten.py`.
+
 ## Öppna frågor
 
 Beslut som väntar på någon, så att de inte dör i en chatt. Ta bort raden när den är avgjord.

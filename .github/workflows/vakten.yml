@@ -1,0 +1,75 @@
+# Vakten: efter varje push till main kontrolleras att ingen enhet har
+# skrivit över sajten med en gammal kopia (som CloudGoverness 2026-09-12).
+# Hittar den något återställs det automatiskt och ett ärende öppnas, så
+# att ett mejl kommer. Logiken och reglerna står i .github/vakten.py.
+name: Vakten
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write   # för att kunna återställa
+  issues: write     # för att kunna säga till
+  pages: write      # för att kunna be Pages bygga om efter återställningen
+
+concurrency:
+  group: vakten
+  cancel-in-progress: false
+
+jobs:
+  vakta:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Granska pushen
+        id: vakt
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: python3 -I .github/vakten.py "$BEFORE" "$AFTER"
+
+      - name: Återställ
+        id: push
+        if: steps.vakt.outputs.andrat == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "Vakten"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -q -m "Vakten: återställ det en inaktuell enhet skrev över" \
+                        -m "Detaljer i ärendet som öppnades samtidigt."
+          git push origin HEAD:main
+          git log -1 --format=%h > vakten-commit.txt
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
+
+      - name: Säg till
+        if: steps.vakt.outputs.anmarkning == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESULTAT: ${{ steps.push.outcome }}
+        run: |
+          {
+            echo "@TrueLipstick, Vakten hittade något i den senaste pushen till sajten."
+            echo
+            if [ "$RESULTAT" = "success" ]; then
+              echo "**Det är redan åtgärdat** i \`$(cat vakten-commit.txt)\`. Sajten är tillbaka som den var inom ett par minuter. Du behöver inte göra något med sajten."
+            elif [ "$RESULTAT" = "failure" ]; then
+              echo "**Vakten kunde inte återställa automatiskt**, troligen för att något nytt hann pushas under tiden. Be Claude att titta på det här ärendet."
+            else
+              echo "Inget behövde återställas, men det här bör du känna till."
+            fi
+            echo
+            cat vakten-rapport.md
+            echo
+            echo "---"
+            echo
+            echo "**Vad du gör nu:** öppna den enhet som står i commitmeddelandet ovan och låt den hämta det senaste innan du skriver något mer där. Ser det ut som att Vakten tog fel, säg till Claude och länka hit."
+            echo
+            echo "Om du *menade* att sätta tillbaka gamla versioner: skriv \`[avsiktligt]\` i commitmeddelandet nästa gång, så låter Vakten det vara."
+          } > arende.md
+          gh issue create --title "Vakten har hittat något på sajten" --body-file arende.md

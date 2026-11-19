@@ -29,3 +29,25 @@ _utkast/
 # Obsidian-plugin som är ett eget git-repo. Incheckad som gitlink utan
 # .gitmodules stoppar den varje Pages-bygge (se 2026-09-09 och 2026-09-12).
 .obsidian/plugins/obsidian-html-viewer/
+
+# Markdown i kategorimapparna publiceras aldrig. Sajten serverar allt som
+# ligger i repot (.nojekyll), så en .md i en kategorimapp går live inom en
+# minut (20260909-kompressionsalgoritm.md gjorde det 2026-09-12, och igen
+# efter att CloudGoverness-backupen 2026-09-12 23:33 strök den här regeln).
+# Färdiga sidor är .html; underlaget bor i Dev/HackerLipstick/utkast-lipstickweb/.
+# Undantag: repots egna dokument i roten, docs/, _templates/, _agents/, _archive/.
+# OBS: en regel biter inte på något som redan ligger i git-indexet.
+# Lägg till en rad här och kör `git rm --cached` på filen i samma andetag.
+*.md
+!/*.md
+!docs/*.md
+!_templates/*.md
+!_agents/*.md
+!_archive/*.md
+
+# Obsidians layoutfiler per enhet. Skrivs om av varje enhet och avslöjar
+# filnamn under _utkast/ när de publiceras (avspårade 2026-09-12 i 0433b71,
+# återinlagda av CloudGoverness-backupen samma kväll). Övrig .obsidian/
+# spåras med avsikt sedan Git-pluginet slogs på.
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
